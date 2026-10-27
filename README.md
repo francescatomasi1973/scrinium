@@ -44,7 +44,7 @@ In più rispetto al kit ci sono i filtri a faccette, la mappa, il lettore dei te
 1. Scegli la cartella del tuo percorso e scaricala sul tuo computer.
 2. Lavora su homepage, dati e stile.
 3. Compila diario, README e scheda del dataset.
-4. 4. Carica tutti i file in un repository GitHub e attiva GitHub Pages: Settings, poi Pages, poi Deploy from a branch, ramo main, cartella / (root).
+4. Carica tutti i file in un repository GitHub e attiva GitHub Pages: Settings, poi Pages, poi Deploy from a branch, ramo main, cartella / (root).
 
 All'esame non si consegna nulla prima: si mostra tutto all'orale, dal proprio repository.
 
