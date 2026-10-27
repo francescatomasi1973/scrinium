@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scrinium, catalogo di patrimonio e testi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,400;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ECEEE9; --surface:#F8F9F6; --sunk:#E2E6E0; --ink:#1D2420; --muted:#56605B; --rule:#C6CDC6;
+  --verde:#2A685A; --lapis:#2D4889; --contrib:#8A3849; --ocra:#A4761A; --mark:#F1D57E; --mark-ink:#1D2420;
+  --serif:'Spectral',Georgia,'Times New Roman',serif;
+  --sans:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#131816; --surface:#1B211E; --sunk:#232B27; --ink:#E2E7E1; --muted:#9BA69F; --rule:#34403A;
+    --verde:#72B5A3; --lapis:#93A9E2; --contrib:#DD8C9C; --ocra:#D8B25C; --mark:#7C6420; --mark-ink:#F5F1E3; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131816; --surface:#1B211E; --sunk:#232B27; --ink:#E2E7E1; --muted:#9BA69F; --rule:#34403A;
+  --verde:#72B5A3; --lapis:#93A9E2; --contrib:#DD8C9C; --ocra:#D8B25C; --mark:#7C6420; --mark-ink:#F5F1E3; color-scheme:dark;
+}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1.0625rem;line-height:1.5;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--lapis);outline-offset:2px;border-radius:2px}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.15;margin:0 0 .4em}
+h1{font-size:clamp(2rem,4vw,2.9rem);letter-spacing:-.01em}
+h2{font-size:1.6rem}
+h3{font-size:1.2rem}
+p{margin:0 0 1em}
+mark{background:var(--mark);color:var(--mark-ink);padding:0 .08em;border-radius:2px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,3vw,32px)}
+.lede{font-family:var(--serif);font-size:1.2rem;line-height:1.6;max-width:64ch;color:var(--muted)}
+.muted{color:var(--muted)}
+.small{font-size:.9rem}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* header */
+.site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--rule)}
+.site-head .wrap{display:flex;align-items:center;gap:24px;min-height:64px}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;flex-shrink:0}
+.brand b{font-family:var(--serif);font-size:1.55rem;font-weight:600;letter-spacing:.01em}
+.brand span{font-size:.85rem;color:var(--muted)}
+.nav{display:flex;gap:4px;overflow-x:auto;margin-left:auto;scrollbar-width:none}
+.nav a{text-decoration:none;padding:8px 12px;border-radius:6px;white-space:nowrap;color:var(--muted)}
+.nav a:hover{color:var(--ink);background:var(--sunk)}
+.nav a[aria-current="page"]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--ink);border-radius:0}
+.theme-btn{border:1px solid var(--rule);background:transparent;color:var(--ink);border-radius:20px;padding:6px 12px;font:inherit;font-size:.85rem;cursor:pointer;flex-shrink:0}
+@media (max-width:760px){.brand span{display:none}.site-head .wrap{gap:10px}}
+
+main{min-height:70vh;padding-bottom:64px}
+.page{padding-top:40px}
+
+/* buttons & form */
+.btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:700;padding:10px 18px;border-radius:6px;border:1.5px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.small{padding:6px 12px;font-size:.9rem}
+.btn:hover{filter:brightness(1.12)}
+input[type=search],input[type=text],input[type=number],select,textarea{font:inherit;color:var(--ink);background:var(--surface);border:1.5px solid var(--rule);border-radius:6px;padding:9px 12px;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--lapis);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--lapis) 25%,transparent)}
+label{font-weight:700;font-size:.95rem}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.field .hint{font-size:.85rem;color:var(--muted);font-weight:400}
+.field .err{font-size:.85rem;color:var(--contrib);font-weight:700}
+
+/* collection markers */
+.coll{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted)}
+.coll::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--c,var(--verde))}
+.k-oggetto{--c:var(--verde)}
+.k-testo{--c:var(--lapis)}
+.k-contrib{--c:var(--contrib)}
+
+/* HOME */
+.hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);padding:56px 0 48px;align-items:start}
+.verse{border-left:3px solid var(--lapis);padding-left:clamp(16px,3vw,32px)}
+.verse .lines{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(1.7rem,3.9vw,3.2rem);line-height:1.25;margin:0 0 18px}
+.verse .lines a.w{text-decoration:none;border-radius:3px;transition:background .15s}
+.verse .lines a.w:hover,.verse .lines a.w:focus-visible{background:var(--mark);color:var(--mark-ink)}
+.verse .attr{font-size:.95rem;color:var(--muted)}
+.verse .attr a{color:var(--ink)}
+.verse .how{margin-top:28px;font-size:.95rem;color:var(--muted);max-width:46ch}
+.hero-side h1{font-size:clamp(1.9rem,3vw,2.5rem)}
+.bigsearch{display:flex;gap:8px;margin:20px 0 28px}
+.bigsearch input{font-size:1.1rem;padding:12px 14px}
+.colls{display:grid;gap:12px}
+.coll-entry{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;text-decoration:none;padding:16px;border:1px solid var(--rule);border-radius:8px;background:var(--surface)}
+.coll-entry:hover{border-color:var(--c)}
+.coll-entry .n{grid-row:span 2;font-family:var(--serif);font-size:2.4rem;line-height:1;color:var(--c);min-width:2ch}
+.coll-entry strong{font-size:1.05rem}
+.coll-entry span{font-size:.9rem;color:var(--muted)}
+.strata{padding:32px 0;border-top:1px solid var(--rule)}
+.strata-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 48px;padding:32px 0;border-top:1px solid var(--rule)}
+.paths a{display:block;text-decoration:none;padding:18px 0;border-bottom:1px solid var(--rule)}
+.paths a strong{font-family:var(--serif);font-size:1.35rem;font-weight:600;display:block}
+.paths a span{color:var(--muted)}
+.paths a:hover strong{text-decoration:underline;text-underline-offset:4px}
+@media (max-width:860px){.hero{grid-template-columns:1fr;padding-top:32px}.paths{grid-template-columns:1fr}}
+
+/* CATALOGO */
+.cat-head{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:end;margin-bottom:24px}
+.cat-head>div:first-child{flex:1 1 320px}
+.cat-search{flex:1 1 380px;display:flex;gap:8px}
+.cat-grid{display:grid;grid-template-columns:260px minmax(0,1fr);gap:36px;align-items:start}
+.facets{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px);max-height:calc(100vh - 100px);overflow:auto;padding-right:6px}
+.facet{border-top:1px solid var(--rule);padding:12px 0}
+.facet h3{font-family:var(--sans);font-size:.95rem;font-weight:700;margin:0 0 8px}
+.facet ul{list-style:none;margin:0;padding:0;max-height:220px;overflow:auto}
+.facet li label{display:flex;align-items:center;gap:8px;font-weight:400;font-size:.93rem;padding:3px 0;cursor:pointer}
+.facet li label .ct{margin-left:auto;color:var(--muted);font-size:.85rem;font-variant-numeric:tabular-nums}
+.facet li label.zero{opacity:.45}
+.facet input[type=checkbox]{accent-color:var(--lapis);width:16px;height:16px}
+.range{display:flex;gap:8px;align-items:center}
+.range input{padding:6px 8px}
+.filter-toggle{display:none}
+.results-bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.results-bar .count{font-family:var(--serif);font-size:1.3rem}
+.results-bar .ctrls{display:flex;gap:8px;align-items:center}
+.results-bar select{width:auto;padding:6px 10px}
+.seg{display:inline-flex;border:1.5px solid var(--rule);border-radius:6px;overflow:hidden}
+.seg button{font:inherit;font-size:.9rem;background:transparent;color:var(--muted);border:0;padding:6px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:.85rem;background:var(--sunk);border:0;border-radius:20px;padding:4px 10px;cursor:pointer;color:var(--ink)}
+.chip b{font-weight:400;color:var(--muted)}
+.chip:hover{text-decoration:line-through}
+.hist{display:flex;align-items:flex-end;gap:3px;height:92px;padding:8px 0 0;margin-bottom:6px;border-bottom:1px solid var(--rule)}
+.hist button{flex:1;display:flex;flex-direction:column-reverse;justify-content:flex-start;height:100%;background:none;border:0;padding:0;cursor:pointer;min-width:0}
+.hist button .seg-o{background:var(--verde)}
+.hist button .seg-t{background:var(--lapis)}
+.hist button .seg-c{background:var(--contrib)}
+.hist button[aria-pressed="true"]{outline:2px solid var(--ink);outline-offset:2px}
+.hist button:hover{opacity:.8}
+.hist-labels{display:flex;gap:3px;margin-bottom:22px}
+.hist-labels span{flex:1;text-align:center;font-size:.7rem;color:var(--muted);min-width:0;overflow:hidden}
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:28px 22px}
+.card .thumb{display:block;aspect-ratio:4/3;border-radius:6px;overflow:hidden;margin-bottom:10px}
+.card h3{font-size:1.12rem;margin:4px 0 2px}
+.card h3 a{text-decoration:none}
+.card h3 a:hover{text-decoration:underline;text-underline-offset:3px}
+.card p{margin:0;font-size:.92rem;color:var(--muted)}
+.card .snip{margin-top:8px;font-family:var(--serif);font-size:.98rem;color:var(--ink);font-style:italic}
+.thumb-svg{width:100%;height:100%;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 13%,var(--surface));color:var(--c)}
+.thumb-svg svg{width:58%;height:auto}
+.incipit{width:100%;height:100%;padding:18px;display:flex;align-items:flex-end;background:color-mix(in srgb,var(--c) 13%,var(--surface));font-family:var(--serif);font-style:italic;font-size:1.15rem;line-height:1.3;color:var(--ink)}
+.incipit span{border-left:2px solid var(--c);padding-left:10px}
+.empty{padding:48px 24px;text-align:center;border:1.5px dashed var(--rule);border-radius:8px}
+.empty h3{margin-bottom:6px}
+table.data{width:100%;border-collapse:collapse;font-size:.93rem}
+table.data th,table.data td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+table.data th{font-weight:700;background:var(--surface);position:sticky;top:0}
+table.data th button{font:inherit;font-weight:700;background:none;border:0;color:inherit;cursor:pointer;padding:0}
+table.data tbody tr:hover{background:var(--surface)}
+table.data td.num{font-variant-numeric:tabular-nums;text-align:right}
+.scroll-x{overflow-x:auto;border:1px solid var(--rule);border-radius:8px}
+@media (max-width:900px){
+  .cat-grid{grid-template-columns:1fr}
+  .facets{position:static;max-height:none;display:none;padding:0 0 12px}
+  .facets.open{display:block}
+  .filter-toggle{display:inline-flex}
+}
+
+/* RECORD */
+.crumbs{font-size:.9rem;color:var(--muted);margin-bottom:18px}
+.crumbs a{color:var(--muted)}
+.rec{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(24px,4vw,56px)}
+.rec .thumb{aspect-ratio:1/1;border-radius:8px;overflow:hidden}
+.rec .desc{font-family:var(--serif);font-size:1.18rem;line-height:1.6;max-width:62ch}
+dl.meta{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:0;margin:20px 0;border-top:1px solid var(--rule)}
+dl.meta dt,dl.meta dd{padding:9px 0;border-bottom:1px solid var(--rule);margin:0}
+dl.meta dt{color:var(--muted);padding-right:20px;font-size:.93rem}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:.88rem;text-decoration:none;border:1px solid var(--rule);border-radius:20px;padding:3px 10px}
+.tag:hover{border-color:var(--ink)}
+.cite{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:14px 16px;font-size:.9rem}
+.related{margin-top:48px;padding-top:24px;border-top:1px solid var(--rule)}
+@media (max-width:860px){.rec{grid-template-columns:1fr}}
+
+/* READER */
+.reader-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr);gap:clamp(24px,4vw,56px);align-items:start}
+.reader-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:18px 0 24px;padding:12px;background:var(--surface);border:1px solid var(--rule);border-radius:8px}
+.reader-tools input[type=search]{flex:1 1 200px;width:auto}
+.reader-tools .found{font-size:.9rem;color:var(--muted)}
+.reader{font-family:var(--serif);font-size:1.25rem;line-height:1.75;max-width:62ch}
+.reader .ln{display:grid;grid-template-columns:3.2ch 1fr;gap:12px}
+.reader .ln i{font-style:normal;font-family:var(--sans);font-size:.75rem;color:var(--muted);text-align:right;padding-top:.55em;user-select:none}
+.reader.nonum .ln i{visibility:hidden}
+.reader .stanza{height:.9em}
+.reader p.prose{text-indent:1.5em;margin:0 0 .8em;text-align:justify;hyphens:auto}
+.side-panel{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px)}
+.side-panel h3{font-family:var(--sans);font-size:1rem;margin-top:24px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stats div{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:10px}
+.stats b{display:block;font-family:var(--serif);font-size:1.5rem;font-weight:600}
+.stats span{font-size:.8rem;color:var(--muted)}
+@media (max-width:900px){.reader-grid{grid-template-columns:1fr}.side-panel{position:static}}
+
+/* bars */
+.bars{display:grid;gap:5px}
+.bar{display:grid;grid-template-columns:minmax(90px,150px) 1fr 3ch;gap:10px;align-items:center;font-size:.9rem;text-decoration:none;background:none;border:0;color:inherit;font:inherit;font-size:.9rem;text-align:left;padding:2px 0;cursor:pointer}
+.bar .lab{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar .track{height:14px;background:var(--sunk);border-radius:3px;overflow:hidden;display:flex}
+.bar .track i{display:block;height:100%}
+.bar .v{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar:hover .lab{text-decoration:underline}
+
+/* ESPLORA */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--rule);margin:24px 0 28px;overflow-x:auto}
+.tabs a{text-decoration:none;padding:10px 14px;color:var(--muted);white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-1px}
+.tabs a[aria-current="page"]{color:var(--ink);border-color:var(--ink)}
+.viz-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:40px;align-items:start}
+@media (max-width:900px){.viz-grid{grid-template-columns:1fr}}
+.viz-svg{width:100%;height:auto;display:block}
+.viz-svg text{font-family:var(--sans);fill:var(--muted)}
+.viz-svg .axis{stroke:var(--rule)}
+.viz-svg .land{fill:var(--sunk);stroke:var(--rule);stroke-width:1}
+.viz-svg a circle,.viz-svg a path{cursor:pointer}
+.viz-svg a:hover circle,.viz-svg a:hover path{stroke:var(--ink);stroke-width:2}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:.88rem;color:var(--muted);margin:10px 0}
+.cloud{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;font-family:var(--serif)}
+.cloud a{text-decoration:none;line-height:1.2}
+.cloud a:hover{text-decoration:underline}
+.kwic{font-family:var(--serif);font-size:1.02rem}
+.kwic td.l{text-align:right;white-space:nowrap;overflow:hidden;max-width:0;width:42%;direction:rtl}
+.kwic td.l span{direction:ltr;unicode-bidi:bidi-override}
+.kwic td.k{text-align:center;white-space:nowrap;width:1%}
+.kwic td.r{white-space:nowrap;overflow:hidden;max-width:0;width:42%}
+.kwic td.src{font-family:var(--sans);font-size:.82rem;white-space:nowrap}
+.opts{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin-bottom:20px}
+.opts label{font-weight:400;display:flex;gap:6px;align-items:center}
+
+/* DATASET */
+.ds-head{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;margin-bottom:36px}
+@media (max-width:860px){.ds-head{grid-template-columns:1fr}}
+.compl{display:flex;align-items:center;gap:8px;min-width:120px}
+.compl .track{flex:1;height:8px;background:var(--sunk);border-radius:4px;overflow:hidden}
+.compl .track i{display:block;height:100%;background:var(--ink)}
+.compl span{font-size:.85rem;font-variant-numeric:tabular-nums;width:4ch;text-align:right}
+.req{font-size:.8rem;border:1px solid var(--rule);border-radius:10px;padding:1px 7px;white-space:nowrap}
+.req.y{border-color:var(--ink)}
+.section{margin-top:48px}
+.section>h2{margin-bottom:6px}
+.section>p{max-width:72ch}
+.pager{display:flex;gap:8px;align-items:center;justify-content:flex-end;margin-top:12px;font-size:.9rem}
+textarea.export{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem;min-height:220px}
+
+/* CONTRIBUISCI */
+.contrib-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:start}
+fieldset{border:0;border-top:1px solid var(--rule);padding:20px 0 4px;margin:0}
+legend{font-family:var(--serif);font-size:1.3rem;font-weight:600;padding:0 12px 0 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.radio-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.radio-cards label{display:flex;gap:10px;align-items:flex-start;padding:14px;border:1.5px solid var(--rule);border-radius:8px;cursor:pointer;font-weight:400}
+.radio-cards label:has(input:checked){border-color:var(--c);background:color-mix(in srgb,var(--c) 8%,var(--surface))}
+.radio-cards input{accent-color:var(--ink);margin-top:4px}
+.radio-cards strong{display:block}
+.preview{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px)}
+.preview pre{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:12px;font-size:.78rem;overflow:auto;max-height:300px;white-space:pre-wrap}
+.mine li{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--rule)}
+@media (max-width:900px){.contrib-grid{grid-template-columns:1fr}.preview{position:static}.two,.radio-cards{grid-template-columns:1fr}}
+
+/* tooltip & toast */
+#tip{position:fixed;z-index:50;pointer-events:none;background:var(--ink);color:var(--bg);font-size:.85rem;padding:6px 10px;border-radius:5px;max-width:260px;opacity:0;transition:opacity .1s}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:8px;opacity:0;transition:all .2s;z-index:60;pointer-events:none}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+/* collegamenti */
+.links-sec{margin-top:48px;padding-top:24px;border-top:1px solid var(--rule);max-width:860px}
+.links{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:14px}
+.link-item{border-left:4px solid var(--lc);padding:4px 0 4px 16px}
+.link-item p{margin:0 0 4px}
+.lrel{font-size:1.02rem}
+.lt{font-weight:700;color:var(--ink)}
+.lnote{font-family:var(--serif);font-size:1.05rem;max-width:68ch}
+.linkbtn{font:inherit;font-size:.85rem;background:none;border:0;color:var(--contrib);text-decoration:underline;cursor:pointer;padding:0 0 0 8px}
+.ltleg{display:inline-flex;align-items:center;gap:8px;font-size:.88rem}
+.ltleg::before{content:"";width:18px;height:4px;border-radius:2px;background:var(--lc)}
+.add-link{border:1px solid var(--rule);border-radius:8px;padding:0 16px;background:var(--surface)}
+.add-link summary{cursor:pointer;font-weight:700;padding:12px 0}
+.add-link[open] summary{border-bottom:1px solid var(--rule);margin-bottom:16px}
+.lbl{font-weight:700;font-size:.95rem}
+.ltypes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ltypes label{display:flex;gap:8px;align-items:flex-start;font-weight:400;border:1.5px solid var(--rule);border-left:4px solid var(--lc);border-radius:6px;padding:10px;cursor:pointer;background:var(--bg)}
+.ltypes label:has(input:checked){border-color:var(--lc);border-left-width:4px}
+.ltypes input{margin-top:4px;accent-color:var(--ink)}
+.ltypes strong{display:block;font-size:.95rem}
+@media (max-width:640px){.ltypes{grid-template-columns:1fr}}
+a.anno,span.anno{text-decoration:none;background:color-mix(in srgb,var(--ocra) 20%,transparent);border-bottom:2px solid var(--ocra);border-radius:2px}
+a.anno:hover{background:color-mix(in srgb,var(--ocra) 38%,transparent)}
+.card .lk{color:var(--ocra);font-weight:700;font-size:.85rem;margin-top:4px}
+.net .edge{fill:none;stroke-width:2.6;opacity:.7;transition:opacity .15s}
+.net .edge:hover{opacity:1;stroke-width:4}
+.net.focus .edge{opacity:.07}
+.net.focus .edge.on{opacity:1;stroke-width:3.4}
+.net.focus .node{opacity:.25}
+.net.focus .node.on{opacity:1}
+.net .node{text-decoration:none}
+details.rdf{margin-top:20px;border-top:1px solid var(--rule);padding-top:10px}
+details.rdf summary{cursor:pointer;font-weight:700}
+details.rdf pre{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:12px;font-size:.74rem;overflow:auto;max-height:340px;white-space:pre}
+.store-status{border-left:3px solid var(--lapis);padding:6px 0 6px 14px;max-width:72ch;font-size:.95rem}
+footer{border-top:1px solid var(--rule);padding:28px 0 36px;font-size:.9rem;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="#/"><b>Scrinium</b><span>catalogo di patrimonio e testi</span></a>
+    <nav class="nav" aria-label="Sezioni">
+      <a href="#/catalogo" data-nav="catalogo">Catalogo</a>
+      <a href="#/esplora" data-nav="esplora">Esplora</a>
+      <a href="#/dataset" data-nav="dataset">Dataset</a>
+      <a href="#/contribuisci" data-nav="contribuisci">Contribuisci</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Cambia tema chiaro o scuro">Tema</button>
+  </div>
+</header>
+<main id="app" class="wrap" tabindex="-1"></main>
+<footer>
+  <div class="wrap">
+    <span>Scrinium è un template dimostrativo: le schede degli oggetti sono fittizie, i testi letterari sono di pubblico dominio.</span>
+    <span>Metadati in Dublin Core ed esportazione Linked Open Data secondo CIDOC-CRM, LRMoo e SKOS.</span>
+  </div>
+</footer>
+<div id="tip" role="tooltip"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+const LUOGHI = {
+  "Bologna":[44.494,11.343],"Firenze":[43.769,11.256],"Venezia":[45.440,12.316],"Roma":[41.902,12.496],
+  "Napoli":[40.852,14.268],"Milano":[45.464,9.190],"Faenza":[44.285,11.883],"Ravenna":[44.418,12.204],
+  "Palermo":[38.116,13.361],"Siena":[43.318,11.331],"Genova":[44.405,8.946],"Torino":[45.070,7.687],
+  "Urbino":[43.726,12.636],"Padova":[45.406,11.877],"Cagliari":[39.223,9.122],"Bari":[41.117,16.872],
+  "Lecce":[40.352,18.169],"Recanati":[43.404,13.550],"Ferrara":[44.838,11.620],"Arezzo":[43.463,11.880],
+  "San Mauro Pascoli":[44.106,12.419]
+};
+
+const OGGETTI = [
+{id:"OGG-0001",titolo:"Piatto istoriato con Apollo e Dafne",tipologia:"Ceramica",autore:"Bottega faentina",anno:1525,datazione:"1520–1530 circa",luogo:"Faenza",materia:"Maiolica dipinta in policromia",dimensioni:"diametro 26 cm",soggetti:["mitologia","Ovidio","metamorfosi"],conservazione:"Buono",licenza:"CC BY 4.0",descrizione:"Piatto da pompa con la metamorfosi di Dafne in alloro, tratta dalle Metamorfosi di Ovidio; tesa decorata a grottesche su fondo blu."},
+{id:"OGG-0002",titolo:"Libro d’ore ad uso di Roma",tipologia:"Manoscritto",autore:"Miniatore di ambito bolognese",anno:1390,datazione:"fine del XIV secolo",luogo:"Bologna",materia:"Inchiostro, tempera e oro su pergamena",dimensioni:"mm 165 × 118",soggetti:["devozione","miniatura","liturgia"],conservazione:"Discreto",licenza:"CC BY 4.0",descrizione:"Codice di 212 carte con iniziali istoriate e fregi fitomorfi ai margini; legatura moderna in pelle."},
+{id:"OGG-0003",titolo:"Madonna col Bambino in trono",tipologia:"Dipinto",autore:"Ambito senese",anno:1340,datazione:"secondo quarto del XIV secolo",luogo:"Siena",materia:"Tempera e oro su tavola",dimensioni:"cm 92 × 58",soggetti:["iconografia mariana","fondo oro"],conservazione:"Discreto",licenza:"Pubblico dominio",descrizione:"Tavola centinata con fondo oro punzonato, probabile scomparto centrale di un polittico smembrato."},
+{id:"OGG-0004",titolo:"Astrolabio planisferico",tipologia:"Strumento scientifico",autore:"Officina veneziana",anno:1560,datazione:"metà del XVI secolo",luogo:"Venezia",materia:"Ottone fuso e inciso",dimensioni:"diametro 21 cm",soggetti:["astronomia","navigazione","misura del tempo"],conservazione:"Buono",licenza:"CC BY-SA 4.0",descrizione:"Strumento con madre, tre timpani per diverse latitudini e rete a punte fiammate che indica le stelle fisse."},
+{id:"OGG-0005",titolo:"Busto di giovane donna",tipologia:"Scultura",autore:"Ambito fiorentino",anno:1475,datazione:"ultimo quarto del XV secolo",luogo:"Firenze",materia:"Terracotta con tracce di policromia",dimensioni:"cm 48 × 44 × 22",soggetti:["ritratto","Rinascimento"],conservazione:"Mediocre",licenza:"CC BY 4.0",descrizione:"Ritratto a mezzo busto con acconciatura a trecce raccolte; lacune alla base e sul naso."},
+{id:"OGG-0006",titolo:"Frammento di mosaico con tralci di vite",tipologia:"Mosaico",autore:"Ambito ravennate",anno:550,datazione:"metà del VI secolo",luogo:"Ravenna",materia:"Tessere vitree e lapidee",dimensioni:"cm 64 × 40",soggetti:["tardoantico","decorazione","vite"],conservazione:"Mediocre",licenza:"Pubblico dominio",descrizione:"Porzione di decorazione parietale con girali di vite su fondo dorato, distaccata nell’Ottocento."},
+{id:"OGG-0007",titolo:"Grosso d’argento",tipologia:"Numismatica",autore:"Zecca di Venezia",anno:1280,datazione:"fine del XIII secolo",luogo:"Venezia",materia:"Argento coniato",dimensioni:"diametro 21 mm; g 2,1",soggetti:["moneta","commercio"],conservazione:"Buono",licenza:"CC0 1.0",descrizione:"Al dritto il doge e san Marco con il vessillo, al rovescio il Cristo in trono."},
+{id:"OGG-0008",titolo:"Velluto con motivo a melagrana",tipologia:"Tessile",autore:"Manifattura genovese",anno:1490,datazione:"fine del XV secolo",luogo:"Genova",materia:"Velluto di seta cesellato",dimensioni:"cm 120 × 56",soggetti:["melagrana","abbigliamento","commercio"],conservazione:"Discreto",licenza:"CC BY 4.0",descrizione:"Teletta con grande motivo a melagrana entro losanghe; cimose originali conservate su un lato."},
+{id:"OGG-0009",titolo:"Carta nautica del Mediterraneo",tipologia:"Cartografia",autore:"Scuola cartografica veneziana",anno:1450,datazione:"metà del XV secolo",luogo:"Venezia",materia:"Inchiostri e colori su pergamena",dimensioni:"cm 78 × 52",soggetti:["navigazione","Mediterraneo","porti"],conservazione:"Discreto",licenza:"CC BY 4.0",descrizione:"Portolano con reticolo di linee di rombo, toponimi costieri in rosso e nero e rose dei venti."},
+{id:"OGG-0010",titolo:"Globo celeste",tipologia:"Strumento scientifico",autore:"",anno:1690,datazione:"fine del XVII secolo",luogo:"Roma",materia:"Fusi a stampa su sfera di cartapesta, legno tornito",dimensioni:"diametro 48 cm",soggetti:["astronomia","costellazioni"],conservazione:"Discreto",licenza:"CC BY-SA 4.0",descrizione:"Globo con le figure delle costellazioni e montatura a quattro gambe con cerchio orizzontale in legno."},
+{id:"OGG-0011",titolo:"Albarello da farmacia",tipologia:"Ceramica",autore:"Bottega palermitana",anno:1600,datazione:"inizio del XVII secolo",luogo:"Palermo",materia:"Maiolica dipinta in blu, giallo e verde",dimensioni:"altezza 30 cm",soggetti:["farmacia","spezieria"],conservazione:"Buono",licenza:"CC BY 4.0",descrizione:"Vaso cilindrico rastremato con cartiglio vuoto e decoro a foglie embricate."},
+{id:"OGG-0012",titolo:"Studio di figura maschile",tipologia:"Disegno",autore:"Ambito carraccesco",anno:1595,datazione:"ultimo decennio del XVI secolo",luogo:"Bologna",materia:"Sanguigna su carta vergellata",dimensioni:"mm 410 × 270",soggetti:["studio dal vero","nudo"],conservazione:"Buono",licenza:"Pubblico dominio",descrizione:"Studio di nudo maschile in torsione, probabilmente preparatorio per una figura ad affresco."},
+{id:"OGG-0013",titolo:"Microscopio composto",tipologia:"Strumento scientifico",autore:"Officina padovana",anno:1760,datazione:"metà del XVIII secolo",luogo:"Padova",materia:"Ottone, legno, pelle, vetro",dimensioni:"altezza 36 cm",soggetti:["ottica","scienze naturali"],conservazione:"Buono",licenza:"CC BY 4.0",descrizione:"Microscopio a tubo con cassetta in legno contenente obiettivi intercambiabili e vetrini."},
+{id:"OGG-0014",titolo:"Veduta del porto con velieri",tipologia:"Fotografia",autore:"Studio fotografico napoletano",anno:1885,datazione:"1885 circa",luogo:"Napoli",materia:"Stampa all’albumina da negativo su vetro",dimensioni:"mm 200 × 255",soggetti:["porti","paesaggio urbano"],conservazione:"Discreto",licenza:"CC0 1.0",descrizione:"Veduta dal molo con velieri all’ancora e il profilo della collina sullo sfondo."},
+{id:"OGG-0015",titolo:"Figura di pastore da presepe",tipologia:"Scultura",autore:"Bottega napoletana",anno:1770,datazione:"seconda metà del XVIII secolo",luogo:"Napoli",materia:"Terracotta policroma, stoppa, fil di ferro, seta",dimensioni:"altezza 38 cm",soggetti:["presepe","devozione popolare"],conservazione:"Discreto",licenza:"CC BY 4.0",descrizione:"Pastore con mantello e bisaccia; vesti originali con rammendi antichi."},
+{id:"OGG-0016",titolo:"Pannello a tarsia con veduta prospettica",tipologia:"Arredo",autore:"Bottega urbinate",anno:1478,datazione:"1475–1480 circa",luogo:"Urbino",materia:"Legni di essenze diverse intarsiati",dimensioni:"cm 70 × 52",soggetti:["prospettiva","città ideale"],conservazione:"Buono",licenza:"Pubblico dominio",descrizione:"Veduta architettonica con loggiato e armadio a sportelli socchiusi, resa con legni chiari e scuri."},
+{id:"OGG-0017",titolo:"Bronzetto votivo di offerente",tipologia:"Scultura",autore:"Cultura nuragica",anno:-800,datazione:"IX–VIII secolo a.C.",luogo:"Cagliari",materia:"Bronzo fuso a cera persa",dimensioni:"altezza 18 cm",soggetti:["votivo","età del ferro"],conservazione:"Mediocre",licenza:"CC0 1.0",descrizione:"Figura maschile stante con mantello e la mano destra levata nel gesto del saluto."},
+{id:"OGG-0018",titolo:"Manifesto per un’esposizione industriale",tipologia:"Grafica",autore:"",anno:1899,datazione:"1899",luogo:"Milano",materia:"Litografia a colori",dimensioni:"cm 140 × 100",soggetti:["pubblicità","industria","Liberty"],conservazione:"Buono",licenza:"CC BY-SA 4.0",descrizione:"Figura femminile allegorica tra ingranaggi e rami d’alloro; lettering a decoro floreale."},
+{id:"OGG-0019",titolo:"Statua di santo in cartapesta",tipologia:"Scultura",autore:"Bottega leccese",anno:1880,datazione:"fine del XIX secolo",luogo:"Lecce",materia:"Cartapesta modellata e dipinta",dimensioni:"altezza 92 cm",soggetti:["devozione popolare","artigianato"],conservazione:"Discreto",licenza:"CC BY 4.0",descrizione:"Santo in abito monastico con libro aperto, eseguito con anima di paglia e fil di ferro."},
+{id:"OGG-0020",titolo:"Orologio da tasca con cassa smaltata",tipologia:"Oreficeria",autore:"Manifattura torinese",anno:1820,datazione:"1820 circa",luogo:"Torino",materia:"Oro, smalto, vetro",dimensioni:"diametro 52 mm",soggetti:["misura del tempo","ornamento"],conservazione:"Buono",licenza:"CC BY 4.0",descrizione:"Cassa in smalto blu con corona di perle; quadrante con numeri romani."},
+{id:"OGG-0021",titolo:"Pianta prospettica della città",tipologia:"Grafica",autore:"Incisore romano",anno:1702,datazione:"inizio del XVIII secolo",luogo:"Roma",materia:"Acquaforte e bulino su carta",dimensioni:"mm 520 × 740",soggetti:["città","topografia"],conservazione:"Buono",licenza:"Pubblico dominio",descrizione:"Pianta a volo d’uccello con legenda numerata di chiese e palazzi."},
+{id:"OGG-0022",titolo:"Registro di conti di una compagnia mercantile",tipologia:"Documento d’archivio",autore:"",anno:1612,datazione:"1610–1614",luogo:"Bari",materia:"Inchiostro su carta, legatura in pergamena",dimensioni:"",soggetti:["commercio","olio","porti"],conservazione:"Mediocre",licenza:"CC BY 4.0",descrizione:"Registro di partite di dare e avere relative al commercio dell’olio via mare."}
+];
+
+const TESTI = [
+{id:"TXT-0001",titolo:"Inferno, canto I (vv. 1–12)",autore:"Dante Alighieri",anno:1307,datazione:"1304–1308 circa",luogo:"Firenze",tipologia:"Poema",forma:"Terzine di endecasillabi",soggetti:["viaggio","allegoria","smarrimento"],licenza:"Pubblico dominio",verso:true,
+descrizione:"L’apertura della Commedia: il poeta si ritrova in una selva oscura a metà del cammino della vita.",
+testo:`Nel mezzo del cammin di nostra vita
+mi ritrovai per una selva oscura,
+ché la diritta via era smarrita.
+
+Ahi quanto a dir qual era è cosa dura
+esta selva selvaggia e aspra e forte
+che nel pensier rinova la paura!
+
+Tant' è amara che poco è più morte;
+ma per trattar del ben ch'i' vi trovai,
+dirò de l'altre cose ch'i' v'ho scorte.
+
+Io non so ben ridir com' i' v'intrai,
+tant' era pien di sonno a quel punto
+che la verace via abbandonai.`},
+{id:"TXT-0002",titolo:"Rerum vulgarium fragmenta, 1",autore:"Francesco Petrarca",anno:1374,datazione:"redazione finale 1374",luogo:"Arezzo",tipologia:"Lirica",forma:"Sonetto",soggetti:["amore","pentimento","tempo"],licenza:"Pubblico dominio",verso:true,
+descrizione:"Sonetto proemiale del Canzoniere: il poeta si rivolge ai lettori e giudica il proprio giovanile errore.",
+testo:`Voi ch'ascoltate in rime sparse il suono
+di quei sospiri ond'io nudriva 'l core
+in sul mio primo giovenile errore
+quand'era in parte altr'uom da quel ch'i' sono,
+
+del vario stile in ch'io piango et ragiono
+fra le vane speranze e 'l van dolore,
+ove sia chi per prova intenda amore,
+spero trovar pietà, nonché perdono.
+
+Ma ben veggio or sì come al popol tutto
+favola fui gran tempo, onde sovente
+di me medesmo meco mi vergogno;
+
+et del mio vaneggiar vergogna è 'l frutto,
+e 'l pentersi, e 'l conoscer chiaramente
+che quanto piace al mondo è breve sogno.`},
+{id:"TXT-0003",titolo:"Il Principe, dedica (incipit)",autore:"Niccolò Machiavelli",anno:1513,datazione:"1513",luogo:"Firenze",tipologia:"Trattato",forma:"Prosa",soggetti:["politica","principato","dono"],licenza:"Pubblico dominio",verso:false,
+descrizione:"Esordio della lettera dedicatoria a Lorenzo de’ Medici.",
+testo:`Sogliono, el più delle volte, coloro che desiderano acquistare grazia appresso uno Principe, farsi loro incontro con quelle cose che infra le loro abbino più care, o delle quali vegghino lui più delettarsi; donde si vede molte volte essere loro presentati cavalli, arme, drappi d'oro, pietre preziose e simili ornamenti degni della grandezza di quelli.`},
+{id:"TXT-0004",titolo:"Orlando furioso, canto I, ottava 1",autore:"Ludovico Ariosto",anno:1532,datazione:"edizione definitiva 1532",luogo:"Ferrara",tipologia:"Poema",forma:"Ottava rima",soggetti:["cavalleria","amore","guerra"],licenza:"Pubblico dominio",verso:true,
+descrizione:"Protasi del poema: le donne, i cavalieri, le armi e gli amori al tempo della guerra tra Mori e Franchi.",
+testo:`Le donne, i cavallier, l'arme, gli amori,
+le cortesie, l'audaci imprese io canto,
+che furo al tempo che passaro i Mori
+d'Africa il mare, e in Francia nocquer tanto,
+seguendo l'ire e i giovenil furori
+d'Agramante lor re, che si diè vanto
+di vendicar la morte di Troiano
+sopra re Carlo imperator romano.`},
+{id:"TXT-0005",titolo:"Gerusalemme liberata, canto I, ottava 1",autore:"Torquato Tasso",anno:1581,datazione:"1581",luogo:"Ferrara",tipologia:"Poema",forma:"Ottava rima",soggetti:["crociata","guerra","fede"],licenza:"Pubblico dominio",verso:true,
+descrizione:"Protasi del poema dedicato alla prima crociata e a Goffredo di Buglione.",
+testo:`Canto l'arme pietose e 'l capitano
+che 'l gran sepolcro liberò di Cristo.
+Molto egli oprò co 'l senno e con la mano,
+molto soffrì nel glorioso acquisto;
+e in van l'Inferno vi s'oppose, e in vano
+s'armò d'Asia e di Libia il popol misto.
+Il Ciel gli diè favore, e sotto a i santi
+segni ridusse i suoi compagni erranti.`},
+{id:"TXT-0006",titolo:"Alla sera",autore:"Ugo Foscolo",anno:1803,datazione:"1803",luogo:"Milano",tipologia:"Lirica",forma:"Sonetto",soggetti:["sera","morte","tempo"],licenza:"Pubblico dominio",verso:true,
+descrizione:"La sera come immagine della quiete fatale e del nulla eterno.",
+testo:`Forse perché della fatal quïete
+tu sei l'imago a me sì cara vieni
+o Sera! E quando ti corteggian liete
+le nubi estive e i zeffiri sereni,
+
+e quando dal nevoso aere inquïete
+tenebre e lunghe all'universo meni
+sempre scendi invocata, e le secrete
+vie del mio cor soavemente tieni.
+
+Vagar mi fai co' miei pensieri su l'orme
+che vanno al nulla eterno; e intanto fugge
+questo reo tempo, e van con lui le torme
+
+delle cure onde meco egli si strugge;
+e mentre io guardo la tua pace, dorme
+quello spirto guerrier ch'entro mi rugge.`},
+{id:"TXT-0007",titolo:"L’infinito",autore:"Giacomo Leopardi",anno:1819,datazione:"1819",luogo:"Recanati",tipologia:"Lirica",forma:"Idillio in endecasillabi sciolti",soggetti:["infinito","silenzio","paesaggio"],licenza:"Pubblico dominio",verso:true,
+descrizione:"Dalla siepe che esclude l’orizzonte nasce l’immaginazione di spazi interminati.",
+testo:`Sempre caro mi fu quest'ermo colle,
+e questa siepe, che da tanta parte
+dell'ultimo orizzonte il guardo esclude.
+Ma sedendo e mirando, interminati
+spazi di là da quella, e sovrumani
+silenzi, e profondissima quiete
+io nel pensier mi fingo; ove per poco
+il cor non si spaura. E come il vento
+odo stormir tra queste piante, io quello
+infinito silenzio a questa voce
+vo comparando: e mi sovvien l'eterno,
+e le morte stagioni, e la presente
+e viva, e il suon di lei. Così tra questa
+immensità s'annega il pensier mio:
+e il naufragar m'è dolce in questo mare.`},
+{id:"TXT-0008",titolo:"I promessi sposi, cap. I (incipit)",autore:"Alessandro Manzoni",anno:1840,datazione:"edizione 1840–1842",luogo:"Milano",tipologia:"Romanzo",forma:"Prosa",soggetti:["paesaggio","lago","Lombardia"],licenza:"Pubblico dominio",verso:false,
+descrizione:"La celebre descrizione del ramo del lago di Como che apre il romanzo.",
+testo:`Quel ramo del lago di Como, che volge a mezzogiorno, tra due catene non interrotte di monti, tutto a seni e a golfi, a seconda dello sporgere e del rientrare di quelli, vien, quasi a un tratto, a ristringersi, e a prender corso e figura di fiume, tra un promontorio a destra, e un'ampia costiera dall'altra parte; e il ponte, che ivi congiunge le due rive, par che renda ancor più sensibile all'occhio questa trasformazione, e segni il punto in cui il lago cessa, e l'Adda rincomincia, per ripigliar poi nome di lago dove le rive, allontanandosi di nuovo, lascian l'acqua distendersi e rallentarsi in nuovi golfi e in nuovi seni.`},
+{id:"TXT-0009",titolo:"Pianto antico",autore:"Giosue Carducci",anno:1871,datazione:"1871",luogo:"Bologna",tipologia:"Lirica",forma:"Strofe di settenari",soggetti:["lutto","infanzia","natura"],licenza:"Pubblico dominio",verso:true,
+descrizione:"Il melograno rinverdito e il figlio perduto: il contrasto tra la natura che rinasce e la morte.",
+testo:`L'albero a cui tendevi
+la pargoletta mano,
+il verde melograno
+da' bei vermigli fior,
+
+nel muto orto solingo
+rinverdì tutto or ora
+e giugno lo ristora
+di luce e di calor.
+
+Tu fior de la mia pianta
+percossa e inaridita,
+tu de l'inutil vita
+estremo unico fior,
+
+sei ne la terra fredda,
+sei ne la terra negra;
+né il sol più ti rallegra
+né ti risveglia amor.`},
+{id:"TXT-0010",titolo:"X Agosto",autore:"Giovanni Pascoli",anno:1896,datazione:"1896",luogo:"San Mauro Pascoli",tipologia:"Lirica",forma:"Quartine di decasillabi e novenari",soggetti:["lutto","stelle","famiglia"],licenza:"Pubblico dominio",verso:true,
+descrizione:"La notte di san Lorenzo e il pianto di stelle sull’uccisione del padre.",
+testo:`San Lorenzo, io lo so perché tanto
+di stelle per l'aria tranquilla
+arde e cade, perché sì gran pianto
+nel concavo cielo sfavilla.
+
+Ritornava una rondine al tetto:
+l'uccisero: cadde tra spini;
+ella aveva nel becco un insetto:
+la cena dei suoi rondinini.
+
+Ora è là, come in croce, che tende
+quel verme a quel cielo lontano;
+e il suo nido è nell'ombra, che attende,
+che pigola sempre più piano.
+
+Anche un uomo tornava al suo nido:
+l'uccisero: disse: Perdono;
+e restò negli aperti occhi un grido:
+portava due bambole in dono.
+
+Ora là, nella casa romita,
+lo aspettano, aspettano in vano:
+egli immobile, attonito, addita
+le bambole al cielo lontano.
+
+E tu, Cielo, dall'alto dei mondi
+sereni, infinito, immortale,
+oh! d'un pianto di stelle lo inondi
+quest'atomo opaco del Male!`}
+];
+
+const SCHEMA = [
+ {campo:"id",etichetta:"Identificativo",tipo:"Stringa",obbl:true,si:"tutti",vocab:"Schema OGG-0000, TXT-0000, CTB-0000",dc:"dc:identifier"},
+ {campo:"kind",etichetta:"Collezione",tipo:"Vocabolario chiuso",obbl:true,si:"tutti",vocab:"oggetto, testo",dc:"dcterms:isPartOf"},
+ {campo:"titolo",etichetta:"Titolo",tipo:"Stringa",obbl:true,si:"tutti",vocab:"Titolo proprio o attribuito",dc:"dc:title"},
+ {campo:"autore",etichetta:"Autore o ambito",tipo:"Stringa",obbl:false,si:"tutti",vocab:"Forma normalizzata, con identificativo VIAF quando disponibile",dc:"dc:creator"},
+ {campo:"anno",etichetta:"Anno di riferimento",tipo:"Intero",obbl:true,si:"tutti",vocab:"Anni negativi per le date a.C.",dc:"dc:date"},
+ {campo:"datazione",etichetta:"Datazione testuale",tipo:"Stringa",obbl:false,si:"tutti",vocab:"Formule di cronologia ICCD (es. metà del XV secolo)",dc:"dcterms:temporal"},
+ {campo:"luogo",etichetta:"Luogo",tipo:"Stringa + coordinate",obbl:false,si:"tutti",vocab:"Toponimo normalizzato, coordinate WGS84, GeoNames",dc:"dcterms:spatial"},
+ {campo:"tipologia",etichetta:"Tipologia o genere",tipo:"Vocabolario controllato",obbl:true,si:"tutti",vocab:"Thesaurus ICCD per gli oggetti, generi letterari per i testi",dc:"dc:type"},
+ {campo:"materia",etichetta:"Materia e tecnica",tipo:"Stringa",obbl:false,si:"oggetto",vocab:"Vocabolario ICCD materia e tecnica",dc:"dcterms:medium"},
+ {campo:"forma",etichetta:"Forma metrica o prosa",tipo:"Stringa",obbl:false,si:"testo",vocab:"Repertori metrici",dc:"dc:format"},
+ {campo:"dimensioni",etichetta:"Misure",tipo:"Stringa",obbl:false,si:"oggetto",vocab:"Unità del Sistema Internazionale",dc:"dcterms:extent"},
+ {campo:"soggetti",etichetta:"Soggetti",tipo:"Lista di stringhe",obbl:false,si:"tutti",vocab:"Nuovo soggettario BNCF",dc:"dc:subject"},
+ {campo:"conservazione",etichetta:"Stato di conservazione",tipo:"Vocabolario chiuso",obbl:false,si:"oggetto",vocab:"Buono, Discreto, Mediocre",dc:"non mappato"},
+ {campo:"licenza",etichetta:"Licenza",tipo:"Vocabolario chiuso",obbl:true,si:"tutti",vocab:"Pubblico dominio, CC0, CC BY, CC BY-SA",dc:"dc:rights"},
+ {campo:"descrizione",etichetta:"Descrizione",tipo:"Testo",obbl:true,si:"tutti",vocab:"Testo libero",dc:"dc:description"},
+ {campo:"testo",etichetta:"Testo integrale",tipo:"Testo lungo",obbl:true,si:"testo",vocab:"Trascrizione; codifica TEI raccomandata",dc:"tei:text"}
+];
+
+const TIPI_OGG = ["Arredo","Cartografia","Ceramica","Dipinto","Disegno","Documento d’archivio","Fotografia","Grafica","Manoscritto","Mosaico","Numismatica","Oreficeria","Scultura","Strumento scientifico","Tessile"];
+const TIPI_TXT = ["Lirica","Novella","Poema","Romanzo","Teatro","Trattato"];
+const LICENZE = ["Pubblico dominio","CC0 1.0","CC BY 4.0","CC BY-SA 4.0"];
+const STOP = new Set(("a ad al alla alle ai agli all anche ancor ben che ch chi ci co col coi come con così cui da dal dalla dalle dai de del dell della delle dei degli di e è ed egli ei el ella et fra fu gli i il in io l la le li lo lor loro ma me mi mio mia miei ne né nel nell nella nelle nei non o od or ora ove per più poi qual quale quando quanto quel quella quelle quelli quello quest questa queste questi questo s se sé si sì sia son sono su sua sue suo suoi tal tant tanto te ti tra tu tua tuo un una uno v vi vo voi d m t n sei è").split(" "));
+</script>
+<script>
+/* ---------- utilità ---------- */
+const $ = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => [...el.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm = s => String(s ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+const app = $("#app");
+const WORD_RE = /[A-Za-zÀ-ÖØ-öø-ÿ]+/g;
+
+function roman(n){const m=[[1000,"M"],[900,"CM"],[500,"D"],[400,"CD"],[100,"C"],[90,"XC"],[50,"L"],[40,"XL"],[10,"X"],[9,"IX"],[5,"V"],[4,"IV"],[1,"I"]];let r="";for(const[v,s]of m){while(n>=v){r+=s;n-=v}}return r}
+const secoloNum = a => a>0 ? Math.ceil(a/100) : -Math.ceil(-a/100);
+const secoloLabel = c => c>0 ? `${roman(c)} sec.` : `${roman(-c)} sec. a.C.`;
+const secoloLong = c => c>0 ? `${roman(c)} secolo` : `${roman(-c)} secolo a.C.`;
+
+function hl(text, q){
+  text = String(text ?? "");
+  if(!q || q.length<2) return esc(text);
+  const n = norm(text), nq = norm(q); let out="", i=0, j;
+  while((j = n.indexOf(nq, i)) > -1){ out += esc(text.slice(i,j)) + "<mark>" + esc(text.slice(j, j+nq.length)) + "</mark>"; i = j+nq.length; }
+  return out + esc(text.slice(i));
+}
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("on");clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove("on"),2600)}
+
+/* ---------- dati ---------- */
+const STORE = {mode:"local", db:null, user:null, myId:null, canWrite:true, isEditor:false, downloads:null, pending:null};
+function loadLocal(k){ try{ const v = JSON.parse(localStorage.getItem(k)||"[]"); return Array.isArray(v) ? v : [] }catch(e){ return [] } }
+function saveLocal(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true }catch(e){ return false } }
+let CONTRIB = loadLocal("scrinium-contributi");
+let LINKS_USER = loadLocal("scrinium-collegamenti");
+let RECORDS = [];
+function buildRecords(){
+  RECORDS = [
+    ...OGGETTI.map(o => ({...o, kind:"oggetto"})),
+    ...TESTI.map(t => ({...t, kind:"testo", testo:t.testo.normalize("NFC")})),
+    ...CONTRIB.map(c => ({...c, contributo:true}))
+  ].map(r => {
+    const c = LUOGHI[r.luogo];
+    return {...r, secolo: secoloNum(r.anno), lat: c ? c[0] : null, lon: c ? c[1] : null,
+      _search: norm([r.id,r.titolo,r.autore,r.tipologia,r.luogo,r.materia,r.forma,r.datazione,(r.soggetti||[]).join(" "),r.descrizione,r.testo].join(" "))};
+  });
+  if(typeof rebuildLinks==="function") rebuildLinks();
+}
+const byId = id => RECORDS.find(r => r.id === id);
+const collName = r => r.contributo ? "Contributo" : (r.kind==="testo" ? "Testi" : "Patrimonio");
+const kclass = r => r.contributo ? "k-contrib" : "k-"+r.kind;
+const kcolor = r => r.contributo ? "var(--contrib)" : (r.kind==="testo" ? "var(--lapis)" : "var(--verde)");
+
+/* ---------- miniature ---------- */
+function glyph(t){
+  const s = 'fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"';
+  const f = 'fill="currentColor"';
+  switch(t){
+    case "Ceramica": return `<circle cx="50" cy="50" r="38" ${s}/><circle cx="50" cy="50" r="25" ${s}/><circle cx="50" cy="50" r="10" ${f} opacity=".35"/>${[0,60,120,180,240,300].map(a=>`<ellipse cx="50" cy="19" rx="4" ry="6" ${f} opacity=".5" transform="rotate(${a} 50 50)"/>`).join("")}`;
+    case "Manoscritto": return `<path d="M12 28Q31 20 50 30Q69 20 88 28V78Q69 70 50 80Q31 70 12 78Z" ${s}/><path d="M50 30V80" ${s}/>${[38,46,54,62].map(y=>`<path d="M20 ${y}Q31 ${y-4} 43 ${y}M57 ${y}Q69 ${y-4} 80 ${y}" ${s} stroke-width="1.4"/>`).join("")}<rect x="20" y="30" width="10" height="10" ${f} opacity=".45"/>`;
+    case "Dipinto": return `<rect x="18" y="10" width="64" height="80" ${s}/><path d="M28 86V40Q28 22 50 20Q72 22 72 40V86Z" ${f} opacity=".22"/><circle cx="50" cy="38" r="7" ${s}/><path d="M38 80Q40 54 50 50Q60 54 62 80" ${s}/>`;
+    case "Strumento scientifico": return `<circle cx="50" cy="52" r="34" ${s}/><circle cx="50" cy="52" r="22" ${s} stroke-dasharray="3 4"/><path d="M50 18V86M16 52H84M26 28L74 76" ${s} stroke-width="1.4"/><circle cx="50" cy="12" r="5" ${s}/><circle cx="50" cy="52" r="3" ${f}/>`;
+    case "Scultura": return `<circle cx="50" cy="32" r="15" ${s}/><path d="M42 46V52Q24 56 22 84H78Q76 56 58 52V46" ${s}/><rect x="18" y="84" width="64" height="6" ${f} opacity=".4"/>`;
+    case "Mosaico": { let o=""; for(let i=0;i<7;i++)for(let j=0;j<7;j++){const op=((i*3+j*5)%7)/9+.15;o+=`<rect x="${15+i*10}" y="${15+j*10}" width="8" height="8" ${f} opacity="${op.toFixed(2)}"/>`} return o; }
+    case "Numismatica": return `<circle cx="50" cy="50" r="36" ${s}/><circle cx="50" cy="50" r="29" ${s} stroke-dasharray="1.5 3.5"/><path d="M42 66V40Q50 32 58 40V66M38 66H62" ${s}/><circle cx="50" cy="30" r="3" ${f}/>`;
+    case "Tessile": return `${[[30,30],[70,30],[50,62],[30,90],[70,90]].map(([x,y])=>`<path d="M${x} ${y-14}Q${x+13} ${y-8} ${x+9} ${y+6}Q${x} ${y+14} ${x-9} ${y+6}Q${x-13} ${y-8} ${x} ${y-14}Z" ${s}/><circle cx="${x}" cy="${y}" r="3" ${f}/>`).join("")}`;
+    case "Cartografia": return `${Array.from({length:16},(_,i)=>{const a=i*Math.PI/8;return `<path d="M50 50L${(50+46*Math.cos(a)).toFixed(1)} ${(50+46*Math.sin(a)).toFixed(1)}" ${s} stroke-width=".9"/>`}).join("")}<path d="M8 70Q24 60 34 68T58 64T92 74" ${s}/><circle cx="50" cy="50" r="8" ${f} opacity=".5"/>`;
+    case "Disegno": return `<path d="M30 86Q32 60 44 48Q38 36 46 24Q56 18 60 30Q62 42 54 48Q66 58 70 86" ${s}/><path d="M24 70L36 62M66 64L78 70M40 30L44 26" ${s} stroke-width="1.2"/>`;
+    case "Fotografia": return `<rect x="12" y="20" width="76" height="60" ${s}/><path d="M12 62Q30 54 44 60T88 56" ${s}/><circle cx="66" cy="38" r="7" ${f} opacity=".5"/><path d="M28 60V40L34 60M52 58V36L60 58" ${s} stroke-width="1.4"/>`;
+    case "Grafica": return `<rect x="20" y="10" width="60" height="80" ${s}/><circle cx="50" cy="42" r="16" ${f} opacity=".3"/><path d="M28 72H72M32 80H68" ${s}/>`;
+    case "Oreficeria": return `<circle cx="50" cy="54" r="32" ${s}/><circle cx="50" cy="54" r="26" ${f} opacity=".18"/><path d="M50 54V36M50 54L62 60" ${s}/><circle cx="50" cy="16" r="5" ${s}/>`;
+    case "Arredo": return `<path d="M10 90L38 52H62L90 90M38 52V20H62V52M10 90V10H90V90" ${s}/><path d="M50 20V52M38 36H62" ${s} stroke-width="1.2"/>`;
+    case "Documento d’archivio": return `<path d="M24 12H64L78 26V88H24Z" ${s}/><path d="M64 12V26H78" ${s}/>${[38,46,54,62,70].map(y=>`<path d="M32 ${y}H70" ${s} stroke-width="1.3"/>`).join("")}`;
+    default: return `<rect x="20" y="20" width="60" height="60" ${s}/><path d="M20 20L80 80M80 20L20 80" ${s} stroke-width="1"/>`;
+  }
+}
+function firstLine(t){ return (t||"").split("\n").find(l=>l.trim()) || "" }
+function thumb(r){
+  if(r.kind === "testo"){
+    let l = firstLine(r.testo); if(l.length>90) l = l.slice(0,88).replace(/\s\S*$/,"")+"…";
+    return `<div class="incipit ${kclass(r)}"><span>${esc(l)}</span></div>`;
+  }
+  return `<div class="thumb-svg ${kclass(r)}"><svg viewBox="0 0 100 100" aria-hidden="true">${glyph(r.tipologia)}</svg></div>`;
+}
+
+/* ---------- testo: token e statistiche ---------- */
+function wordsWithPos(text){ const out=[]; let m; WORD_RE.lastIndex=0; while((m=WORD_RE.exec(text))){ out.push({w:m[0].toLowerCase(), s:m.index, e:m.index+m[0].length}) } return out }
+function textStats(text){ const w = wordsWithPos(text).map(x=>x.w); const types = new Set(w); return {tokens:w.length, types:types.size, ttr: w.length? types.size/w.length : 0} }
+function freq(texts, excludeStop=true){
+  const m = new Map();
+  texts.forEach(t => wordsWithPos(t).forEach(({w}) => { if(excludeStop && (STOP.has(w) || w.length<3)) return; m.set(w,(m.get(w)||0)+1) }));
+  return [...m.entries()].sort((a,b)=>b[1]-a[1] || a[0].localeCompare(b[0],"it"));
+}
+function kwic(term, mode="inizia", width=7){
+  const nt = norm(term).trim(); if(nt.length<2) return [];
+  const rows = [];
+  RECORDS.filter(r=>r.kind==="testo").forEach(r => {
+    const ws = wordsWithPos(r.testo);
+    ws.forEach((x,i) => {
+      const nw = norm(x.w);
+      const ok = mode==="esatta" ? nw===nt : mode==="contiene" ? nw.includes(nt) : nw.startsWith(nt);
+      if(!ok) return;
+      const a = ws[Math.max(0,i-width)], b = ws[Math.min(ws.length-1,i+width)];
+      rows.push({r, left:r.testo.slice(a.s, x.s).replace(/\s+/g," "), key:r.testo.slice(x.s,x.e), right:r.testo.slice(x.e, b.e).replace(/\s+/g," ")});
+    });
+  });
+  return rows;
+}
+
+/* ---------- filtri del catalogo ---------- */
+const FACETS = [
+  {key:"kind", label:"Collezione", get:r=>[r.contributo?"contributo":r.kind], fmt:v=>({oggetto:"Patrimonio culturale",testo:"Testi letterari",contributo:"Contributi"}[v]||v)},
+  {key:"tipologia", label:"Tipologia o genere", get:r=>[r.tipologia]},
+  {key:"secolo", label:"Secolo", get:r=>[String(r.secolo)], fmt:v=>secoloLong(+v), sort:(a,b)=>(+a[0])-(+b[0])},
+  {key:"luogo", label:"Luogo", get:r=>r.luogo?[r.luogo]:[]},
+  {key:"soggetto", label:"Soggetto", get:r=>r.soggetti||[]},
+  {key:"collegamenti", label:"Collegamenti", get:r=>[r.nLinks?"con":"senza"], fmt:v=>v==="con"?"Con collegamenti":"Senza collegamenti"},
+  {key:"licenza", label:"Licenza", get:r=>[r.licenza]}
+];
+const F = {q:"", da:"", a:"", sort:"rilevanza", view:"schede"};
+FACETS.forEach(f => F[f.key] = new Set());
+
+function applyParams(p){
+  F.q = p.get("q")||""; F.da = p.get("da")||""; F.a = p.get("a")||"";
+  F.sort = p.get("ordina")||"rilevanza"; F.view = p.get("vista")||"schede";
+  FACETS.forEach(f => { F[f.key] = new Set((p.get(f.key)||"").split("|").filter(Boolean)) });
+}
+function paramsString(){
+  const p = new URLSearchParams();
+  if(F.q) p.set("q",F.q);
+  FACETS.forEach(f => { if(F[f.key].size) p.set(f.key,[...F[f.key]].join("|")) });
+  if(F.da!=="") p.set("da",F.da); if(F.a!=="") p.set("a",F.a);
+  if(F.sort!=="rilevanza") p.set("ordina",F.sort); if(F.view!=="schede") p.set("vista",F.view);
+  return p.toString();
+}
+function catLink(obj){ const p=new URLSearchParams(); Object.entries(obj).forEach(([k,v])=>p.set(k,v)); return "#/catalogo?"+p.toString() }
+
+function matches(r, skip){
+  if(F.q){ const terms = norm(F.q).split(/\s+/).filter(Boolean); if(!terms.every(t => r._search.includes(t))) return false; }
+  if(F.da!=="" && r.anno < +F.da) return false;
+  if(F.a!=="" && r.anno > +F.a) return false;
+  for(const f of FACETS){ if(f.key===skip || !F[f.key].size) continue; if(!f.get(r).some(v => F[f.key].has(v))) return false; }
+  return true;
+}
+function score(r){
+  if(!F.q) return 0; const t = norm(F.q); let s = 0;
+  if(norm(r.titolo).includes(t)) s+=10; if(norm(r.autore).includes(t)) s+=6;
+  if((r.soggetti||[]).some(x=>norm(x).includes(t))) s+=5;
+  s += r._search.split(t).length-1; return s;
+}
+function filtered(){
+  const list = RECORDS.filter(r => matches(r));
+  const cmp = {
+    rilevanza:(a,b)=>score(b)-score(a) || a.anno-b.anno,
+    "anno-cresc":(a,b)=>a.anno-b.anno,
+    "anno-decr":(a,b)=>b.anno-a.anno,
+    titolo:(a,b)=>a.titolo.localeCompare(b.titolo,"it")
+  }[F.sort] || ((a,b)=>a.anno-b.anno);
+  return list.sort(cmp);
+}
+
+/* ---------- componenti di visualizzazione ---------- */
+function barsHTML(items, {max, href, onclick}={}){
+  const m = max || Math.max(1,...items.map(i=>i.total ?? i.value));
+  return `<div class="bars">${items.map(i => {
+    const segs = i.parts ? i.parts.map(p=>`<i style="width:${(p.v/m*100).toFixed(2)}%;background:${p.c}"></i>`).join("") : `<i style="width:${(i.value/m*100).toFixed(2)}%;background:${i.color||"var(--ink)"}"></i>`;
+    const tip = esc(i.tip || `${i.label}: ${i.total ?? i.value}`);
+    const inner = `<span class="lab">${esc(i.label)}</span><span class="track">${segs}</span><span class="v">${i.total ?? i.value}</span>`;
+    return i.href ? `<a class="bar" href="${i.href}" data-tip="${tip}">${inner}</a>` : i.action ? `<button type="button" class="bar" data-act="${esc(i.action)}" data-tip="${tip}">${inner}</button>` : `<div class="bar" data-tip="${tip}">${inner}</div>`;
+  }).join("")}</div>`;
+}
+
+function timelineSVG(recs, {compact=false}={}){
+  const W=1000, H = compact ? 150 : 250, X0=170, X1=975, Y0=1200, Y1=1950;
+  const sx = a => a < 1200 ? 28 + Math.max(0,Math.min(1,(a+1000)/2200))*100 : X0 + (a-Y0)/(Y1-Y0)*(X1-X0);
+  const lanes = compact ? {oggetto:52, testo:104} : {oggetto:86, testo:178};
+  const axisY = H-26;
+  let g = `<line class="axis" x1="20" x2="${X1}" y1="${axisY}" y2="${axisY}"/>`;
+  g += `<line class="axis" x1="${X0-22}" x2="${X0-22}" y1="10" y2="${axisY+6}" stroke-dasharray="3 4"/>`;
+  g += `<text x="78" y="${axisY+20}" font-size="13" text-anchor="middle">prima del 1200</text>`;
+  for(let y=1200;y<=1900;y+=100){ const x=sx(y); g += `<line class="axis" x1="${x}" x2="${x}" y1="${axisY}" y2="${axisY+6}"/><text x="${x}" y="${axisY+20}" font-size="13" text-anchor="middle">${y}</text>`; }
+  if(!compact){ g += `<text x="${X0}" y="${lanes.oggetto-44}" font-size="14">Patrimonio culturale</text><text x="${X0}" y="${lanes.testo-44}" font-size="14">Testi letterari</text>`; }
+  const buckets = {};
+  [...recs].sort((a,b)=>a.anno-b.anno).forEach(r => {
+    const x = sx(r.anno), lane = lanes[r.kind]||lanes.oggetto, key = r.kind+":"+Math.round(x/9);
+    const k = buckets[key] = (buckets[key]||0)+1;
+    const off = Math.ceil((k-1)/2)*11*((k-1)%2 ? -1 : 1);
+    const tip = esc(`${r.titolo} (${r.datazione||r.anno})`);
+    g += `<a href="#/record/${r.id}" aria-label="${tip}"><circle cx="${x.toFixed(1)}" cy="${lane+off}" r="${compact?5:6.5}" fill="${kcolor(r)}" data-tip="${tip}"/></a>`;
+  });
+  return `<svg class="viz-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Cronologia dei record">${g}</svg>`;
+}
+
+const ITALIA = [[7.5,43.8],[6.9,44.4],[6.8,45.1],[7.0,45.9],[8.4,46.4],[9.0,46.0],[9.5,46.5],[10.4,46.6],[11.0,46.8],[12.2,47.05],[13.7,46.5],[13.6,45.8],[13.8,45.6],[13.1,45.7],[12.3,45.4],[12.3,44.9],[12.3,44.2],[13.6,43.6],[14.2,42.5],[15.0,42.0],[16.0,41.9],[15.9,41.5],[16.9,41.1],[18.0,40.6],[18.5,40.1],[18.4,39.8],[17.2,40.4],[16.5,39.7],[17.1,39.0],[16.5,38.4],[15.7,37.95],[15.9,38.6],[16.1,38.9],[15.7,39.9],[15.0,40.2],[14.4,40.6],[14.2,40.8],[13.6,41.2],[12.5,41.6],[12.2,41.8],[11.1,42.4],[10.5,43.0],[10.3,43.6],[10.0,44.0],[9.3,44.3],[8.9,44.4],[8.2,43.9]];
+const SICILIA = [[12.4,37.8],[13.3,38.2],[14.5,38.0],[15.6,38.3],[15.1,37.5],[15.3,37.0],[15.1,36.7],[14.3,37.0],[13.0,37.5]];
+const SARDEGNA = [[8.2,41.0],[9.2,41.25],[9.8,40.9],[9.7,40.0],[9.6,39.2],[9.0,39.1],[8.4,38.9],[8.4,39.6],[8.5,40.4]];
+const proj = (lat,lon) => [ (lon-6.4)*37.2+8, (47.3-lat)*50+8 ];
+const poly = pts => "M"+pts.map(([lo,la])=>proj(la,lo).map(n=>n.toFixed(1)).join(" ")).join("L")+"Z";
+
+function mapSVG(recs, {highlight=null, small=false}={}){
+  const groups = {};
+  recs.forEach(r => { if(r.lat==null) return; (groups[r.luogo] ||= {lat:r.lat, lon:r.lon, o:0, t:0, c:0}); const g=groups[r.luogo]; if(r.contributo) g.c++; else if(r.kind==="testo") g.t++; else g.o++; });
+  let g = `<path class="land" d="${poly(ITALIA)}"/><path class="land" d="${poly(SICILIA)}"/><path class="land" d="${poly(SARDEGNA)}"/>`;
+  Object.entries(groups).sort((a,b)=>(b[1].o+b[1].t+b[1].c)-(a[1].o+a[1].t+a[1].c)).forEach(([name,d]) => {
+    const [x,y] = proj(d.lat,d.lon), tot = d.o+d.t+d.c;
+    const r = small ? 7 : 5 + Math.sqrt(tot)*5.5;
+    const dim = highlight && highlight!==name;
+    const parts = [{v:d.o,c:"var(--verde)"},{v:d.t,c:"var(--lapis)"},{v:d.c,c:"var(--contrib)"}].filter(p=>p.v);
+    let a = -Math.PI/2, shapes = "";
+    parts.forEach(p => {
+      if(p.v===tot){ shapes += `<circle cx="${x}" cy="${y}" r="${r}" fill="${p.c}"/>`; return; }
+      const a2 = a + p.v/tot*Math.PI*2;
+      shapes += `<path d="M${x} ${y}L${(x+r*Math.cos(a)).toFixed(2)} ${(y+r*Math.sin(a)).toFixed(2)}A${r} ${r} 0 ${a2-a>Math.PI?1:0} 1 ${(x+r*Math.cos(a2)).toFixed(2)} ${(y+r*Math.sin(a2)).toFixed(2)}Z" fill="${p.c}"/>`;
+      a = a2;
+    });
+    const tip = esc(`${name}: ${d.o} oggetti, ${d.t} testi${d.c?`, ${d.c} contributi`:""}`);
+    g += `<a href="${catLink({luogo:name})}" opacity="${dim?.25:1}" aria-label="${tip}"><g data-tip="${tip}" stroke="var(--surface)" stroke-width="1.5">${shapes}</g></a>`;
+    if(!small || name===highlight) g += `<text x="${x + r + 4}" y="${y+4}" font-size="${small?16:12}" style="fill:var(--ink)" opacity="${dim?.3:.85}">${esc(name)}</text>`;
+  });
+  return `<svg class="viz-svg" viewBox="0 0 470 560" role="img" aria-label="Mappa dei luoghi">${g}</svg>`;
+}
+
+function centuryHist(recs){
+  const m = new Map(); recs.forEach(r => { const k=r.secolo; const o=m.get(k)||{o:0,t:0,c:0}; if(r.contributo) o.c++; else if(r.kind==="testo") o.t++; else o.o++; m.set(k,o) });
+  const keys = [...m.keys()].sort((a,b)=>a-b); if(!keys.length) return "";
+  const max = Math.max(...[...m.values()].map(v=>v.o+v.t+v.c));
+  const cols = keys.map(k => { const v=m.get(k), tot=v.o+v.t+v.c, on=F.secolo.has(String(k));
+    return `<button type="button" data-sec="${k}" aria-pressed="${on}" data-tip="${esc(secoloLong(k))}: ${tot} record" aria-label="${esc(secoloLong(k))}, ${tot} record">
+      <i class="seg-o" style="height:${v.o/max*100}%"></i><i class="seg-t" style="height:${v.t/max*100}%"></i><i class="seg-c" style="height:${v.c/max*100}%"></i></button>` }).join("");
+  const labels = keys.map(k=>`<span>${k>0?roman(k):roman(-k)+" a.C."}</span>`).join("");
+  return `<div class="hist" role="group" aria-label="Distribuzione per secolo, tocca una colonna per filtrare">${cols}</div><div class="hist-labels" aria-hidden="true">${labels}</div>`;
+}
+
+/* ---------- pagine ---------- */
+function pageHome(){
+  const verseTexts = TESTI.filter(t=>t.verso);
+  const t = verseTexts[Math.floor(Math.random()*verseTexts.length)];
+  const lines = t.testo.split("\n").filter(l=>l.trim()).slice(0,3);
+  const linked = lines.map(l => { let out="", i=0; l.replace(WORD_RE, (w, idx) => { out += esc(l.slice(i, idx)) + `<a class="w" href="${catLink({q:w.toLowerCase()})}">${esc(w)}</a>`; i = idx + w.length; return w }); return out + esc(l.slice(i)) }).join("<br>");
+  const nO = RECORDS.filter(r=>r.kind==="oggetto").length, nT = RECORDS.filter(r=>r.kind==="testo").length;
+  app.innerHTML = `
+  <section class="hero">
+    <div class="verse">
+      <p class="lines">${linked}</p>
+      <p class="attr">${esc(t.autore)}, <a href="#/record/${t.id}">${esc(t.titolo)}</a></p>
+      <p class="how">Ogni parola dei versi apre una ricerca nel catalogo: tra i testi integrali, i titoli e le descrizioni degli oggetti.</p>
+    </div>
+    <div class="hero-side">
+      <h1>Oggetti e testi in un unico catalogo</h1>
+      <p class="muted">Schede di beni culturali e opere letterarie in testo integrale, descritte con gli stessi metadati e consultabili per tempo, luogo, tipologia e parole.</p>
+      <form class="bigsearch" id="homeSearch" role="search">
+        <label class="sr" for="hq">Cerca nel catalogo</label>
+        <input id="hq" type="search" placeholder="Cerca un oggetto, un autore, una parola" autocomplete="off">
+        <button class="btn" type="submit">Cerca</button>
+      </form>
+      <div class="colls">
+        <a class="coll-entry k-oggetto" href="${catLink({kind:"oggetto"})}"><span class="n">${nO}</span><strong>Patrimonio culturale</strong><span>Ceramiche, codici, strumenti, dipinti, fotografie</span></a>
+        <a class="coll-entry k-testo" href="${catLink({kind:"testo"})}"><span class="n">${nT}</span><strong>Testi letterari</strong><span>Poemi, liriche e prose in testo integrale</span></a>
+      </div>
+    </div>
+  </section>
+  <section class="strata">
+    <div class="strata-head"><h2>La raccolta nel tempo</h2><span class="legend"><span class="coll k-oggetto">Patrimonio</span><span class="coll k-testo">Testi</span>${CONTRIB.length?'<span class="coll k-contrib">Contributi</span>':""}</span></div>
+    <p class="muted small">Ogni punto è un record: selezionalo per aprire la scheda.</p>
+    ${timelineSVG(RECORDS,{compact:true})}
+  </section>
+  <section class="paths">
+    <a href="#/catalogo"><strong>Cerca e filtra</strong><span>Ricerca libera nei metadati e nel testo integrale, con filtri per collezione, secolo, luogo e licenza.</span></a>
+    <a href="#/esplora"><strong>Esplora con le visualizzazioni</strong><span>Cronologia, mappa, tipologie, lessico, concordanze e rete dei collegamenti tra testi e oggetti.</span></a>
+    <a href="#/dataset"><strong>Consulta il dataset</strong><span>Struttura dei campi, vocabolari, completezza ed esportazione in CSV, JSON e RDF.</span></a>
+    <a href="#/contribuisci"><strong>Aggiungi una scheda</strong><span>Descrivi un oggetto o trascrivi un testo con il modulo guidato.</span></a>
+  </section>`;
+  $("#homeSearch").addEventListener("submit", e => { e.preventDefault(); location.hash = catLink({q:$("#hq").value.trim()}) });
+}
+
+function pageCatalogo(params){
+  applyParams(params);
+  app.innerHTML = `
+  <div class="page">
+    <div class="cat-head">
+      <div><h1>Catalogo</h1><p class="muted" style="margin:0">Cerca nei metadati e nel testo integrale delle opere. I filtri si combinano tra loro.</p></div>
+      <div class="cat-search" role="search"><label class="sr" for="cq">Cerca</label><input id="cq" type="search" placeholder="Cerca per parola, autore, luogo" value="${esc(F.q)}" autocomplete="off"></div>
+    </div>
+    <div class="cat-grid">
+      <aside class="facets" id="facets" aria-label="Filtri">
+        <div class="facet"><h3>Intervallo di anni</h3>
+          <div class="range"><label class="sr" for="fda">Dall’anno</label><input id="fda" type="number" placeholder="da" value="${esc(F.da)}"><span class="muted">a</span><label class="sr" for="fa">All’anno</label><input id="fa" type="number" placeholder="a" value="${esc(F.a)}"></div>
+          <p class="small muted" style="margin:6px 0 0">Usa numeri negativi per le date a.C.</p>
+        </div>
+        <div id="facetList"></div>
+      </aside>
+      <section aria-live="polite">
+        <button class="btn ghost small filter-toggle" id="ftoggle" type="button" aria-controls="facets" aria-expanded="false" style="margin-bottom:14px">Mostra i filtri</button>
+        <div id="catBody"></div>
+      </section>
+    </div>
+  </div>`;
+  let deb;
+  $("#cq").addEventListener("input", e => { clearTimeout(deb); deb=setTimeout(()=>{ F.q=e.target.value.trim(); updateCatalog() },180) });
+  $("#fda").addEventListener("change", e => { F.da=e.target.value; updateCatalog() });
+  $("#fa").addEventListener("change", e => { F.a=e.target.value; updateCatalog() });
+  $("#ftoggle").addEventListener("click", e => { const o=$("#facets").classList.toggle("open"); e.target.setAttribute("aria-expanded",o); e.target.textContent = o?"Nascondi i filtri":"Mostra i filtri" });
+  $("#facetList").addEventListener("change", e => { const c=e.target.closest("input[data-facet]"); if(!c) return; const s=F[c.dataset.facet]; c.checked ? s.add(c.dataset.value) : s.delete(c.dataset.value); updateCatalog() });
+  $("#catBody").addEventListener("click", e => {
+    const chip = e.target.closest("[data-chip]"); if(chip){ const [k,v]=chip.dataset.chip.split("::"); if(k==="q"){F.q="";$("#cq").value=""} else if(k==="da"){F.da="";$("#fda").value=""} else if(k==="a"){F.a="";$("#fa").value=""} else F[k].delete(v); updateCatalog(); return; }
+    if(e.target.closest("[data-clear]")){ FACETS.forEach(f=>F[f.key].clear()); F.q="";F.da="";F.a=""; $("#cq").value="";$("#fda").value="";$("#fa").value=""; updateCatalog(); return; }
+    const sec = e.target.closest("[data-sec]"); if(sec){ const v=sec.dataset.sec; F.secolo.has(v)?F.secolo.delete(v):F.secolo.add(v); updateCatalog(); return; }
+    const vw = e.target.closest("[data-view]"); if(vw){ F.view=vw.dataset.view; updateCatalog(); }
+  });
+  $("#catBody").addEventListener("change", e => { if(e.target.id==="csort"){ F.sort=e.target.value; updateCatalog() } });
+  updateCatalog(true);
+}
+
+function updateCatalog(initial){
+  if(!initial){ try{ history.replaceState(null,"","#/catalogo"+(paramsString()?"?"+paramsString():"")) }catch(e){} }
+  // facet
+  $("#facetList").innerHTML = FACETS.map(f => {
+    const counts = new Map();
+    RECORDS.forEach(r => { if(!matches(r, f.key)) return; f.get(r).forEach(v => counts.set(v,(counts.get(v)||0)+1)) });
+    F[f.key].forEach(v => { if(!counts.has(v)) counts.set(v,0) });
+    let entries = [...counts.entries()];
+    entries.sort(f.sort || ((a,b)=>b[1]-a[1] || String(a[0]).localeCompare(String(b[0]),"it")));
+    if(!entries.length) return "";
+    return `<div class="facet"><h3>${f.label}</h3><ul>${entries.map(([v,n]) => `<li><label class="${n?"":"zero"}"><input type="checkbox" data-facet="${f.key}" data-value="${esc(v)}" ${F[f.key].has(v)?"checked":""}>${esc(f.fmt?f.fmt(v):v)}<span class="ct">${n}</span></label></li>`).join("")}</ul></div>`;
+  }).join("");
+  // risultati
+  const list = filtered();
+  const chips = [];
+  if(F.q) chips.push([`q::`, "Ricerca", F.q]);
+  FACETS.forEach(f => F[f.key].forEach(v => chips.push([`${f.key}::${v}`, f.label, f.fmt?f.fmt(v):v])));
+  if(F.da!=="") chips.push(["da::","Dal",F.da]); if(F.a!=="") chips.push(["a::","Al",F.a]);
+  const nActive = chips.length;
+  $("#ftoggle").textContent = $("#facets").classList.contains("open") ? "Nascondi i filtri" : `Mostra i filtri${nActive?` (${nActive} attivi)`:""}`;
+  const body = $("#catBody");
+  let res;
+  if(!list.length){
+    res = `<div class="empty"><h3>Nessun record corrisponde a questa combinazione</h3><p class="muted">Togli uno dei filtri attivi oppure prova una parola più breve: la ricerca trova anche parti di parola.</p><button class="btn ghost small" data-clear type="button">Azzera ricerca e filtri</button></div>`;
+  } else if(F.view==="elenco"){
+    res = `<div class="scroll-x"><table class="data"><thead><tr><th>Titolo</th><th>Collezione</th><th>Tipologia</th><th>Autore o ambito</th><th>Datazione</th><th>Luogo</th></tr></thead><tbody>${list.map(r=>`<tr><td><a href="#/record/${r.id}">${hl(r.titolo,F.q)}</a></td><td><span class="coll ${kclass(r)}">${collName(r)}</span></td><td>${esc(r.tipologia)}</td><td>${esc(r.autore||"non identificato")}</td><td>${esc(r.datazione||r.anno)}</td><td>${esc(r.luogo||"")}</td></tr>`).join("")}</tbody></table></div>`;
+  } else {
+    res = `<div class="grid-cards">${list.map(r => {
+      let snip = "";
+      if(F.q && r.kind==="testo"){ const n=norm(r.testo), i=n.indexOf(norm(F.q).split(/\s+/)[0]); if(i>-1){ const s=Math.max(0,i-50), e=Math.min(r.testo.length,i+70); snip = `<p class="snip">${s>0?"…":""}${hl(r.testo.slice(s,e).replace(/\n/g," / "),F.q.split(/\s+/)[0])}${e<r.testo.length?"…":""}</p>` } }
+      return `<article class="card"><a href="#/record/${r.id}" class="thumb" tabindex="-1" aria-hidden="true">${thumb(r)}</a>
+        <span class="coll ${kclass(r)}">${collName(r)}, ${esc(r.tipologia)}</span>
+        <h3><a href="#/record/${r.id}">${hl(r.titolo,F.q)}</a></h3>
+        <p>${hl(r.autore||"Autore non identificato",F.q)}</p><p>${esc(r.datazione||r.anno)}${r.luogo?", "+esc(r.luogo):""}</p>${r.nLinks?`<p class="lk">${r.nLinks} ${r.nLinks===1?"collegamento":"collegamenti"}</p>`:""}${snip}</article>`;
+    }).join("")}</div>`;
+  }
+  body.innerHTML = `
+    <div class="results-bar">
+      <span class="count">${list.length} ${list.length===1?"record":"record"} su ${RECORDS.length}</span>
+      <div class="ctrls">
+        <label class="sr" for="csort">Ordina</label>
+        <select id="csort">${[["rilevanza","Più pertinenti"],["anno-cresc","Dal più antico"],["anno-decr","Dal più recente"],["titolo","Per titolo"]].map(([v,l])=>`<option value="${v}" ${F.sort===v?"selected":""}>${l}</option>`).join("")}</select>
+        <span class="seg" role="group" aria-label="Vista"><button type="button" data-view="schede" aria-pressed="${F.view!=="elenco"}">Schede</button><button type="button" data-view="elenco" aria-pressed="${F.view==="elenco"}">Elenco</button></span>
+      </div>
+    </div>
+    ${nActive?`<div class="chips">${chips.map(([k,l,v])=>`<button type="button" class="chip" data-chip="${esc(k)}" aria-label="Rimuovi filtro ${esc(l)} ${esc(v)}"><b>${esc(l)}</b> ${esc(v)} ✕</button>`).join("")}<button type="button" class="chip" data-clear>Azzera tutto</button></div>`:""}
+    ${list.length?centuryHist(list):""}
+    ${res}`;
+}
+
+function metaRow(label, val){ return val ? `<dt>${label}</dt><dd>${val}</dd>` : "" }
+function citation(r){ return `${r.autore?esc(r.autore)+", ":""}<i>${esc(r.titolo)}</i>, ${esc(r.datazione||r.anno)}. Scrinium, catalogo di patrimonio e testi, record ${esc(r.id)}, ${esc(r.licenza)}.` }
+function relatedHTML(r){
+  const rel = RECORDS.filter(x => x.id!==r.id).map(x => ({x, s:(x.tipologia===r.tipologia?3:0)+(x.luogo===r.luogo?2:0)+(x.secolo===r.secolo?2:0)+(x.soggetti||[]).filter(s=>(r.soggetti||[]).includes(s)).length*3})).filter(o=>o.s>0).sort((a,b)=>b.s-a.s).slice(0,4).map(o=>o.x);
+  if(!rel.length) return "";
+  return `<section class="related"><h2>Record collegati</h2><p class="muted small">Condividono tipologia, luogo, secolo o soggetti.</p><div class="grid-cards">${rel.map(x=>`<article class="card"><a href="#/record/${x.id}" class="thumb" tabindex="-1" aria-hidden="true">${thumb(x)}</a><span class="coll ${kclass(x)}">${collName(x)}</span><h3><a href="#/record/${x.id}">${esc(x.titolo)}</a></h3><p>${esc(x.datazione||x.anno)}${x.luogo?", "+esc(x.luogo):""}</p></article>`).join("")}</div></section>`;
+}
+
+function pageRecord(id, params){
+  const r = byId(id);
+  if(!r){ app.innerHTML = `<div class="page empty"><h3>Questo record non esiste o è stato rimosso</h3><p><a href="#/catalogo">Torna al catalogo</a></p></div>`; return; }
+  const tags = (r.soggetti||[]).map(s=>`<a class="tag" href="${catLink({soggetto:s})}">${esc(s)}</a>`).join("");
+  const crumbs = `<nav class="crumbs" aria-label="Percorso"><a href="#/catalogo">Catalogo</a> / <a href="${catLink({kind:r.contributo?"contributo":r.kind})}">${collName(r)}</a> / ${esc(r.id)}</nav>`;
+  if(r.kind==="testo") return pageReader(r, crumbs, tags, params);
+  app.innerHTML = `<div class="page">${crumbs}
+    <div class="rec">
+      <div>
+        <div class="thumb">${thumb(r)}</div>
+        <p class="small muted" style="margin-top:8px">Immagine segnaposto: nel template la miniatura è generata dalla tipologia.</p>
+        ${r.lat!=null?`<div style="max-width:300px;margin-top:20px">${mapSVG(RECORDS,{highlight:r.luogo, small:true})}</div>`:""}
+      </div>
+      <div>
+        <span class="coll ${kclass(r)}">${collName(r)}, ${esc(r.tipologia)}</span>
+        <h1>${esc(r.titolo)}</h1>
+        <p class="muted">${esc(r.autore||"Autore non identificato")}, ${esc(r.datazione||r.anno)}</p>
+        <p class="desc">${esc(r.descrizione)}</p>
+        <dl class="meta">
+          ${metaRow("Identificativo", esc(r.id))}
+          ${metaRow("Tipologia", `<a href="${catLink({tipologia:r.tipologia})}">${esc(r.tipologia)}</a>`)}
+          ${metaRow("Autore o ambito", r.autore?`<a href="${catLink({q:r.autore})}">${esc(r.autore)}</a>`:"")}
+          ${metaRow("Datazione", `${esc(r.datazione||"")} <span class="muted">(${esc(secoloLong(r.secolo))})</span>`)}
+          ${metaRow("Luogo", r.luogo?`<a href="${catLink({luogo:r.luogo})}">${esc(r.luogo)}</a>`:"")}
+          ${metaRow("Materia e tecnica", esc(r.materia))}
+          ${metaRow("Misure", esc(r.dimensioni))}
+          ${metaRow("Stato di conservazione", esc(r.conservazione))}
+          ${metaRow("Licenza", `<a href="${catLink({licenza:r.licenza})}">${esc(r.licenza)}</a>`)}
+        </dl>
+        ${tags?`<h3 style="font-family:var(--sans);font-size:1rem">Soggetti</h3><div class="tags">${tags}</div>`:""}
+        <h3 style="font-family:var(--sans);font-size:1rem;margin-top:24px">Come citare</h3>
+        <div class="cite">${citation(r)}</div>
+        ${rdfDetailsHTML(r)}
+      </div>
+    </div>
+    ${linksSectionHTML(r)}
+    ${relatedHTML(r)}
+  </div>`;
+  wireLinks(r);
+}
+function rdfDetailsHTML(r){
+  return `<details class="rdf"><summary>Dati RDF della scheda</summary><p class="small muted">Profilo CIDOC-CRM${r.kind==="testo"?" e LRMoo":""}, formato Turtle. Il dataset completo si esporta dalla pagina <a href="#/dataset">Dataset</a>.</p><pre>${esc(toTurtle(buildGraph("crm",[r],linksOf(r.id))))}</pre></details>`;
+}
+
+function readerBody(r, q){
+  const ann = !(q && q.length>1) && typeof annotateHTML==="function";
+  const src = ann ? annotateHTML(r) : r.testo, fmt = s => ann ? s : hl(s,q);
+  if(!r.verso) return src.split(/\n\s*\n/).map(p=>`<p class="prose">${fmt(p)}</p>`).join("");
+  let n=0;
+  return src.split("\n").map(l => l.trim()==="" ? `<div class="stanza"></div>` : `<div class="ln"><i>${(++n)%3===0||n===1?n:""}</i><span>${fmt(l)}</span></div>`).join("");
+}
+function pageReader(r, crumbs, tags, params){
+  const st = textStats(r.testo);
+  const top = freq([r.testo]).slice(0,10);
+  const q0 = params.get("q")||"";
+  app.innerHTML = `<div class="page">${crumbs}
+    <span class="coll ${kclass(r)}">${collName(r)}, ${esc(r.tipologia)}</span>
+    <h1>${esc(r.titolo)}</h1>
+    <p class="muted">${esc(r.autore)}, ${esc(r.datazione)}</p>
+    ${linksOf(r.id).some(l=>l.passo)?`<p class="small muted">I passi <span class="anno" style="pointer-events:none">sottolineati</span> rimandano agli oggetti collegati.</p>`:""}
+    <div class="reader-grid">
+      <div>
+        <div class="reader-tools">
+          <label class="sr" for="rq">Cerca nel testo</label>
+          <input id="rq" type="search" placeholder="Cerca nel testo" value="${esc(q0)}">
+          <span class="found" id="rfound"></span>
+          ${r.verso?`<label style="font-weight:400;display:flex;gap:6px;align-items:center"><input type="checkbox" id="rnum" checked> Numeri di verso</label>`:""}
+        </div>
+        <div class="reader" id="reader">${readerBody(r,q0)}</div>
+      </div>
+      <aside class="side-panel">
+        <p style="font-family:var(--serif);font-size:1.1rem">${esc(r.descrizione)}</p>
+        <dl class="meta">
+          ${metaRow("Identificativo", esc(r.id))}
+          ${metaRow("Genere", `<a href="${catLink({tipologia:r.tipologia})}">${esc(r.tipologia)}</a>`)}
+          ${metaRow("Forma", esc(r.forma))}
+          ${metaRow("Luogo associato", r.luogo?`<a href="${catLink({luogo:r.luogo})}">${esc(r.luogo)}</a>`:"")}
+          ${metaRow("Licenza", esc(r.licenza))}
+        </dl>
+        ${tags?`<div class="tags">${tags}</div>`:""}
+        <h3>Profilo lessicale</h3>
+        <div class="stats"><div><b>${st.tokens}</b><span>parole</span></div><div><b>${st.types}</b><span>forme distinte</span></div><div><b>${st.ttr.toFixed(2)}</b><span>varietà lessicale</span></div></div>
+        <h3>Parole più frequenti</h3>
+        <p class="small muted">Escluse le parole funzionali. Seleziona una parola per vederla nelle concordanze del corpus.</p>
+        ${barsHTML(top.map(([w,n])=>({label:w,value:n,color:"var(--lapis)",href:"#/esplora/concordanze?t="+encodeURIComponent(w),tip:`${w}: ${n} occorrenze`})))}
+        <h3>Come citare</h3>
+        <div class="cite">${citation(r)}</div>
+        ${rdfDetailsHTML(r)}
+      </aside>
+    </div>
+    ${linksSectionHTML(r)}
+    ${relatedHTML(r)}
+  </div>`;
+  wireLinks(r);
+  const upd = () => { const q=$("#rq").value.trim(); $("#reader").innerHTML = readerBody(r,q); const n=$$("#reader mark").length; $("#rfound").textContent = q.length>1 ? (n?`${n} ${n===1?"occorrenza":"occorrenze"}`:"Nessuna occorrenza") : ""; if(n) $("#reader mark").scrollIntoView({block:"center",behavior:"smooth"}) };
+  $("#rq").addEventListener("input", upd);
+  if(q0) upd();
+  const cb = $("#rnum"); if(cb) cb.addEventListener("change", () => $("#reader").classList.toggle("nonum", !cb.checked));
+}
+
+/* ---------- Esplora ---------- */
+const TABS = [["cronologia","Cronologia"],["mappa","Mappa"],["tipologie","Tipologie e soggetti"],["lessico","Lessico dei testi"],["concordanze","Concordanze"],["collegamenti","Rete dei collegamenti"]];
+function pageEsplora(sub, params){
+  sub = TABS.some(t=>t[0]===sub) ? sub : "cronologia";
+  const legend = `<div class="legend"><span class="coll k-oggetto">Patrimonio culturale</span><span class="coll k-testo">Testi letterari</span>${CONTRIB.length?'<span class="coll k-contrib">Contributi</span>':""}</div>`;
+  let body = "";
+  if(sub==="cronologia"){
+    const sec = new Map(); RECORDS.forEach(r=>{const o=sec.get(r.secolo)||{o:0,t:0,c:0}; r.contributo?o.c++:r.kind==="testo"?o.t++:o.o++; sec.set(r.secolo,o)});
+    const items = [...sec.entries()].sort((a,b)=>a[0]-b[0]).map(([k,v])=>({label:secoloLong(k), total:v.o+v.t+v.c, parts:[{v:v.o,c:"var(--verde)"},{v:v.t,c:"var(--lapis)"},{v:v.c,c:"var(--contrib)"}], href:catLink({secolo:String(k)}), tip:`${secoloLong(k)}: ${v.o} oggetti, ${v.t} testi`}));
+    body = `<h2>Cronologia</h2><p class="muted">I record disposti lungo l’asse del tempo, separati per collezione. Il tratto a sinistra raccoglie in scala ridotta ciò che precede il 1200.</p>${legend}
+      ${timelineSVG(RECORDS)}
+      <div class="section"><h2>Record per secolo</h2><p class="muted">Seleziona un secolo per aprirlo nel catalogo.</p>${barsHTML(items)}</div>`;
+  }
+  if(sub==="mappa"){
+    const g = {}; RECORDS.forEach(r=>{ if(!r.luogo) return; g[r.luogo]=g[r.luogo]||{o:0,t:0,c:0}; r.contributo?g[r.luogo].c++:r.kind==="testo"?g[r.luogo].t++:g[r.luogo].o++ });
+    const items = Object.entries(g).map(([k,v])=>({label:k,total:v.o+v.t+v.c,parts:[{v:v.o,c:"var(--verde)"},{v:v.t,c:"var(--lapis)"},{v:v.c,c:"var(--contrib)"}],href:catLink({luogo:k}),tip:`${k}: ${v.o} oggetti, ${v.t} testi`})).sort((a,b)=>b.total-a.total);
+    body = `<div class="viz-grid"><div><h2>Mappa dei luoghi</h2><p class="muted">Luoghi di produzione per gli oggetti e luoghi associati alle opere per i testi. L’area del cerchio è proporzionale al numero di record.</p>${legend}${mapSVG(RECORDS)}<p class="small muted">Contorno geografico schematico, senza tessere cartografiche esterne.</p></div>
+      <div><h2>Luoghi per numero di record</h2>${barsHTML(items)}</div></div>`;
+  }
+  if(sub==="tipologie"){
+    const t = {}; RECORDS.forEach(r=>{ t[r.tipologia]=t[r.tipologia]||{o:0,t:0,c:0}; r.contributo?t[r.tipologia].c++:r.kind==="testo"?t[r.tipologia].t++:t[r.tipologia].o++ });
+    const items = Object.entries(t).map(([k,v])=>({label:k,total:v.o+v.t+v.c,parts:[{v:v.o,c:"var(--verde)"},{v:v.t,c:"var(--lapis)"},{v:v.c,c:"var(--contrib)"}],href:catLink({tipologia:k})})).sort((a,b)=>b.total-a.total);
+    const s = new Map(); RECORDS.forEach(r=>(r.soggetti||[]).forEach(x=>{ if(!s.has(x)) s.set(x,{n:0,o:0,t:0}) }));
+    RECORDS.forEach(r=>(r.soggetti||[]).forEach(x=>{ const o=s.get(x); o.n++; r.kind==="testo"?o.t++:o.o++ }));
+    const maxS = Math.max(...[...s.values()].map(v=>v.n));
+    const cloud = [...s.entries()].sort((a,b)=>a[0].localeCompare(b[0],"it")).map(([k,v])=>`<a href="${catLink({soggetto:k})}" style="font-size:${(0.95+v.n/maxS*1.5).toFixed(2)}rem;color:${v.o&&v.t?"var(--ink)":v.t?"var(--lapis)":"var(--verde)"}" data-tip="${esc(k)}: ${v.n} record">${esc(k)}</a>`).join("");
+    const cons = {}; RECORDS.filter(r=>r.conservazione).forEach(r=>cons[r.conservazione]=(cons[r.conservazione]||0)+1);
+    const lic = {}; RECORDS.forEach(r=>lic[r.licenza]=(lic[r.licenza]||0)+1);
+    body = `<div class="viz-grid"><div><h2>Tipologie e generi</h2><p class="muted">Composizione del catalogo per tipologia di oggetto o genere letterario.</p>${legend}${barsHTML(items)}</div>
+      <div><h2>Soggetti</h2><p class="muted">La dimensione indica la frequenza. In verde i soggetti dei soli oggetti, in blu dei soli testi, in nero quelli condivisi.</p><div class="cloud">${cloud}</div>
+      <div class="section" style="margin-top:36px"><h2>Licenze</h2>${barsHTML(Object.entries(lic).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({label:k,value:v,href:catLink({licenza:k})})))}</div>
+      <div class="section" style="margin-top:36px"><h2>Stato di conservazione</h2>${barsHTML(["Buono","Discreto","Mediocre"].filter(k=>cons[k]).map(k=>({label:k,value:cons[k],color:"var(--verde)"})))}</div></div></div>`;
+  }
+  if(sub==="lessico"){
+    const testi = RECORDS.filter(r=>r.kind==="testo");
+    const sel = params.get("testo")||"tutti", stop = params.get("funzionali")!=="si";
+    const src = sel==="tutti" ? testi : testi.filter(t=>t.id===sel);
+    const top = freq(src.map(t=>t.testo), stop).slice(0,20);
+    const stats = testi.map(t=>({t, ...textStats(t.testo)}));
+    const maxTok = Math.max(...stats.map(s=>s.tokens));
+    body = `<h2>Lessico dei testi</h2><p class="muted">Frequenze calcolate sul testo integrale. La varietà lessicale è il rapporto tra forme distinte e parole totali: nei testi brevi tende a essere più alta.</p>
+      <div class="opts">
+        <label>Testo <select id="lxText" style="width:auto">${[["tutti","Tutto il corpus"],...testi.map(t=>[t.id,`${t.autore}, ${t.titolo}`])].map(([v,l])=>`<option value="${v}" ${sel===v?"selected":""}>${esc(l)}</option>`).join("")}</select></label>
+        <label><input type="checkbox" id="lxStop" ${stop?"":"checked"}> Includi le parole funzionali</label>
+      </div>
+      <div class="viz-grid"><div><h3>Le 20 parole più frequenti</h3><p class="small muted">Seleziona una parola per leggerla nel contesto.</p>${top.length?barsHTML(top.map(([w,n])=>({label:w,value:n,color:"var(--lapis)",href:"#/esplora/concordanze?t="+encodeURIComponent(w)+"&m=esatta"}))):`<p class="muted">Il testo selezionato non contiene parole oltre a quelle funzionali.</p>`}</div>
+      <div><h3>Estensione e varietà per testo</h3>
+      <div class="scroll-x"><table class="data"><thead><tr><th>Testo</th><th class="num">Parole</th><th class="num">Forme</th><th>Varietà</th></tr></thead><tbody>${stats.map(s=>`<tr><td><a href="#/record/${s.t.id}">${esc(s.t.titolo)}</a><br><span class="small muted">${esc(s.t.autore)}</span></td><td class="num">${s.tokens}</td><td class="num">${s.types}</td><td><div class="compl"><span class="track"><i style="width:${(s.ttr*100).toFixed(0)}%;background:var(--lapis)"></i></span><span>${s.ttr.toFixed(2)}</span></div></td></tr>`).join("")}</tbody></table></div>
+      <h3 style="margin-top:28px">Lunghezza dei testi in parole</h3>${barsHTML(stats.map(s=>({label:s.t.autore.split(" ").slice(-1)[0],value:s.tokens,color:"var(--lapis)",href:"#/record/"+s.t.id,tip:`${s.t.titolo}: ${s.tokens} parole`})),{max:maxTok})}</div></div>`;
+  }
+  if(sub==="concordanze"){
+    const term = params.get("t") || "cor", mode = params.get("m") || "inizia";
+    const rows = kwic(term, mode);
+    const dist = {}; rows.forEach(x=>dist[x.r.id]=(dist[x.r.id]||0)+1);
+    body = `<h2>Concordanze</h2><p class="muted">Ogni occorrenza della parola cercata nel corpus, con il contesto a sinistra e a destra (keyword in context). Accenti e maiuscole vengono ignorati.</p>
+      <form class="opts" id="kwForm">
+        <label class="sr" for="kwT">Parola</label><input id="kwT" type="search" value="${esc(term)}" style="max-width:280px" placeholder="Scrivi una parola">
+        ${[["inizia","Inizia con"],["esatta","Parola esatta"],["contiene","Contiene"]].map(([v,l])=>`<label><input type="radio" name="kwM" value="${v}" ${mode===v?"checked":""}> ${l}</label>`).join("")}
+        <button class="btn small" type="submit">Mostra le occorrenze</button>
+      </form>
+      ${rows.length ? `<p><strong>${rows.length}</strong> ${rows.length===1?"occorrenza":"occorrenze"} in ${Object.keys(dist).length} ${Object.keys(dist).length===1?"testo":"testi"}.</p>
+      <div class="viz-grid"><div class="scroll-x"><table class="data kwic"><tbody>${rows.map(x=>`<tr><td class="l"><span>${esc(x.left)}</span></td><td class="k"><mark>${esc(x.key)}</mark></td><td class="r">${esc(x.right)}</td><td class="src"><a href="#/record/${x.r.id}?q=${encodeURIComponent(x.key)}">${esc(x.r.autore.split(" ").slice(-1)[0])}</a></td></tr>`).join("")}</tbody></table></div>
+      <div><h3>Distribuzione nel corpus</h3>${barsHTML(Object.entries(dist).sort((a,b)=>b[1]-a[1]).map(([id,n])=>{const r=byId(id);return {label:r.titolo,value:n,color:"var(--lapis)",href:`#/record/${id}?q=${encodeURIComponent(term)}`,tip:`${r.autore}, ${r.titolo}: ${n}`}}))}</div></div>`
+      : `<div class="empty"><h3>Nessuna occorrenza di “${esc(term)}”</h3><p class="muted">Prova la modalità “Contiene” oppure una forma più breve della parola (ad esempio la radice).</p></div>`}`;
+  }
+  if(sub==="collegamenti") body = esploraCollegamenti(params);
+  app.innerHTML = `<div class="page"><h1>Esplora la raccolta</h1><p class="lede">Strumenti per orientarsi nel catalogo senza conoscere in anticipo cosa cercare: attraverso il tempo, lo spazio, le categorie e le parole dei testi.</p>
+    <nav class="tabs" aria-label="Strumenti di esplorazione">${TABS.map(([k,l])=>`<a href="#/esplora/${k}" ${k===sub?'aria-current="page"':""}>${l}</a>`).join("")}</nav>${body}</div>`;
+  if(sub==="collegamenti"){ wireNetwork(); fillNames(app); }
+  if(sub==="lessico"){
+    const go = () => { const p=new URLSearchParams(); p.set("testo",$("#lxText").value); if($("#lxStop").checked) p.set("funzionali","si"); location.hash="#/esplora/lessico?"+p };
+    $("#lxText").addEventListener("change",go); $("#lxStop").addEventListener("change",go);
+  }
+  if(sub==="concordanze"){
+    $("#kwForm").addEventListener("submit", e => { e.preventDefault(); const p=new URLSearchParams(); p.set("t",$("#kwT").value.trim()); p.set("m",$("input[name=kwM]:checked").value); location.hash="#/esplora/concordanze?"+p });
+  }
+}
+
+/* ---------- Dataset ---------- */
+const DS = {sort:"id", dir:1, page:0, q:"", fmt:"csv"};
+function completeness(field){
+  const app_ = RECORDS.filter(r => { const s = SCHEMA.find(x=>x.campo===field).si; return s==="tutti" || s===r.kind });
+  const ok = app_.filter(r => { const v=r[field]; return Array.isArray(v) ? v.length>0 : v!==undefined && v!==null && String(v).trim()!=="" });
+  return app_.length ? ok.length/app_.length : 0;
+}
+function exportText(fmt){
+  const fields = SCHEMA.map(s=>s.campo);
+  if(fmt==="json") return JSON.stringify(RECORDS.map(r=>Object.fromEntries(fields.filter(f=>r[f]!==undefined).map(f=>[f,r[f]]))),null,2);
+  const cell = v => { v = Array.isArray(v)?v.join("; "):String(v??""); return /[",\n]/.test(v) ? `"${v.replace(/"/g,'""')}"` : v };
+  return [fields.join(","), ...RECORDS.map(r=>fields.map(f=>cell(r[f])).join(","))].join("\n");
+}
+function pageDataset(){
+  const nO=RECORDS.filter(r=>r.kind==="oggetto").length, nT=RECORDS.filter(r=>r.kind==="testo").length;
+  const words = RECORDS.filter(r=>r.kind==="testo").reduce((s,r)=>s+textStats(r.testo).tokens,0);
+  const years = RECORDS.map(r=>r.anno);
+  app.innerHTML = `<div class="page">
+    <div class="ds-head">
+      <div><h1>Il dataset</h1><p class="lede">Descrizione strutturata dei dati del catalogo: quali campi esistono, a quali record si applicano, con quali vocabolari sono compilati e quanto sono completi.</p></div>
+      <dl class="meta">
+        <dt>Titolo</dt><dd>Scrinium, patrimonio e testi (dimostrativo)</dd>
+        <dt>Versione</dt><dd>1.0, ottobre 2026</dd>
+        <dt>Record</dt><dd>${RECORDS.length} (${nO} oggetti, ${nT} testi${CONTRIB.length?`, ${CONTRIB.length} contributi`:""})</dd>
+        <dt>Copertura temporale</dt><dd>${Math.min(...years)<0?Math.abs(Math.min(...years))+" a.C.":Math.min(...years)} – ${Math.max(...years)}</dd>
+        <dt>Corpus testuale</dt><dd>${words.toLocaleString("it-IT")} parole</dd>
+        <dt>Standard</dt><dd>Dublin Core, schede ICCD, TEI P5</dd>
+        <dt>Licenza dei metadati</dt><dd>CC0 1.0</dd>
+      </dl>
+    </div>
+    <section class="section"><h2>Struttura dei campi</h2><p class="muted">La completezza è calcolata in tempo reale sui soli record a cui il campo si applica.</p>
+      <div class="scroll-x"><table class="data"><thead><tr><th>Campo</th><th>Etichetta</th><th>Tipo</th><th>Obbligo</th><th>Si applica a</th><th>Vocabolario o regola</th><th>Dublin Core</th><th>CIDOC-CRM e LRMoo</th><th>Completezza</th></tr></thead>
+      <tbody>${SCHEMA.map(s=>{const c=completeness(s.campo);return `<tr><td><code>${s.campo}</code></td><td>${esc(s.etichetta)}</td><td>${esc(s.tipo)}</td><td><span class="req ${s.obbl?"y":""}">${s.obbl?"obbligatorio":"facoltativo"}</span></td><td>${s.si==="tutti"?"tutti i record":s.si==="oggetto"?"oggetti":"testi"}</td><td class="small">${esc(s.vocab)}</td><td><code>${s.dc}</code></td><td class="small"><code>${esc(CRM_MAP[s.campo]||"")}</code></td><td><div class="compl"><span class="track"><i style="width:${(c*100).toFixed(0)}%;${c<1?"background:var(--contrib)":""}"></i></span><span>${Math.round(c*100)}%</span></div></td></tr>`}).join("")}</tbody></table></div>
+    </section>
+    <section class="section"><h2>Tutti i record</h2><p class="muted">Seleziona l’intestazione di una colonna per ordinare.</p>
+      <div class="opts"><label class="sr" for="dsq">Filtra la tabella</label><input id="dsq" type="search" placeholder="Filtra la tabella" style="max-width:320px"></div>
+      <div id="dsTable"></div>
+    </section>
+    <section class="section"><h2>Collegamenti tra testi e oggetti</h2>
+      <p class="muted">Ogni collegamento unisce un testo e un oggetto con un tipo di relazione controllato. Il catalogo contiene ${LINKS.length} collegamenti: ${LINKS.filter(l=>l.curato).length} curati dalla redazione e ${LINKS.filter(l=>!l.curato).length} proposti dagli utenti.</p>
+      <div class="scroll-x"><table class="data"><thead><tr><th>Tipo</th><th>Significato</th><th>Direzione</th><th>Proprietà RDF</th><th>Sottoproprietà di</th><th>Dublin Core</th><th class="num">Record</th></tr></thead>
+      <tbody>${Object.entries(LINK_TYPES).map(([k,t])=>`<tr><td><span class="ltleg" style="--lc:${t.color}">${esc(t.label)}</span></td><td class="small">${esc(t.desc)}</td><td class="small">${t.sym?"simmetrica":k==="evoca"?"testo verso oggetto":"oggetto verso testo"}</td><td><code>${t.prop}</code></td><td><code>${t.super}</code></td><td><code>${t.dc}</code></td><td class="num">${LINKS.filter(l=>l.tipo===k).length}</td></tr>`).join("")}</tbody></table></div>
+      <p class="small muted" style="margin-top:10px">Campi di ogni collegamento: <code>id</code>, <code>testo</code>, <code>oggetto</code>, <code>tipo</code>, <code>passo</code> (citazione esatta dal testo, facoltativa), <code>nota</code> (motivazione), <code>autoreId</code>, <code>creato</code>. In RDF ogni collegamento è anche descritto come <code>crm:E13_Attribute_Assignment</code>, così la motivazione e la fonte restano documentate.</p>
+    </section>
+    <section class="section"><h2>Esporta i dati tabellari</h2><p class="muted">Copia i record e incollali in un foglio di calcolo o in un altro programma.</p>
+      <div class="opts"><span class="seg" role="group" aria-label="Formato"><button type="button" data-fmt="csv" aria-pressed="true">CSV</button><button type="button" data-fmt="json" aria-pressed="false">JSON</button></span><button class="btn small" id="copyBtn" type="button">Copia i dati</button><button class="btn ghost small dl-only" id="dlTab" type="button" ${STORE.downloads?"":"hidden"}>Scarica il file</button></div>
+      <label class="sr" for="exp">Dati esportati</label><textarea id="exp" class="export" readonly></textarea>
+    </section>
+    <section class="section"><h2>Esporta in RDF</h2>
+      <p class="muted">Il catalogo come Linked Open Data. Il profilo CIDOC-CRM descrive gli oggetti come <code>E22_Human-Made_Object</code> con il loro evento di produzione, e i testi come espressioni LRMoo (<code>F2_Expression</code>) di un’opera (<code>F1_Work</code>). Il profilo Dublin Core offre una descrizione più semplice, adatta all’harvesting. Tipologie e soggetti diventano concetti SKOS, i luoghi hanno coordinate GeoSPARQL.</p>
+      <div class="opts">
+        <label>Ontologia <select id="rdfProf" style="width:auto">${Object.entries(RDF_PROFILE).map(([k,l])=>`<option value="${k}">${l}</option>`).join("")}</select></label>
+        <label>Formato <select id="rdfFmt" style="width:auto">${Object.entries(RDF_FMT).map(([k,f])=>`<option value="${k}">${f.label}</option>`).join("")}</select></label>
+        <label>Contenuto <select id="rdfScope" style="width:auto"><option value="tutto">Tutto il catalogo</option><option value="oggetto">Solo oggetti</option><option value="testo">Solo testi</option><option value="collegati">Solo record con collegamenti</option></select></label>
+      </div>
+      <div class="opts"><button class="btn small" id="rdfCopy" type="button">Copia RDF</button><button class="btn ghost small dl-only" id="rdfDl" type="button" ${STORE.downloads?"":"hidden"}>Scarica il file</button><span class="small muted" id="rdfInfo"></span></div>
+      <label class="sr" for="rdfOut">RDF esportato</label><textarea id="rdfOut" class="export" readonly></textarea>
+    </section>
+  </div>`;
+  const cols = [["id","ID"],["titolo","Titolo"],["kind","Collezione"],["tipologia","Tipologia"],["autore","Autore o ambito"],["anno","Anno"],["luogo","Luogo"],["licenza","Licenza"]];
+  const PER = 10;
+  const drawTable = () => {
+    const q = norm(DS.q);
+    let list = RECORDS.filter(r => !q || r._search.includes(q));
+    list.sort((a,b)=>{ const x=a[DS.sort]??"", y=b[DS.sort]??""; return (typeof x==="number"&&typeof y==="number" ? x-y : String(x).localeCompare(String(y),"it"))*DS.dir });
+    const pages = Math.max(1,Math.ceil(list.length/PER)); DS.page = Math.min(DS.page,pages-1);
+    const slice = list.slice(DS.page*PER, DS.page*PER+PER);
+    $("#dsTable").innerHTML = `<div class="scroll-x"><table class="data"><thead><tr>${cols.map(([k,l])=>`<th aria-sort="${DS.sort===k?(DS.dir>0?"ascending":"descending"):"none"}"><button type="button" data-sort="${k}">${l}${DS.sort===k?(DS.dir>0?" ▲":" ▼"):""}</button></th>`).join("")}</tr></thead>
+      <tbody>${slice.map(r=>`<tr><td><a href="#/record/${r.id}">${r.id}</a></td><td>${esc(r.titolo)}</td><td><span class="coll ${kclass(r)}">${collName(r)}</span></td><td>${esc(r.tipologia)}</td><td>${r.autore?esc(r.autore):'<span class="muted">vuoto</span>'}</td><td class="num">${r.anno}</td><td>${esc(r.luogo||"")}</td><td>${esc(r.licenza)}</td></tr>`).join("") || `<tr><td colspan="8" class="muted">Nessun record contiene “${esc(DS.q)}”.</td></tr>`}</tbody></table></div>
+      <div class="pager"><span>${list.length} record, pagina ${DS.page+1} di ${pages}</span><button class="btn ghost small" data-pg="-1" ${DS.page===0?"disabled":""} type="button">Precedente</button><button class="btn ghost small" data-pg="1" ${DS.page>=pages-1?"disabled":""} type="button">Successiva</button></div>`;
+  };
+  $("#dsTable").addEventListener("click", e => {
+    const s = e.target.closest("[data-sort]"); if(s){ const k=s.dataset.sort; DS.dir = DS.sort===k ? -DS.dir : 1; DS.sort=k; drawTable(); return; }
+    const p = e.target.closest("[data-pg]"); if(p){ DS.page += +p.dataset.pg; drawTable(); }
+  });
+  $("#dsq").addEventListener("input", e => { DS.q=e.target.value; DS.page=0; drawTable() });
+  const drawExp = () => { $("#exp").value = exportText(DS.fmt); $$("[data-fmt]").forEach(b=>b.setAttribute("aria-pressed", b.dataset.fmt===DS.fmt)) };
+  $$("[data-fmt]").forEach(b => b.addEventListener("click", () => { DS.fmt=b.dataset.fmt; drawExp() }));
+  $("#copyBtn").addEventListener("click", async () => {
+    const ta=$("#exp"); try{ await navigator.clipboard.writeText(ta.value); toast("Dati copiati negli appunti") }catch(e){ ta.focus(); ta.select(); try{ document.execCommand("copy"); toast("Dati copiati negli appunti") }catch(_){ toast("Testo selezionato: copialo con Ctrl+C o Cmd+C") } }
+  });
+  const copyFrom = async ta => { try{ await navigator.clipboard.writeText(ta.value); toast("Dati copiati negli appunti") }catch(e){ ta.focus(); ta.select(); try{ document.execCommand("copy"); toast("Dati copiati negli appunti") }catch(_){ toast("Testo selezionato: copialo con Ctrl+C o Cmd+C") } } };
+  $("#dlTab").addEventListener("click", () => saveFile(DS.fmt==="csv"?"scrinium.csv":"scrinium.json", $("#exp").value));
+  const drawRdf = () => {
+    const scope = $("#rdfScope").value, prof = $("#rdfProf").value, fmt = $("#rdfFmt").value;
+    const recs = RECORDS.filter(r => scope==="tutto" || (scope==="collegati" ? r.nLinks>0 : r.kind===scope));
+    const ids = new Set(recs.map(r=>r.id)); const lk = LINKS.filter(l => ids.has(l.testo) || ids.has(l.oggetto));
+    const T = buildGraph(prof, recs, lk);
+    $("#rdfOut").value = serialize(T, fmt);
+    $("#rdfInfo").textContent = `${recs.length} record, ${lk.length} collegamenti, ${T.length.toLocaleString("it-IT")} triple`;
+  };
+  ["rdfScope","rdfProf","rdfFmt"].forEach(id => $("#"+id).addEventListener("change", drawRdf));
+  $("#rdfCopy").addEventListener("click", () => copyFrom($("#rdfOut")));
+  $("#rdfDl").addEventListener("click", () => { const f = RDF_FMT[$("#rdfFmt").value]; saveFile(f.file, $("#rdfOut").value); if(f.file.endsWith(".txt")) toast("Salvato come .txt: rinomina il file togliendo l’estensione finale"); });
+  drawTable(); drawExp(); drawRdf();
+}
+
+/* ---------- Contribuisci ---------- */
+let FORM = {kind:"oggetto"};
+function pageContribuisci(){
+  const luoghi = Object.keys(LUOGHI).sort((a,b)=>a.localeCompare(b,"it"));
+  app.innerHTML = `<div class="page">
+    <h1>Aggiungi una scheda</h1>
+    <p class="lede">Descrivi un oggetto del patrimonio o trascrivi un testo. La scheda viene validata secondo la struttura del dataset ed entra subito nel catalogo, nelle visualizzazioni e nelle concordanze. Dopo averla aggiunta, aprila per collegarla ad altri record.</p>
+    <p class="store-status" id="storeStatus">${storeStatusHTML()}</p>
+    <div class="contrib-grid">
+      <form id="cform" novalidate>
+        <fieldset><legend>Che cosa descrivi</legend>
+          <div class="radio-cards">
+            <label class="k-oggetto"><input type="radio" name="kind" value="oggetto" ${FORM.kind==="oggetto"?"checked":""}><span><strong>Un oggetto del patrimonio</strong><span class="small muted">Un bene materiale: opera d’arte, strumento, documento</span></span></label>
+            <label class="k-testo"><input type="radio" name="kind" value="testo" ${FORM.kind==="testo"?"checked":""}><span><strong>Un testo letterario</strong><span class="small muted">Un’opera o un brano con trascrizione integrale</span></span></label>
+          </div>
+        </fieldset>
+        <fieldset><legend>Identificazione</legend>
+          <div class="field"><label for="f-titolo">Titolo</label><input id="f-titolo" name="titolo" type="text" required><span class="err" data-err="titolo"></span></div>
+          <div class="two">
+            <div class="field"><label for="f-autore">Autore o ambito <span class="hint">facoltativo</span></label><input id="f-autore" name="autore" type="text" placeholder="es. Bottega faentina"></div>
+            <div class="field"><label for="f-tipologia">Tipologia o genere</label><select id="f-tipologia" name="tipologia"></select><span class="err" data-err="tipologia"></span></div>
+          </div>
+        </fieldset>
+        <fieldset><legend>Tempo e luogo</legend>
+          <div class="two">
+            <div class="field"><label for="f-anno">Anno di riferimento</label><input id="f-anno" name="anno" type="number" placeholder="es. 1525, oppure -800"><span class="hint">Numero negativo per le date a.C.</span><span class="err" data-err="anno"></span></div>
+            <div class="field"><label for="f-datazione">Datazione testuale <span class="hint">facoltativa</span></label><input id="f-datazione" name="datazione" type="text" placeholder="es. metà del XVI secolo"></div>
+          </div>
+          <div class="field"><label for="f-luogo">Luogo</label><select id="f-luogo" name="luogo"><option value="">Non indicato</option>${luoghi.map(l=>`<option>${esc(l)}</option>`).join("")}</select><span class="hint">Solo i luoghi del vocabolario compaiono sulla mappa.</span></div>
+        </fieldset>
+        <fieldset><legend>Descrizione</legend>
+          <div class="field" data-only="oggetto"><label for="f-materia">Materia e tecnica</label><input id="f-materia" name="materia" type="text" placeholder="es. Maiolica dipinta in policromia"></div>
+          <div class="field" data-only="oggetto"><label for="f-dimensioni">Misure</label><input id="f-dimensioni" name="dimensioni" type="text" placeholder="es. cm 30 × 20"></div>
+          <div class="field" data-only="oggetto"><label for="f-conservazione">Stato di conservazione</label><select id="f-conservazione" name="conservazione"><option value="">Non indicato</option><option>Buono</option><option>Discreto</option><option>Mediocre</option></select></div>
+          <div class="field" data-only="testo"><label for="f-forma">Forma metrica o prosa</label><input id="f-forma" name="forma" type="text" placeholder="es. Sonetto, Prosa"></div>
+          <div class="field"><label for="f-descrizione">Descrizione</label><textarea id="f-descrizione" name="descrizione" rows="3"></textarea><span class="err" data-err="descrizione"></span></div>
+          <div class="field"><label for="f-soggetti">Soggetti <span class="hint">separati da virgola</span></label><input id="f-soggetti" name="soggetti" type="text" placeholder="es. mitologia, paesaggio"></div>
+          <div class="field" data-only="testo"><label for="f-testo">Testo integrale</label><textarea id="f-testo" name="testo" rows="10" placeholder="Incolla la trascrizione. Una riga vuota separa le strofe o i paragrafi."></textarea><label style="font-weight:400;display:flex;gap:8px;align-items:center"><input type="checkbox" name="verso" checked> È un testo in versi</label><span class="err" data-err="testo"></span></div>
+        </fieldset>
+        <fieldset><legend>Diritti</legend>
+          <div class="field"><label for="f-licenza">Licenza</label><select id="f-licenza" name="licenza">${LICENZE.map(l=>`<option>${l}</option>`).join("")}</select></div>
+          <label style="font-weight:400;display:flex;gap:8px;align-items:flex-start;margin-bottom:6px"><input type="checkbox" name="diritti" style="margin-top:5px"> Confermo che il contenuto può essere pubblicato con la licenza indicata.</label><span class="err" data-err="diritti"></span>
+        </fieldset>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px"><button class="btn" type="submit">Aggiungi al catalogo</button><button class="btn ghost" type="reset">Svuota il modulo</button></div>
+      </form>
+      <aside class="preview">
+        <h2>Anteprima</h2>
+        <div id="pv"></div>
+        <h3 style="font-family:var(--sans);font-size:1rem;margin-top:20px">Record in Dublin Core</h3>
+        <pre id="pvJson"></pre>
+        <div id="mine"></div>
+      </aside>
+    </div></div>`;
+  const form = $("#cform");
+  const setKind = k => {
+    FORM.kind = k;
+    $("#f-tipologia").innerHTML = `<option value="">Scegli</option>` + (k==="testo"?TIPI_TXT:TIPI_OGG).map(t=>`<option>${esc(t)}</option>`).join("");
+    $$("[data-only]").forEach(el => el.hidden = el.dataset.only!==k);
+  };
+  const read = () => {
+    const d = Object.fromEntries(new FormData(form).entries());
+    const r = {kind:FORM.kind, titolo:(d.titolo||"").trim(), autore:(d.autore||"").trim(), tipologia:d.tipologia||"", anno:d.anno===""||d.anno==null?null:parseInt(d.anno,10), datazione:(d.datazione||"").trim(), luogo:d.luogo||"", soggetti:(d.soggetti||"").split(",").map(s=>s.trim()).filter(Boolean), descrizione:(d.descrizione||"").trim(), licenza:d.licenza};
+    if(FORM.kind==="oggetto"){ r.materia=(d.materia||"").trim(); r.dimensioni=(d.dimensioni||"").trim(); r.conservazione=d.conservazione||"" }
+    else { r.forma=(d.forma||"").trim(); r.testo=(d.testo||"").replace(/\r/g,"").trim(); r.verso = !!d.verso }
+    if(!r.datazione && r.anno!=null && !isNaN(r.anno)) r.datazione = r.anno<0 ? `${-r.anno} a.C.` : String(r.anno);
+    return {r, diritti:!!d.diritti};
+  };
+  const validate = ({r,diritti}) => {
+    const e = {};
+    if(r.titolo.length<3) e.titolo="Inserisci un titolo di almeno 3 caratteri.";
+    if(!r.tipologia) e.tipologia="Scegli una tipologia dal vocabolario.";
+    if(r.anno==null || isNaN(r.anno)) e.anno="Inserisci un anno, anche approssimativo."; else if(r.anno>2026||r.anno<-5000) e.anno="L’anno deve essere compreso tra -5000 e 2026.";
+    if(r.descrizione.length<10) e.descrizione="Scrivi una descrizione di almeno 10 caratteri.";
+    if(r.kind==="testo" && (r.testo||"").split(/\s+/).filter(Boolean).length<5) e.testo="Incolla un testo di almeno 5 parole.";
+    if(!diritti) e.diritti="Conferma i diritti di pubblicazione per continuare.";
+    return e;
+  };
+  const preview = () => {
+    const {r} = read();
+    const fake = {...r, id:"CTB-nuovo", contributo:true, titolo:r.titolo||"Titolo della scheda", anno:r.anno??"", testo:r.testo||"Il testo comparirà qui"};
+    $("#pv").innerHTML = `<article class="card" style="max-width:300px"><div class="thumb">${thumb(fake)}</div><span class="coll k-contrib">Contributo, ${esc(r.tipologia||"tipologia")}</span><h3>${esc(fake.titolo)}</h3><p>${esc(r.autore||"Autore non identificato")}</p><p>${esc(r.datazione||"Data da indicare")}${r.luogo?", "+esc(r.luogo):""}</p></article>`;
+    const dc = {"dc:identifier":"CTB-…","dc:title":r.titolo,"dc:creator":r.autore||undefined,"dc:type":r.tipologia,"dc:date":r.anno,"dcterms:temporal":r.datazione||undefined,"dcterms:spatial":r.luogo||undefined,"dcterms:medium":r.materia||undefined,"dc:format":r.forma||undefined,"dcterms:extent":r.dimensioni||undefined,"dc:subject":r.soggetti.length?r.soggetti:undefined,"dc:description":r.descrizione,"dc:rights":r.licenza};
+    if(r.testo) dc["tei:text"] = r.testo.length>80 ? r.testo.slice(0,80)+"…" : r.testo;
+    $("#pvJson").textContent = JSON.stringify(dc,null,2);
+  };
+  const drawMine = () => {
+    if(!$("#mine")) return;
+    const mine = STORE.mode==="db" ? CONTRIB.filter(c=>c.autoreId && c.autoreId===STORE.myId) : CONTRIB;
+    const others = STORE.mode==="db" ? CONTRIB.length - mine.length : 0;
+    const pend = STORE.pending && (STORE.pending.contrib.length + STORE.pending.links.length);
+    $("#mine").innerHTML = (mine.length ? `<h3 style="font-family:var(--sans);font-size:1rem;margin-top:24px">Le tue schede</h3><ul class="mine" style="list-style:none;padding:0;margin:0">${mine.map(c=>`<li><a href="#/record/${esc(c.id)}">${esc(c.titolo)}</a><button class="btn ghost small" type="button" data-del="${esc(c.id)}">Rimuovi</button></li>`).join("")}</ul>` : "")
+      + (others ? `<p class="small muted" style="margin-top:14px">Altre ${others} schede sono state aggiunte da altre persone: le trovi nel <a href="${catLink({kind:"contributo"})}">catalogo</a>.</p>` : "")
+      + (pend && STORE.canWrite ? `<div class="cite" style="margin-top:16px"><p style="margin:0 0 8px">Hai ${pend} elementi salvati solo in questo browser in una sessione precedente.</p><button class="btn small" type="button" id="pubPending">Pubblicali nell’archivio condiviso</button></div>` : "");
+  };
+  window.__drawMine = drawMine;
+  form.addEventListener("change", e => { if(e.target.name==="kind"){ setKind(e.target.value) } preview() });
+  form.addEventListener("input", preview);
+  form.addEventListener("reset", () => setTimeout(()=>{ setKind(FORM.kind); $$("[data-err]").forEach(x=>x.textContent=""); preview() },0));
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    if(!STORE.canWrite){ toast("Hai accesso in sola lettura: non puoi aggiungere schede"); return; }
+    const data = read(), errs = validate(data);
+    $$("[data-err]").forEach(x => x.textContent = errs[x.dataset.err]||"");
+    const first = Object.keys(errs)[0];
+    if(first){ const el = form.querySelector(`[name="${first}"]`); if(el) el.focus(); toast("Completa i campi segnalati"); return; }
+    const rec = {...data.r, id:"CTB-"+rid()};
+    const btn = form.querySelector("button[type=submit]"); btn.disabled = true;
+    try{ await addContrib(rec); toast("Scheda aggiunta al catalogo"); form.reset(); drawMine(); }
+    catch(err){ toast(writeErrorMsg(err)); $("#storeStatus").textContent = storeStatusHTML(); }
+    btn.disabled = false;
+  });
+  $("#mine").addEventListener("click", async e => {
+    if(e.target.closest("#pubPending")){ e.target.disabled = true; await publishPending(); return; }
+    const b=e.target.closest("[data-del]"); if(!b) return; b.disabled = true;
+    try{ await removeContrib(b.dataset.del); toast("Scheda rimossa") }catch(err){ b.disabled=false; toast(writeErrorMsg(err)) }
+  });
+  setKind(FORM.kind); preview(); drawMine();
+}
+
+/* ---------- router, tema, tooltip ---------- */
+function render(keepScroll){
+  const h = location.hash.slice(1) || "/";
+  const [path, qs] = h.split("?");
+  const parts = path.split("/").filter(Boolean);
+  const params = new URLSearchParams(qs||"");
+  const page = parts[0] || "home";
+  $$(".nav a").forEach(a => a.dataset.nav===page ? a.setAttribute("aria-current","page") : a.removeAttribute("aria-current"));
+  $("#tip").style.opacity = 0;
+  if(page==="catalogo") pageCatalogo(params);
+  else if(page==="record") pageRecord(decodeURIComponent(parts[1]||""), params);
+  else if(page==="esplora") pageEsplora(parts[1], params);
+  else if(page==="dataset") pageDataset();
+  else if(page==="contribuisci") pageContribuisci();
+  else pageHome();
+  if(!keepScroll) window.scrollTo(0,0);
+  const titles = {catalogo:"Catalogo",esplora:"Esplora",dataset:"Dataset",contribuisci:"Contribuisci",record:(byId(parts[1])||{}).titolo};
+  document.title = (titles[page] ? titles[page]+", " : "") + "Scrinium";
+}
+window.addEventListener("hashchange", render);
+
+(function theme(){
+  const root = document.documentElement; let saved = null;
+  try{ saved = localStorage.getItem("scrinium-tema") }catch(e){}
+  if(saved) root.dataset.theme = saved;
+  const isDark = () => root.dataset.theme ? root.dataset.theme==="dark" : !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  const label = () => $("#themeBtn").textContent = isDark() ? "Tema chiaro" : "Tema scuro";
+  label();
+  $("#themeBtn").addEventListener("click", () => { root.dataset.theme = isDark() ? "light" : "dark"; try{ localStorage.setItem("scrinium-tema", root.dataset.theme) }catch(e){} label() });
+})();
+
+(function tooltip(){
+  const tip = $("#tip");
+  document.addEventListener("mousemove", e => {
+    const t = e.target.closest && e.target.closest("[data-tip]");
+    if(!t){ tip.style.opacity = 0; return; }
+    tip.textContent = t.getAttribute("data-tip");
+    const x = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
+    tip.style.left = x + "px"; tip.style.top = (e.clientY + 16) + "px"; tip.style.opacity = 1;
+  });
+})();
+
+</script>
+<script>
+/* =========================================================
+   COLLEGAMENTI TRA TESTI E OGGETTI
+   ========================================================= */
+const LINK_TYPES = {
+  evoca:   {label:"Il testo evoca l’oggetto", desc:"Il testo nomina o descrive l’oggetto, la sua tipologia o il suo uso.", color:"var(--lapis)", prop:"scr:evoca", super:"crm:P67_refers_to", dc:"dcterms:references", sym:false,
+            fromT:"evoca", fromO:"è evocato in"},
+  illustra:{label:"L’oggetto illustra il testo", desc:"L’oggetto raffigura o documenta un tema, un personaggio o un passo del testo.", color:"var(--verde)", prop:"scr:illustra", super:"dcterms:relation", dc:"dcterms:relation", sym:false,
+            fromT:"è illustrato da", fromO:"illustra"},
+  motivo:  {label:"Motivo condiviso", desc:"Testo e oggetto condividono un motivo iconografico o tematico.", color:"var(--ocra)", prop:"scr:condivideMotivo", super:"dcterms:relation", dc:"dcterms:relation", sym:true,
+            fromT:"condivide un motivo con", fromO:"condivide un motivo con"},
+  contesto:{label:"Stesso contesto", desc:"Testo e oggetto appartengono allo stesso contesto storico, geografico o culturale.", color:"var(--muted)", prop:"scr:stessoContesto", super:"dcterms:relation", dc:"dcterms:relation", sym:true,
+            fromT:"condivide il contesto con", fromO:"condivide il contesto con"}
+};
+
+const LINKS_CURATED = [
+ {id:"COL-001",testo:"TXT-0009",oggetto:"OGG-0008",tipo:"motivo",passo:"il verde melograno",nota:"Il melograno, simbolo di fecondità e di rinascita, è il motivo dominante del tessile rinascimentale; in Carducci rinverdisce mentre il figlio giace nella terra."},
+ {id:"COL-002",testo:"TXT-0003",oggetto:"OGG-0008",tipo:"evoca",passo:"drappi d'oro",nota:"Tra i doni degni di un principe Machiavelli elenca i drappi d’oro: i velluti operati erano tra i tessuti di maggior pregio del tempo."},
+ {id:"COL-003",testo:"TXT-0003",oggetto:"OGG-0005",tipo:"contesto",passo:"",nota:"Firenze tra Quattro e Cinquecento: ritratto e trattatistica politica nascono nella stessa cerchia di committenza."},
+ {id:"COL-004",testo:"TXT-0010",oggetto:"OGG-0010",tipo:"motivo",passo:"pianto di stelle",nota:"Il cielo stellato come spazio da misurare per la scienza e come luogo del pianto cosmico per il poeta."},
+ {id:"COL-005",testo:"TXT-0001",oggetto:"OGG-0007",tipo:"contesto",passo:"",nota:"Il grosso veneziano circolava negli anni di Dante, che nel Paradiso (canto XIX) ricorda chi ne contraffece il conio."},
+ {id:"COL-006",testo:"TXT-0004",oggetto:"OGG-0009",tipo:"evoca",passo:"d'Africa il mare",nota:"La traversata dei Mori evocata nella protasi corrisponde allo spazio mediterraneo descritto dai portolani."},
+ {id:"COL-007",testo:"TXT-0005",oggetto:"OGG-0009",tipo:"evoca",passo:"d'Asia e di Libia",nota:"L’Asia e la Libia, cioè l’Africa, della crociata tassiana sono le sponde che la carta nautica rende navigabili."},
+ {id:"COL-008",testo:"TXT-0007",oggetto:"OGG-0016",tipo:"motivo",passo:"dell'ultimo orizzonte",nota:"La siepe che chiude lo sguardo e la prospettiva che lo costruisce: due rappresentazioni dello spazio e del suo limite."},
+ {id:"COL-009",testo:"TXT-0002",oggetto:"OGG-0002",tipo:"contesto",passo:"",nota:"Devozione privata e scrittura dell’io nel tardo Trecento: libro d’ore e Canzoniere si rivolgono allo stesso pubblico colto."},
+ {id:"COL-010",testo:"TXT-0001",oggetto:"OGG-0003",tipo:"contesto",passo:"",nota:"La pittura senese del Trecento e la Commedia condividono l’orizzonte figurativo e devozionale del primo Trecento toscano."},
+ {id:"COL-011",testo:"TXT-0008",oggetto:"OGG-0021",tipo:"motivo",passo:"Quel ramo del lago di Como",nota:"L’apertura del romanzo procede come una veduta a volo d’uccello: dall’alto, per piani successivi, fino al ponte."},
+ {id:"COL-012",testo:"TXT-0006",oggetto:"OGG-0020",tipo:"motivo",passo:"questo reo tempo",nota:"Il tempo che fugge nel sonetto e la sua misura domestica nell’orologio da tasca, negli stessi anni."}
+];
+
+let LINKS = [];
+const linksOf = id => LINKS.filter(l => l.testo===id || l.oggetto===id);
+function rebuildLinks(){
+  const ids = new Set(RECORDS.map(r=>r.id));
+  LINKS = [...LINKS_CURATED.map(l=>({...l, curato:true})), ...LINKS_USER]
+    .filter(l => ids.has(l.testo) && ids.has(l.oggetto) && LINK_TYPES[l.tipo]);
+  const n = {}; LINKS.forEach(l => { n[l.testo]=(n[l.testo]||0)+1; n[l.oggetto]=(n[l.oggetto]||0)+1 });
+  RECORDS.forEach(r => r.nLinks = n[r.id]||0);
+}
+
+function annotateHTML(r){
+  const t = r.testo, nt = norm(t), ranges = [];
+  linksOf(r.id).forEach(l => {
+    if(!l.passo) return; const p = norm(l.passo).trim(); if(p.length<2) return;
+    const i = nt.indexOf(p); if(i<0 || t.slice(i,i+p.length).includes("\n")) return;
+    if(ranges.some(x => i < x.e && i+p.length > x.s)) return;
+    ranges.push({s:i, e:i+p.length, l});
+  });
+  ranges.sort((a,b)=>a.s-b.s);
+  let out = "", i = 0;
+  ranges.forEach(x => { const o = byId(x.l.oggetto);
+    out += esc(t.slice(i,x.s)) + `<a class="anno" href="#/record/${esc(x.l.oggetto)}" data-tip="${esc(LINK_TYPES[x.l.tipo].label+": "+(o?o.titolo:""))}">${esc(t.slice(x.s,x.e))}</a>`; i = x.e; });
+  return out + esc(t.slice(i));
+}
+
+function linkItemHTML(l, r){
+  const t = LINK_TYPES[l.tipo], otherId = r.kind==="testo" ? l.oggetto : l.testo, o = byId(otherId);
+  const phrase = r.kind==="testo" ? t.fromT : t.fromO;
+  const who = l.curato ? "A cura della redazione" : `Aggiunto da <span data-uid="${esc(l.autoreId||"")}">un utente</span>${l.creato?", "+new Date(l.creato).toLocaleDateString("it-IT"):""}`;
+  return `<li class="link-item" style="--lc:${t.color}">
+    <p class="lrel"><span class="lt">${esc(phrase)}</span> <a href="#/record/${esc(otherId)}">${esc(o?o.titolo:otherId)}</a> <span class="muted small">${esc(o?(o.autore||collName(o)):"")}${o?", "+esc(o.datazione||o.anno):""}</span></p>
+    ${l.nota?`<p class="lnote">${esc(l.nota)}</p>`:""}
+    ${l.passo?`<p class="small">Passo: <a href="#/record/${esc(l.testo)}?q=${encodeURIComponent(l.passo)}">«${esc(l.passo)}»</a></p>`:""}
+    <p class="small muted lwho">${who}${canDelete(l)?` <button type="button" class="linkbtn" data-dellink="${esc(l.id)}">Rimuovi</button>`:""}</p>
+  </li>`;
+}
+function drawLinksList(r){
+  const box = $("#linksList"); if(!box) return;
+  const ls = linksOf(r.id).sort((a,b)=>(b.curato?1:0)-(a.curato?1:0));
+  box.innerHTML = ls.length ? `<ul class="links">${ls.map(l=>linkItemHTML(l,r)).join("")}</ul>`
+    : `<p class="muted">Questa scheda non ha ancora collegamenti. Aggiungine uno per metterla in relazione con ${r.kind==="testo"?"un oggetto":"un testo"} del catalogo.</p>`;
+  fillNames(box);
+}
+function linksSectionHTML(r){
+  const other = RECORDS.filter(x => x.kind !== r.kind).sort((a,b)=>a.titolo.localeCompare(b.titolo,"it"));
+  const isT = r.kind==="testo";
+  const form = !STORE.canWrite ? `<p class="muted small">Hai accesso in sola lettura: puoi consultare i collegamenti ma non aggiungerne.</p>` : `
+    <details class="add-link"><summary>Aggiungi un collegamento</summary>
+      <form id="linkForm" novalidate>
+        <div class="field"><label for="lk-other">${isT?"Oggetto del patrimonio":"Testo letterario"}</label>
+          <select id="lk-other" name="other"><option value="">Scegli dal catalogo</option>${other.map(o=>`<option value="${esc(o.id)}">${esc(o.titolo)}${o.autore?" ("+esc(o.autore)+")":""}</option>`).join("")}</select><span class="err" data-lerr="other"></span></div>
+        <div class="field"><span class="lbl">Tipo di relazione</span>
+          <div class="ltypes">${Object.entries(LINK_TYPES).map(([k,t])=>`<label style="--lc:${t.color}"><input type="radio" name="tipo" value="${k}"><span><strong>${esc(t.label)}</strong><span class="small muted">${esc(t.desc)}</span></span></label>`).join("")}</div><span class="err" data-lerr="tipo"></span></div>
+        <div class="field"><label for="lk-passo">Passo del testo <span class="hint">facoltativo</span></label><input id="lk-passo" name="passo" type="text" maxlength="200" placeholder="Copia una frase esatta del testo"><span class="hint">Il passo viene evidenziato nella lettura e rimanda all’oggetto collegato.</span><span class="err" data-lerr="passo"></span></div>
+        <div class="field"><label for="lk-nota">Motivazione</label><textarea id="lk-nota" name="nota" rows="3" maxlength="1000" placeholder="Spiega in che modo testo e oggetto sono in relazione"></textarea><span class="err" data-lerr="nota"></span></div>
+        <button class="btn small" type="submit">Aggiungi il collegamento</button>
+      </form>
+    </details>`;
+  return `<section class="links-sec"><h2>Collegamenti</h2>
+    <p class="muted small">Relazioni tra testi e oggetti, curate dalla redazione o proposte da chi usa il catalogo. ${STORE.mode==="db"?"I collegamenti aggiunti sono visibili a tutti.":"In questa visualizzazione i collegamenti aggiunti restano salvati solo nel tuo browser."}</p>
+    <div id="linksList"></div>${form}</section>`;
+}
+function wireLinks(r){
+  drawLinksList(r);
+  $("#linksList").addEventListener("click", async e => {
+    const b = e.target.closest("[data-dellink]"); if(!b) return;
+    b.disabled = true;
+    try{ await removeLink(b.dataset.dellink); toast("Collegamento rimosso") }catch(err){ b.disabled=false; toast(writeErrorMsg(err)) }
+  });
+  const f = $("#linkForm"); if(!f) return;
+  f.addEventListener("submit", async e => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(f).entries()), errs = {};
+    const otherId = d.other, tipo = d.tipo, passo = (d.passo||"").trim(), nota = (d.nota||"").trim();
+    const testoId = r.kind==="testo" ? r.id : otherId, oggettoId = r.kind==="testo" ? otherId : r.id;
+    if(!otherId) errs.other = "Scegli un record da collegare.";
+    if(!tipo) errs.tipo = "Scegli il tipo di relazione.";
+    if(nota.length < 10) errs.nota = "Scrivi una motivazione di almeno 10 caratteri.";
+    if(passo){ const t = byId(testoId); if(t && !norm(t.testo).includes(norm(passo))) errs.passo = "Il passo non compare nel testo: copialo esattamente, senza andare a capo."; }
+    if(otherId && tipo && LINKS.some(l => l.testo===testoId && l.oggetto===oggettoId && l.tipo===tipo)) errs.tipo = "Questo collegamento esiste già con lo stesso tipo di relazione.";
+    $$("[data-lerr]", f).forEach(x => x.textContent = errs[x.dataset.lerr]||"");
+    if(Object.keys(errs).length){ toast("Completa i campi segnalati"); return; }
+    const btn = f.querySelector("button[type=submit]"); btn.disabled = true;
+    try{
+      await addLink({id:"LNK-"+rid(), testo:testoId, oggetto:oggettoId, tipo, passo, nota});
+      f.reset(); f.closest("details").open = false; toast("Collegamento aggiunto");
+    }catch(err){ toast(writeErrorMsg(err)) }
+    btn.disabled = false;
+  });
+}
+
+/* rete bipartita testi-oggetti */
+function networkSVG(showAll){
+  const texts = RECORDS.filter(r=>r.kind==="testo").sort((a,b)=>a.anno-b.anno);
+  const linked = new Set(LINKS.map(l=>l.oggetto));
+  const objs = RECORDS.filter(r=>r.kind==="oggetto" && (showAll || linked.has(r.id))).sort((a,b)=>a.anno-b.anno);
+  const rows = Math.max(texts.length, objs.length, 2), W = 1000, H = 50 + rows*40, XL = 330, XR = 670;
+  const ys = (i,n) => n<=1 ? H/2 : 30 + i*((H-60)/(n-1));
+  const pos = {}; texts.forEach((t,i)=>pos[t.id]=[XL,ys(i,texts.length)]); objs.forEach((o,i)=>pos[o.id]=[XR,ys(i,objs.length)]);
+  const cut = s => s.length>36 ? s.slice(0,34)+"…" : s;
+  let edges = "";
+  LINKS.forEach(l => { const a=pos[l.testo], b=pos[l.oggetto]; if(!a||!b) return; const t=LINK_TYPES[l.tipo];
+    const tip = esc(`${byId(l.testo).titolo} ${t.fromT} ${byId(l.oggetto).titolo}`);
+    edges += `<path class="edge" data-ends="${esc(l.testo)} ${esc(l.oggetto)}" d="M${a[0]+8} ${a[1]}C${W/2} ${a[1]} ${W/2} ${b[1]} ${b[0]-8} ${b[1]}" stroke="${t.color}" ${l.tipo==="contesto"?'stroke-dasharray="6 5"':""} data-tip="${tip}"/>`; });
+  const node = (r,left) => { const [x,y]=pos[r.id];
+    return `<a href="#/record/${esc(r.id)}" class="node" data-node="${esc(r.id)}"><circle cx="${x}" cy="${y}" r="${5+Math.min(r.nLinks,5)*1.4}" fill="${kcolor(r)}" data-tip="${esc(r.titolo)}: ${r.nLinks} collegamenti"/><text x="${left?x-16:x+16}" y="${y+4}" font-size="13" text-anchor="${left?"end":"start"}" style="fill:var(--ink)">${esc(cut(r.titolo))}</text><text x="${left?x-16:x+16}" y="${y+18}" font-size="10.5" text-anchor="${left?"end":"start"}">${esc(cut((r.autore||collName(r))+", "+(r.datazione||r.anno)))}</text></a>`; };
+  return `<svg class="viz-svg net" id="netSvg" viewBox="0 0 ${W} ${H+10}" role="img" aria-label="Rete dei collegamenti tra testi e oggetti">
+    <text x="${XL}" y="14" font-size="13" text-anchor="end" font-weight="700">Testi letterari</text><text x="${XR}" y="14" font-size="13" font-weight="700">Oggetti del patrimonio</text>
+    <g transform="translate(0,14)">${edges}${texts.map(t=>node(t,true)).join("")}${objs.map(o=>node(o,false)).join("")}</g></svg>`;
+}
+function wireNetwork(){
+  const svg = $("#netSvg"); if(!svg) return;
+  const on = id => { svg.classList.add("focus"); $$(".edge",svg).forEach(p=>p.classList.toggle("on", p.dataset.ends.split(" ").includes(id))); $$(".node",svg).forEach(n=>n.classList.toggle("on", n.dataset.node===id || $$(".edge.on",svg).some(p=>p.dataset.ends.split(" ").includes(n.dataset.node)))) };
+  const off = () => { svg.classList.remove("focus"); $$(".on",svg).forEach(x=>x.classList.remove("on")) };
+  svg.addEventListener("mouseover", e => { const n=e.target.closest(".node"); n ? on(n.dataset.node) : null });
+  svg.addEventListener("mouseout", e => { if(e.target.closest(".node")) off() });
+  svg.addEventListener("focusin", e => { const n=e.target.closest(".node"); if(n) on(n.dataset.node) });
+  svg.addEventListener("focusout", off);
+}
+function esploraCollegamenti(params){
+  const showAll = params.get("tutti")==="si";
+  const counts = {}; LINKS.forEach(l=>counts[l.tipo]=(counts[l.tipo]||0)+1);
+  return `<h2>Rete dei collegamenti</h2>
+    <p class="muted">A sinistra i testi, a destra gli oggetti, entrambi in ordine cronologico. Ogni linea è una relazione: passa sopra un nodo per isolarne i collegamenti, selezionalo per aprire la scheda.</p>
+    <div class="legend">${Object.entries(LINK_TYPES).map(([k,t])=>`<span class="ltleg" style="--lc:${t.color}">${esc(t.label)} (${counts[k]||0})</span>`).join("")}</div>
+    <p><a href="#/esplora/collegamenti${showAll?"":"?tutti=si"}">${showAll?"Mostra solo gli oggetti collegati":"Mostra anche gli oggetti senza collegamenti"}</a></p>
+    <div class="scroll-x" style="border:0"><div style="min-width:720px">${networkSVG(showAll)}</div></div>
+    <div class="section"><h2>Tutti i collegamenti</h2>
+    <div class="scroll-x"><table class="data"><thead><tr><th>Testo</th><th>Relazione</th><th>Oggetto</th><th>Motivazione</th><th>Fonte</th></tr></thead><tbody>
+    ${LINKS.map(l=>`<tr><td><a href="#/record/${esc(l.testo)}">${esc(byId(l.testo).titolo)}</a></td><td><span class="ltleg" style="--lc:${LINK_TYPES[l.tipo].color}">${esc(LINK_TYPES[l.tipo].fromT)}</span></td><td><a href="#/record/${esc(l.oggetto)}">${esc(byId(l.oggetto).titolo)}</a></td><td class="small">${esc(l.nota)}</td><td class="small">${l.curato?"Redazione":`<span data-uid="${esc(l.autoreId||"")}">Utente</span>`}</td></tr>`).join("")}
+    </tbody></table></div></div>`;
+}
+
+/* =========================================================
+   ESPORTAZIONE RDF
+   ========================================================= */
+const BASE = "https://scrinium.example.org/";
+const NS = {
+  rdf:"http://www.w3.org/1999/02/22-rdf-syntax-ns#", rdfs:"http://www.w3.org/2000/01/rdf-schema#", owl:"http://www.w3.org/2002/07/owl#",
+  xsd:"http://www.w3.org/2001/XMLSchema#", skos:"http://www.w3.org/2004/02/skos/core#", dc:"http://purl.org/dc/elements/1.1/",
+  dcterms:"http://purl.org/dc/terms/", dcmitype:"http://purl.org/dc/dcmitype/", crm:"http://www.cidoc-crm.org/cidoc-crm/",
+  lrmoo:"http://iflastandards.info/ns/lrm/lrmoo/", geo:"http://www.opengis.net/ont/geosparql#", schema:"https://schema.org/",
+  scr:BASE+"ontologia#", res:BASE+"id/"
+};
+const LIC_URI = {"Pubblico dominio":"https://creativecommons.org/publicdomain/mark/1.0/","CC0 1.0":"https://creativecommons.org/publicdomain/zero/1.0/","CC BY 4.0":"https://creativecommons.org/licenses/by/4.0/","CC BY-SA 4.0":"https://creativecommons.org/licenses/by-sa/4.0/"};
+const CRM_MAP = {
+  id:"P1_is_identified_by → E42_Identifier", kind:"rdf:type E22_Human-Made_Object / lrmoo:F2_Expression", titolo:"P102_has_title → E35_Title",
+  autore:"E12_Production o lrmoo:F28 → P14_carried_out_by → E39_Actor", anno:"P4_has_time-span → E52 → P82a / P82b",
+  datazione:"E52_Time-Span → P82_at_some_time_within", luogo:"P7_took_place_at → E53_Place → P168", tipologia:"P2_has_type → E55_Type (skos:Concept)",
+  materia:"P45_consists_of → E57_Material", forma:"P2_has_type → E55_Type", dimensioni:"P43_has_dimension → E54_Dimension",
+  soggetti:"P129_is_about (testi), dcterms:subject", conservazione:"P44_has_condition → E3_Condition_State", licenza:"P104_is_subject_to → E30_Right",
+  descrizione:"P3_has_note", testo:"P190_has_symbolic_content"
+};
+const slug = s => norm(s).replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,60) || "x";
+const L = (v, lang) => ({v:String(v), lang});
+const D = (v, dt) => ({v:String(v), dt});
+const gYear = a => a<0 ? "-"+String(-a).padStart(4,"0") : String(a).padStart(4,"0");
+
+function buildGraph(profile, recs, links){
+  const T = [], seen = new Set();
+  const add = (s,p,o) => T.push([s,p,o]);
+  const once = (key, fn) => { if(seen.has(key)) return; seen.add(key); fn(); };
+  const R = id => "res:"+id;
+  const typeNode = (kind, label, scheme) => { const n = `res:${kind}-${slug(label)}`; once(n, () => { add(n,"rdf:type","skos:Concept"); if(profile==="crm") add(n,"rdf:type","crm:E55_Type"); add(n,"skos:prefLabel",L(label,"it")); add(n,"skos:inScheme",`res:schema-${scheme}`); }); return n; };
+  const placeNode = name => { const n = `res:luogo-${slug(name)}`; once(n, () => {
+      add(n,"rdf:type", profile==="crm" ? "crm:E53_Place" : "dcterms:Location"); add(n,"rdfs:label",L(name,"it"));
+      const c = LUOGHI[name]; if(c){ const wkt = D(`POINT(${c[1]} ${c[0]})`,"geo:wktLiteral");
+        if(profile==="crm") add(n,"crm:P168_place_is_defined_by",wkt); else { add(n,"geo:hasGeometry",n+"-geom"); add(n+"-geom","rdf:type","geo:Geometry"); add(n+"-geom","geo:asWKT",wkt); } } }); return n; };
+  const actorNode = (name, person) => { const n = `res:attore-${slug(name)}`; once(n, () => { add(n,"rdf:type", profile==="crm" ? (person?"crm:E21_Person":"crm:E74_Group") : "dcterms:Agent"); add(n,"rdfs:label",L(name,"it")); }); return n; };
+  ["tipologie","soggetti","forme","conservazione"].forEach(s => once("scheme"+s, () => { add(`res:schema-${s}`,"rdf:type","skos:ConceptScheme"); add(`res:schema-${s}`,"rdfs:label",L(`Vocabolario Scrinium: ${s}`,"it")); }));
+  if(links.length && profile==="crm"){
+    Object.values(LINK_TYPES).forEach(t => { add(t.prop,"rdf:type","owl:ObjectProperty"); if(t.sym) add(t.prop,"rdf:type","owl:SymmetricProperty"); add(t.prop,"rdfs:label",L(t.label,"it")); add(t.prop,"rdfs:comment",L(t.desc,"it")); add(t.prop,"rdfs:subPropertyOf",t.super); });
+  }
+
+  recs.forEach(r => {
+    const s = R(r.id), isT = r.kind==="testo";
+    if(profile==="crm"){
+      add(s,"rdf:type", isT ? "lrmoo:F2_Expression" : "crm:E22_Human-Made_Object");
+      add(s,"rdfs:label",L(r.titolo,"it"));
+      add(s,"crm:P1_is_identified_by",s+"-id"); add(s+"-id","rdf:type","crm:E42_Identifier"); add(s+"-id","crm:P190_has_symbolic_content",L(r.id));
+      add(s,"crm:P102_has_title",s+"-titolo"); add(s+"-titolo","rdf:type","crm:E35_Title"); add(s+"-titolo","crm:P190_has_symbolic_content",L(r.titolo,"it"));
+      add(s,"crm:P2_has_type",typeNode("tipo",r.tipologia,"tipologie"));
+      const ev = s+(isT?"-creazione":"-produzione");
+      if(isT){ add(s,"lrmoo:R17i_was_created_by",ev); add(ev,"rdf:type","lrmoo:F28_Expression_Creation"); add(ev,"lrmoo:R17_created",s);
+               add(R(r.id)+"-opera","rdf:type","lrmoo:F1_Work"); add(R(r.id)+"-opera","rdfs:label",L(r.titolo,"it")); add(R(r.id)+"-opera","lrmoo:R3_is_realised_in",s); add(ev,"lrmoo:R19_created_a_realisation_of",R(r.id)+"-opera"); }
+      else { add(s,"crm:P108i_was_produced_by",ev); add(ev,"rdf:type","crm:E12_Production"); }
+      if(r.autore) add(ev,"crm:P14_carried_out_by",actorNode(r.autore,isT));
+      add(ev,"crm:P4_has_time-span",s+"-tempo"); add(s+"-tempo","rdf:type","crm:E52_Time-Span");
+      add(s+"-tempo","crm:P82a_begin_of_the_begin",D(gYear(r.anno),"xsd:gYear")); add(s+"-tempo","crm:P82b_end_of_the_end",D(gYear(r.anno),"xsd:gYear"));
+      if(r.datazione) add(s+"-tempo","crm:P82_at_some_time_within",L(r.datazione,"it"));
+      if(r.luogo) add(ev,"crm:P7_took_place_at",placeNode(r.luogo));
+      if(r.materia){ const m=`res:materiale-${slug(r.materia)}`; once(m,()=>{add(m,"rdf:type","crm:E57_Material");add(m,"rdfs:label",L(r.materia,"it"))}); add(s,"crm:P45_consists_of",m); }
+      if(r.dimensioni){ add(s,"crm:P43_has_dimension",s+"-misure"); add(s+"-misure","rdf:type","crm:E54_Dimension"); add(s+"-misure","crm:P3_has_note",L(r.dimensioni,"it")); }
+      if(r.forma) add(s,"crm:P2_has_type",typeNode("forma",r.forma,"forme"));
+      if(r.conservazione){ add(s,"crm:P44_has_condition",s+"-stato"); add(s+"-stato","rdf:type","crm:E3_Condition_State"); add(s+"-stato","crm:P2_has_type",typeNode("stato",r.conservazione,"conservazione")); }
+      (r.soggetti||[]).forEach(x => { const c = typeNode("soggetto",x,"soggetti"); add(s, isT ? "crm:P129_is_about" : "dcterms:subject", c); });
+      add(s,"crm:P104_is_subject_to",`res:diritto-${slug(r.licenza)}`);
+      once("lic"+r.licenza, () => { const d=`res:diritto-${slug(r.licenza)}`; add(d,"rdf:type","crm:E30_Right"); add(d,"rdfs:label",L(r.licenza)); if(LIC_URI[r.licenza]) add(d,"owl:sameAs",LIC_URI[r.licenza]); });
+      if(r.descrizione) add(s,"crm:P3_has_note",L(r.descrizione,"it"));
+      if(isT){ add(s,"crm:P72_has_language","http://id.loc.gov/vocabulary/iso639-2/ita"); if(r.testo) add(s,"crm:P190_has_symbolic_content",L(r.testo,"it")); }
+    } else {
+      add(s,"rdf:type", isT ? "dcmitype:Text" : "dcmitype:PhysicalObject");
+      add(s,"dcterms:identifier",L(r.id)); add(s,"dcterms:title",L(r.titolo,"it"));
+      if(r.autore) add(s,"dcterms:creator",actorNode(r.autore,isT));
+      add(s,"dcterms:created",D(gYear(r.anno),"xsd:gYear"));
+      if(r.datazione) add(s,"dc:date",L(r.datazione,"it"));
+      if(r.luogo) add(s,"dcterms:spatial",placeNode(r.luogo));
+      add(s,"dcterms:type",typeNode("tipo",r.tipologia,"tipologie"));
+      if(r.materia) add(s,"dc:format",L(r.materia,"it"));
+      if(r.forma) add(s,"dc:format",L(r.forma,"it"));
+      if(r.dimensioni){ add(s,"dcterms:extent",s+"-misure"); add(s+"-misure","rdf:type","dcterms:SizeOrDuration"); add(s+"-misure","rdf:value",L(r.dimensioni,"it")); }
+      (r.soggetti||[]).forEach(x => add(s,"dcterms:subject",typeNode("soggetto",x,"soggetti")));
+      if(r.descrizione) add(s,"dcterms:description",L(r.descrizione,"it"));
+      if(LIC_URI[r.licenza]) add(s,"dcterms:license",LIC_URI[r.licenza]); add(s,"dc:rights",L(r.licenza));
+      if(isT){ add(s,"dcterms:language","http://id.loc.gov/vocabulary/iso639-2/ita"); if(r.testo) add(s,"schema:text",L(r.testo,"it")); }
+    }
+  });
+
+  const inSet = new Set(recs.map(r=>r.id));
+  links.forEach(l => {
+    const t = LINK_TYPES[l.tipo], a = R(l.testo), b = R(l.oggetto);
+    [l.testo,l.oggetto].forEach(id => { if(!inSet.has(id)){ const o=byId(id); if(o) once("lbl"+id, () => add(R(id),"rdfs:label",L(o.titolo,"it"))); } });
+    if(profile==="crm"){
+      if(l.tipo==="illustra") add(b,t.prop,a); else add(a,t.prop,b);
+      const n = R(l.id);
+      add(n,"rdf:type","crm:E13_Attribute_Assignment");
+      add(n,"crm:P140_assigned_attribute_to", l.tipo==="illustra" ? b : a);
+      add(n,"crm:P141_assigned", l.tipo==="illustra" ? a : b);
+      add(n,"crm:P177_assigned_property_of_type",t.prop);
+      if(l.nota) add(n,"crm:P3_has_note",L(l.nota,"it"));
+      if(l.passo) add(n,"crm:P3_has_note",L("Passo: "+l.passo,"it"));
+      add(n,"crm:P14_carried_out_by", l.curato ? "res:redazione" : "res:contributore");
+      once("ag"+(l.curato?"r":"c"), () => { const g = l.curato?"res:redazione":"res:contributore"; add(g,"rdf:type","crm:E74_Group"); add(g,"rdfs:label",L(l.curato?"Redazione di Scrinium":"Utenti di Scrinium","it")); });
+    } else {
+      if(l.tipo==="evoca") add(a,"dcterms:references",b);
+      else if(l.tipo==="illustra") add(b,"dcterms:relation",a);
+      else { add(a,"dcterms:relation",b); add(b,"dcterms:relation",a); }
+    }
+  });
+  return T;
+}
+
+const isIRI = t => typeof t==="string" && /^https?:\/\//.test(t);
+const expand = t => isIRI(t) ? t : NS[t.slice(0,t.indexOf(":"))] + t.slice(t.indexOf(":")+1);
+const escLit = v => v.replace(/\\/g,"\\\\").replace(/"/g,'\\"').replace(/\n/g,"\\n").replace(/\r/g,"\\r");
+function toTurtle(T){
+  const used = new Set(["rdf","rdfs","xsd"]);
+  const term = o => { if(typeof o==="object"){ if(o.dt) used.add(o.dt.split(":")[0]); return `"${escLit(o.v)}"` + (o.lang?"@"+o.lang : o.dt?"^^"+o.dt : ""); } if(isIRI(o)) return `<${o}>`; used.add(o.split(":")[0]); return o; };
+  const subj = new Map(); T.forEach(([s,p,o]) => { if(!subj.has(s)) subj.set(s,new Map()); const m=subj.get(s); if(!m.has(p)) m.set(p,[]); m.get(p).push(o); });
+  let body = "";
+  subj.forEach((m,s) => {
+    const parts = []; const tps = m.get("rdf:type"); if(tps) parts.push("a " + tps.map(term).join(", "));
+    m.forEach((os,p) => { if(p==="rdf:type") return; parts.push(term(p)+" "+os.map(term).join(",\n        ")); });
+    body += term(s) + " " + parts.join(" ;\n    ") + " .\n\n";
+  });
+  const head = Object.keys(NS).filter(k=>used.has(k)).map(k=>`@prefix ${k}: <${NS[k]}> .`).join("\n");
+  return `# Scrinium, esportazione RDF generata il ${new Date().toLocaleDateString("it-IT")}\n${head}\n\n${body}`.trimEnd()+"\n";
+}
+function toNTriples(T){
+  const term = o => typeof o==="object" ? `"${escLit(o.v)}"` + (o.lang?"@"+o.lang : o.dt?`^^<${expand(o.dt)}>`:"") : `<${expand(o)}>`;
+  return T.map(([s,p,o]) => `${term(s)} ${term(p)} ${term(o)} .`).join("\n")+"\n";
+}
+function toJSONLD(T){
+  const nodes = new Map(), used = new Set();
+  const pf = t => { if(!isIRI(t)) used.add(t.split(":")[0]); return t; };
+  T.forEach(([s,p,o]) => {
+    if(!nodes.has(s)) nodes.set(s, {"@id":pf(s)}); const n = nodes.get(s);
+    if(p==="rdf:type"){ (n["@type"] ||= []).push(pf(o)); return; }
+    const v = typeof o==="object" ? (o.lang ? {"@value":o.v,"@language":o.lang} : o.dt ? {"@value":o.v,"@type":pf(o.dt)} : {"@value":o.v}) : {"@id":pf(o)};
+    (n[pf(p)] ||= []).push(v);
+  });
+  const ctx = {}; Object.keys(NS).filter(k=>used.has(k)).forEach(k=>ctx[k]=NS[k]);
+  return JSON.stringify({"@context":ctx, "@graph":[...nodes.values()]}, null, 2);
+}
+function serialize(T, fmt){ return fmt==="jsonld" ? toJSONLD(T) : fmt==="nt" ? toNTriples(T) : toTurtle(T); }
+const RDF_FMT = {ttl:{label:"Turtle", file:"scrinium.ttl.txt"}, jsonld:{label:"JSON-LD", file:"scrinium.jsonld.json"}, nt:{label:"N-Triples", file:"scrinium.nt.txt"}};
+const RDF_PROFILE = {crm:"CIDOC-CRM e LRMoo", dc:"Dublin Core e SKOS"};
+
+/* =========================================================
+   ARCHIVIO CONDIVISO (db) CON RIPIEGO LOCALE
+   ========================================================= */
+function rid(){ const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; let s=""; for(let i=0;i<6;i++) s+=c[Math.floor(Math.random()*c.length)]; return s; }
+const ID_RE = /^(OGG|TXT|CTB|COL|LNK)-[A-Z0-9]{3,12}$/;
+function cleanRecord(d, id){
+  if(!d || typeof d!=="object" || !ID_RE.test(id) || !id.startsWith("CTB-")) return null;
+  const kind = d.kind==="testo" ? "testo" : d.kind==="oggetto" ? "oggetto" : null; if(!kind) return null;
+  const anno = typeof d.anno==="number" && isFinite(d.anno) ? Math.round(d.anno) : null; if(anno===null) return null;
+  const s = (v,n=2000) => typeof v==="string" ? v.slice(0,n) : "";
+  const r = {id, kind, titolo:s(d.titolo,300)||"Senza titolo", autore:s(d.autore,200), tipologia:s(d.tipologia,80)||"Non indicata", anno, datazione:s(d.datazione,120),
+    luogo:s(d.luogo,80), soggetti:Array.isArray(d.soggetti)?d.soggetti.filter(x=>typeof x==="string").slice(0,20).map(x=>x.slice(0,60)):[],
+    descrizione:s(d.descrizione), licenza:LICENZE.includes(d.licenza)?d.licenza:"CC BY 4.0",
+    autoreId: typeof d.autoreId==="string" ? d.autoreId : null, creato: typeof d.creato==="number" ? d.creato : 0};
+  if(kind==="oggetto"){ r.materia=s(d.materia,300); r.dimensioni=s(d.dimensioni,120); r.conservazione=["Buono","Discreto","Mediocre"].includes(d.conservazione)?d.conservazione:""; }
+  else { r.forma=s(d.forma,120); r.testo=s(d.testo,200000); r.verso=!!d.verso; }
+  return r;
+}
+function cleanLink(d, id){
+  if(!d || typeof d!=="object" || !ID_RE.test(id)) return null;
+  if(!ID_RE.test(d.testo||"") || !ID_RE.test(d.oggetto||"") || !LINK_TYPES[d.tipo]) return null;
+  const passo = typeof d.passo==="string" ? d.passo.slice(0,200).replace(/\n/g," ") : "";
+  return {id, testo:d.testo, oggetto:d.oggetto, tipo:d.tipo, passo, nota: typeof d.nota==="string" ? d.nota.slice(0,1000) : "",
+    autoreId: typeof d.autoreId==="string" ? d.autoreId : null, creato: typeof d.creato==="number" ? d.creato : 0};
+}
+function canDelete(item){ if(item.curato) return false; if(STORE.mode!=="db") return true; return STORE.canWrite && (item.autoreId===STORE.myId || STORE.isEditor); }
+function writeErrorMsg(err){
+  const c = err && err.code;
+  if(c==="invalid_argument"){ STORE.canWrite = false; return "Hai accesso in sola lettura: la modifica non è stata salvata."; }
+  if(c==="quota_exceeded") return "L’archivio ha raggiunto il limite di spazio: rimuovi qualche scheda e riprova.";
+  if(c==="resource_exhausted") return "Troppe operazioni in poco tempo: attendi qualche secondo e riprova.";
+  return "Il salvataggio non è riuscito per un problema di connessione: riprova tra poco.";
+}
+async function withRetry(fn){ try{ return await fn() }catch(e){ if(e && e.code==="unavailable"){ await new Promise(r=>setTimeout(r,600+Math.random()*800)); return fn(); } throw e; } }
+
+async function addContrib(rec){
+  const body = {...rec, creato:Date.now(), autoreId:STORE.myId};
+  if(STORE.mode==="db") return withRetry(() => STORE.db.collection("contributi").doc(rec.id).set(JSON.parse(JSON.stringify(body))));
+  CONTRIB.push(body); saveLocal("scrinium-contributi",CONTRIB); dataChanged();
+}
+async function removeContrib(id){
+  if(STORE.mode==="db") return withRetry(() => STORE.db.collection("contributi").doc(id).delete());
+  CONTRIB = CONTRIB.filter(c=>c.id!==id); saveLocal("scrinium-contributi",CONTRIB); dataChanged();
+}
+async function addLink(l){
+  const body = {...l, creato:Date.now(), autoreId:STORE.myId};
+  if(STORE.mode==="db") return withRetry(() => STORE.db.collection("collegamenti").doc(l.id).set(body));
+  LINKS_USER.push(body); saveLocal("scrinium-collegamenti",LINKS_USER); dataChanged();
+}
+async function removeLink(id){
+  if(STORE.mode==="db") return withRetry(() => STORE.db.collection("collegamenti").doc(id).delete());
+  LINKS_USER = LINKS_USER.filter(l=>l.id!==id); saveLocal("scrinium-collegamenti",LINKS_USER); dataChanged();
+}
+async function fillNames(root){
+  const els = $$("[data-uid]", root); if(!els.length) return;
+  const ids = [...new Set(els.map(e=>e.dataset.uid).filter(Boolean))];
+  let ps = {}; if(STORE.user && ids.length){ try{ ps = await STORE.user.profiles(ids) || {} }catch(e){} }
+  els.forEach(e => { const id = e.dataset.uid; e.textContent = id && id===STORE.myId ? "te" : ((ps[id] && ps[id].name) || (STORE.mode==="db" ? "un utente" : "te, in questo browser")); });
+}
+function storeStatusHTML(){
+  if(STORE.mode==="db") return STORE.canWrite ? `Le schede e i collegamenti che aggiungi sono salvati nell’archivio condiviso e sono visibili a tutte le persone che consultano il catalogo.`
+    : `Hai accesso in sola lettura all’archivio condiviso: puoi consultare le schede ma non aggiungerne.`;
+  return `In questa visualizzazione l’archivio condiviso non è disponibile: le schede restano salvate solo in questo browser.`;
+}
+
+let dcTimer = null;
+function dataChanged(){
+  buildRecords();
+  clearTimeout(dcTimer);
+  dcTimer = setTimeout(() => {
+    const page = (location.hash.slice(2).split(/[/?]/)[0]) || "home";
+    if(page==="contribuisci"){ if(window.__drawMine) window.__drawMine(); const st=$("#storeStatus"); if(st) st.textContent = storeStatusHTML(); }
+    else if(page==="catalogo"){ if($("#catBody")) updateCatalog(true); }
+    else if(page==="record"){
+      const id = decodeURIComponent(location.hash.split("/")[2]||"").split("?")[0], r = byId(id);
+      if(!r || !$("#linksList")) { render(true); return; }
+      drawLinksList(r);
+      const rq = $("#rq"); if($("#reader") && (!rq || rq.value.trim().length<2)) $("#reader").innerHTML = readerBody(r,"");
+    }
+    else if(!$("#app").contains(document.activeElement) || document.activeElement===$("#app")) render(true);
+  }, 60);
+}
+
+async function initRuntime(){
+  if(!window.claude || typeof window.claude.use!=="function") return;
+  claude.use("downloads").then(d => { STORE.downloads = d; $$(".dl-only").forEach(b => b.hidden = !d); }).catch(()=>{});
+  let db = null, user = null;
+  try{ [db, user] = await Promise.all([claude.use("db"), claude.use("user")]); }catch(e){}
+  if(!db) return;
+  STORE.db = db; STORE.user = user;
+  try{ STORE.myId = user ? await user.id() : null }catch(e){}
+  try{ const c = user ? await user.can("data.write") : null; STORE.canWrite = c !== false }catch(e){}
+  try{ STORE.isEditor = user ? await user.canEdit() : false }catch(e){}
+  STORE.pending = {contrib: CONTRIB.slice(), links: LINKS_USER.slice()};
+  CONTRIB = []; LINKS_USER = []; STORE.mode = "db";
+  db.collection("contributi").onSnapshot(snap => {
+    CONTRIB = snap.docs.map(d => cleanRecord(d.data(), d.id)).filter(Boolean).sort((a,b)=>a.creato-b.creato); dataChanged();
+  }, () => {});
+  db.collection("collegamenti").onSnapshot(snap => {
+    LINKS_USER = snap.docs.map(d => cleanLink(d.data(), d.id)).filter(Boolean).sort((a,b)=>a.creato-b.creato); dataChanged();
+  }, () => {});
+  dataChanged();
+}
+async function publishPending(){
+  const p = STORE.pending; if(!p) return;
+  let ok = 0;
+  try{
+    for(const c of p.contrib){ const {contributo, ...rest} = c; await STORE.db.collection("contributi").doc(c.id).set(JSON.parse(JSON.stringify({...rest, autoreId:STORE.myId}))); ok++; }
+    for(const l of p.links){ await STORE.db.collection("collegamenti").doc(l.id).set({...l, autoreId:STORE.myId}); ok++; }
+    saveLocal("scrinium-contributi",[]); saveLocal("scrinium-collegamenti",[]); STORE.pending = {contrib:[],links:[]};
+    toast(`${ok} elementi pubblicati nell’archivio condiviso`);
+  }catch(e){ toast(writeErrorMsg(e)); }
+  if(window.__drawMine) window.__drawMine();
+}
+
+async function saveFile(filename, data){
+  if(!STORE.downloads){ toast("Il salvataggio di file non è disponibile qui: usa Copia"); return; }
+  try{ await STORE.downloads.save({filename, data}); }
+  catch(e){ if(e && e.code==="declined") return; toast(e && e.code==="rate_limited" ? "Un salvataggio è già in corso: attendi" : "Il file non è stato salvato: usa Copia"); }
+}
+
+/* avvio */
+buildRecords();
+render();
+initRuntime();
+</script>
+</body>
+</html>
