@@ -1,0 +1,9 @@
+Metti in questa cartella le immagini della tua collezione.
+
+- Usa nomi senza spazi, accenti o apostrofi: per esempio cartolina-01.jpg
+- Riduci le foto a una larghezza di circa 1200 pixel: le pagine si caricano prima
+- Pubblica solo immagini di cui puoi dimostrare i diritti, e scrivi fonte e licenza
+  nel campo "crediti" del record in dati.js e nella scheda del dataset
+- Per ogni immagine scrivi nel campo "alt" che cosa si vede: serve a chi non la vede
+
+Il file esempio-melagrana.svg è un disegno creato per il kit: puoi cancellarlo.

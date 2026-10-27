@@ -1,0 +1,119 @@
+/* =====================================================================
+   LO STILE DEL CATALOGO
+   I colori sono variabili: cambiandole qui cambia tutto il sito.
+   ===================================================================== */
+
+:root {
+  --sfondo: #ECEEE9;      /* grigio verde chiaro */
+  --carta: #F8F9F6;       /* le schede */
+  --inchiostro: #1D2420;  /* il testo */
+  --tenue: #56605B;       /* testo secondario */
+  --filetto: #C6CDC6;     /* bordi */
+  --oggetti: #2A685A;     /* verderame: il patrimonio */
+  --testi: #2D4889;       /* lapislazzuli: i testi */
+  --passo: #A4761A;       /* ocra: i passi collegati */
+  --titoli: 'Spectral', Georgia, serif;
+  --interfaccia: 'Atkinson Hyperlegible', Verdana, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--sfondo); color: var(--inchiostro); font-family: var(--interfaccia); font-size: 17px; line-height: 1.5; }
+a { color: var(--testi); }
+:focus-visible { outline: 3px solid var(--testi); outline-offset: 2px; }
+h1, h2, h3 { font-family: var(--titoli); font-weight: 600; line-height: 1.2; }
+h1 { font-size: 2.4rem; margin: 0 0 .5em; }
+h2 { font-size: 1.4rem; margin: 1.5em 0 .5em; }
+.contenitore { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+.tenue { color: var(--tenue); }
+
+/* Intestazione */
+header { border-bottom: 1px solid var(--filetto); padding: 16px 0; margin-bottom: 32px; }
+header .contenitore { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 24px; }
+.marchio { font-family: var(--titoli); font-size: 1.5rem; font-weight: 600; color: var(--inchiostro); text-decoration: none; }
+#sottotitolo { margin: 0; color: var(--tenue); }
+nav { margin-left: auto; display: flex; gap: 16px; }
+nav a { color: var(--inchiostro); }
+
+/* Pagina di presentazione */
+.apertura { display: grid; grid-template-columns: 1.3fr 1fr; gap: 56px; align-items: start; padding: 24px 0 40px; }
+.incipit { border-left: 3px solid var(--testi); padding-left: 28px; }
+.versi { font-family: var(--titoli); font-style: italic; font-size: clamp(1.6rem, 3.4vw, 2.6rem); line-height: 1.3; margin: 0 0 16px; }
+.lede { font-family: var(--titoli); font-size: 1.25rem; color: var(--tenue); margin-top: 0; }
+.pulsante { display: inline-block; background: var(--inchiostro); color: var(--sfondo); text-decoration: none; font-weight: 700; padding: 10px 18px; border-radius: 6px; }
+.pulsante:hover { opacity: .9; }
+.numeri { display: grid; gap: 10px; margin-top: 24px; }
+.numero { display: flex; align-items: baseline; gap: 14px; text-decoration: none; color: var(--inchiostro); background: var(--carta); border: 1px solid var(--filetto); border-left: 5px solid var(--oggetti); border-radius: 8px; padding: 10px 16px; }
+.numero.testi { border-left-color: var(--testi); }
+.numero.collegati { border-left-color: var(--passo); }
+.numero b { font-family: var(--titoli); font-size: 2rem; line-height: 1; min-width: 2ch; }
+.percorsi, .nota { border-top: 1px solid var(--filetto); padding: 8px 0 24px; }
+.tre { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.tre a { display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: var(--inchiostro); padding: 16px 0; border-bottom: 1px solid var(--filetto); }
+.tre strong { font-family: var(--titoli); font-size: 1.3rem; }
+.tre span { color: var(--tenue); }
+.tre a:hover strong { text-decoration: underline; }
+.nota p { max-width: 70ch; }
+
+/* Immagini: la regola da mettere sempre, poi le miniature tutte uguali */
+img { max-width: 100%; height: auto; }
+.miniatura { display: block; margin: -16px -16px 12px; }
+.miniatura img, .miniatura .segnaposto {
+  width: 100%;
+  aspect-ratio: 4 / 3;     /* stessa forma per tutte le miniature */
+  object-fit: cover;       /* ritaglia invece di schiacciare */
+  border-radius: 8px 8px 0 0;
+  display: block;
+}
+.segnaposto { display: flex; align-items: flex-end; padding: 14px; background: rgba(42, 104, 90, .12); color: var(--oggetti); }
+.segnaposto.testo { background: rgba(45, 72, 137, .12); color: var(--testi); }
+.segnaposto span { font-family: var(--titoli); font-style: italic; font-size: 1.05rem; line-height: 1.3; color: var(--inchiostro); }
+.figura { margin: 0 0 24px; }
+.figura img, .figura .segnaposto { width: 100%; max-width: 480px; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 8px; }
+.figura figcaption { font-size: .85rem; color: var(--tenue); margin-top: 6px; }
+
+/* Pagina dei dati */
+textarea#esportati { width: 100%; min-height: 220px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .8rem; padding: 10px; border: 1.5px solid var(--filetto); border-radius: 6px; background: var(--carta); color: var(--inchiostro); }
+button { font: inherit; padding: 6px 14px; border: 1.5px solid var(--inchiostro); border-radius: 6px; background: var(--carta); color: var(--inchiostro); cursor: pointer; }
+
+/* Filtri */
+.filtri { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 12px; }
+.filtri label { display: flex; flex-direction: column; gap: 4px; font-weight: 700; font-size: .9rem; flex: 1 1 200px; }
+input, select { font: inherit; padding: 8px 10px; border: 1.5px solid var(--filetto); border-radius: 6px; background: var(--carta); color: var(--inchiostro); }
+
+/* Schede del catalogo */
+.griglia { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+.scheda { background: var(--carta); border: 1px solid var(--filetto); border-top: 5px solid var(--oggetti); border-radius: 8px; padding: 16px; }
+.scheda.testo { border-top-color: var(--testi); }
+.scheda h3 { margin: 4px 0; font-size: 1.15rem; }
+.scheda h3 a { color: var(--inchiostro); text-decoration: none; }
+.scheda h3 a:hover { text-decoration: underline; }
+.scheda p { margin: 0; }
+.etichetta { font-size: .85rem; color: var(--tenue); }
+.vuoto { padding: 32px; border: 1.5px dashed var(--filetto); border-radius: 8px; text-align: center; }
+
+/* Scheda di un record */
+.descrizione { font-family: var(--titoli); font-size: 1.2rem; max-width: 65ch; }
+.dettaglio { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 20px; border-top: 1px solid var(--filetto); padding-top: 12px; }
+dt { color: var(--tenue); }
+dd { margin: 0; }
+.testo { font-family: var(--titoli); font-size: 1.2rem; line-height: 1.7; margin-bottom: 24px; }
+.verso { display: block; }
+.stacco { display: block; height: .8em; }
+.passo { color: inherit; text-decoration: none; border-bottom: 2px solid var(--passo); background: rgba(164, 118, 26, .15); }
+.collegamenti { padding-left: 20px; }
+.collegamenti li { margin-bottom: 12px; }
+pre { background: var(--inchiostro); color: #E8ECE6; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: .8rem; }
+
+/* Tabella dei collegamenti */
+.tabella { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; }
+th, td { text-align: left; padding: 10px; border-bottom: 1px solid var(--filetto); vertical-align: top; }
+
+footer { margin-top: 64px; border-top: 1px solid var(--filetto); padding: 20px 0; color: var(--tenue); font-size: .9rem; }
+
+/* Sugli schermi stretti le colonne si impilano */
+@media (max-width: 760px) {
+  .dettaglio, .apertura, .tre { grid-template-columns: 1fr; }
+  nav { margin-left: 0; }
+}

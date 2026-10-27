@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catalogo</title>
+  <!-- I caratteri: Spectral per i titoli e i testi, Atkinson Hyperlegible per l'interfaccia -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap">
+  <link rel="stylesheet" href="stile.css">
+</head>
+<body>
+  <header>
+    <div class="contenitore">
+      <a href="#/" class="marchio"><span id="titolo">Catalogo</span></a>
+      <p id="sottotitolo"></p>
+      <nav aria-label="Sezioni">
+        <a href="#/catalogo">Catalogo</a>
+        <a href="#/dati">Dati</a>
+        <a href="#/collegamenti">Collegamenti</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Qui il codice di app.js disegna la pagina scelta -->
+  <main id="pagina" class="contenitore"></main>
+
+  <footer><p id="piede" class="contenitore"></p></footer>
+
+
+  <!-- =================================================================
+       LA PAGINA DI PRESENTAZIONE
+       È la prima pagina che vede chi apre il catalogo.
+       Scrivila tu: cambia i testi tra i tag, lascia gli attributi data-.
+       - data-campo="titolo" viene riempito con CATALOGO.titolo di dati.js
+       - data-conta="oggetti" viene riempito con il numero degli oggetti
+       - #incipit mostra l'inizio di uno dei tuoi testi, scelto a caso
+       ================================================================= -->
+  <template id="modello-presentazione">
+    <section class="apertura">
+      <div id="incipit" class="incipit" aria-live="polite"></div>
+      <div>
+        <h1 data-campo="titolo">Titolo del catalogo</h1>
+        <p class="lede" data-campo="sottotitolo">Sottotitolo</p>
+
+        <!-- Scrivi qui due o tre frasi sulla tua collezione: che cosa raccoglie e perché -->
+        <p>Otto oggetti del patrimonio culturale e quattro testi letterari, letti gli uni accanto agli altri.
+           Un melograno ricorre su un velluto rinascimentale e in una poesia di Carducci; il cielo stellato
+           di un globo celeste torna nella notte di san Lorenzo di Pascoli.</p>
+
+        <p><a class="pulsante" href="#/catalogo">Entra nel catalogo</a></p>
+
+        <div class="numeri">
+          <a href="#/catalogo" class="numero oggetti"><b data-conta="oggetti">0</b> oggetti</a>
+          <a href="#/catalogo" class="numero testi"><b data-conta="testi">0</b> testi</a>
+          <a href="#/collegamenti" class="numero collegati"><b data-conta="collegamenti">0</b> collegamenti</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="percorsi">
+      <h2>Che cosa trovi</h2>
+      <div class="tre">
+        <a href="#/catalogo"><strong>Il catalogo</strong>
+          <span>Cerca una parola anche nei testi integrali e filtra per collezione o tipologia.</span></a>
+        <a href="#/dati"><strong>I dati</strong>
+          <span>Tutti i record in una tabella, da copiare in JSON o CSV.</span></a>
+        <a href="#/collegamenti"><strong>I collegamenti</strong>
+          <span>Le relazioni tra testi e oggetti, ciascuna con la sua motivazione.</span></a>
+      </div>
+    </section>
+
+    <section class="nota">
+      <h2>Come è fatto questo catalogo</h2>
+      <!-- Scrivi qui da dove vengono i dati, con quali criteri li hai scelti, con quale licenza -->
+      <p>Gli oggetti di esempio sono fittizi; i testi sono di pubblico dominio. I dati sono descritti
+         nella scheda del dataset e le scelte del progetto nel README.</p>
+      <p class="tenue">A cura di <span data-campo="curatore">[nome]</span>. Dati con licenza <span data-campo="licenzaDati">[licenza]</span>.</p>
+    </section>
+  </template>
+
+
+  <!-- Prima i dati, poi il codice che li usa: l'ordine conta -->
+  <script src="dati.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
