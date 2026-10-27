@@ -4,7 +4,7 @@ Questi materiali servono per costruire il progetto del corso di informatica uman
 
 Nella cartella slide ci sono le lezioni del corso.
 
-Poi ci sono due cartelle, una per ciascun possibile percorso. Per l'esame si sceglie **una sola** delle due modalità.
+Poi ci sono due cartelle con la stessa applicazione Web "Scrinium" con due diversi gradi di complessità. Per l'esame si sceglie **una sola** delle due modalità.
 
 | Cartella | Percorso | Per chi |
 | --- | --- | --- |
@@ -13,7 +13,7 @@ Poi ci sono due cartelle, una per ciascun possibile percorso. Per l'esame si sce
 
 ## kit-scrinium: il percorso base
 
-Una versione ridotta di Scrinium, divisa in file con un compito ciascuno. Si adatta alla propria collezione cambiando soprattutto i dati.
+Una versione ridotta di Scrinium, divisa in file, ciascuno con una diversa funzione e un diverso grado di intervento.
 
 | File | Che cosa contiene | Lo modifichi? |
 | --- | --- | --- |
@@ -49,7 +49,7 @@ In più rispetto al kit ci sono i filtri a faccette, la mappa, il lettore dei te
 3. Compila diario, README e scheda del dataset.
 4. Carica tutti i file in un repository GitHub e attiva GitHub Pages: Settings, poi Pages, poi Deploy from a branch, ramo main, cartella / (root).
 
-Nulla vieta di creare un'intera applicazione Web ex novo, basta che rispetti i requisiti dell'esame e che chi presenta sia in grado di spiegare, anche a livello di codice, le scelte fatte. 
+Nulla vieta di creare un'intera applicazione Web ex novo, basta che rispetti i requisiti descritti e che, chi presenta, sia in grado di spiegare, anche a livello di codice, le scelte fatte. 
 
 All'esame non si consegna nulla prima: si mostra tutto all'orale, dal proprio repository e si arriva con URL dell'applicazione.
 
