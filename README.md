@@ -50,10 +50,8 @@ All'esame non si consegna nulla prima: si mostra tutto all'orale, dal proprio re
 
 ## Per orientarsi
 
-- [Scrinium](https://francescatomasi1973.github.io/scrinium/scrinium-completo/): il catalogo completo, da esplorare.
-- [Kit scrinium] (https://francescatomasi1973.github.io/scrinium/kit-scrinium/): la versione ridotta per l'esame base
-- [Dai dati al codice: la mappa del kit](https://francescatomasi1973.github.io/scrinium/kit-scrinium/): mostra quali campi di `dati.js` usa ogni blocco di `app.js` e dove compaiono nella pagina.
+- [Scrinium](https://francescatomasi1973.github.io/scrinium/scrinium-completo/): il sito di esempio ovvero il catalogo completo, da esplorare.
+- [Kit scrinium](https://francescatomasi1973.github.io/scrinium/kit-scrinium/): la versione ridotta per l'esame
+- [Dai dati al codice: la mappa del kit](https://francescatomasi1973.github.io/scrinium/kit-scrinium/mappa-kit.html): mostra quali campi di `dati.js` usa ogni blocco di `app.js` e dove compaiono nella pagina.
   
 Gli oggetti di esempio sono fittizi; i testi sono di pubblico dominio.
-Sito di esempio - https://francescatomasi1973.github.io/scrinium/scrinium-completo/
-Kit di lavoro - https://francescatomasi1973.github.io/scrinium/kit-scrinium/
