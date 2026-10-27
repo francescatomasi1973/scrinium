@@ -2,7 +2,9 @@
 
 Questi materiali servono per costruire il progetto del corso di informatica umanistica: un piccolo catalogo digitale di una collezione a scelta, con oggetti e testi collegati tra loro, pubblicato su GitHub Pages e documentato.
 
-Ci sono due cartelle, una per ciascun percorso. Si sceglie **una sola** delle due.
+Nella cartella slide ci sono le lezioni del corso.
+
+Poi ci sono due cartelle, una per ciascun possibile percorso. Per l'esame si sceglie **una sola** delle due modalità.
 
 | Cartella | Percorso | Per chi |
 | --- | --- | --- |
@@ -17,6 +19,7 @@ Una versione ridotta di Scrinium, divisa in file con un compito ciascuno. Si ada
 | --- | --- | --- |
 | `index.html` | La struttura della pagina e la pagina di presentazione | Sì: scrivi la presentazione della tua collezione |
 | `stile.css` | Colori, caratteri, impaginazione | Sì: colori e caratteri |
+| `immagini/` | Le immagini dei record, facoltative; contiene un disegno di esempio e le istruzioni | Sì: le tue immagini, di cui puoi dimostrare i diritti |
 | `dati.js` | Le informazioni sul catalogo, i record (oggetti e testi), i collegamenti | Sì: è il cuore del tuo progetto |
 | `app.js` | Il codice, in dieci blocchi commentati in italiano | No: si legge e si capisce |
 | `README.md` | Modello del README del tuo progetto | Sì: lo compili |
@@ -24,7 +27,7 @@ Una versione ridotta di Scrinium, divisa in file con un compito ciascuno. Si ada
 | `dataset-esempio.md` | La scheda del dataset compilata con i dati di esempio | No: è un modello da imitare |
 | `diario.md` | Modello del diario di progetto | Sì: una riga a ogni lezione |
 
-Il sito mostra una pagina di presentazione, il catalogo con ricerca e filtri, la scheda di ogni record con i dati in RDF, una cronologia e l'elenco dei collegamenti tra testi e oggetti.
+Il sito ha una pagina di presentazione e tre sezioni: il catalogo con ricerca e filtri, con la scheda di ogni record (immagine, metadati, dati in RDF); la pagina Dati con tutti i record e l'esportazione in JSON e CSV; l'elenco dei collegamenti tra testi e oggetti. Le immagini sono facoltative: dove mancano compare un segnaposto; dove ci sono servono una descrizione (alt) e i crediti con fonte e licenza.
 
 ## scrinium-completo: il percorso avanzato
 
@@ -37,7 +40,7 @@ Il catalogo completo usato come modello in tutto il corso, in un unico file.
 | `dataset.md` | Modello della scheda del dataset | Sì: lo compili |
 | `diario.md` | Modello del diario di progetto | Sì: una riga a ogni lezione |
 
-In più rispetto al kit ci sono i filtri a faccette, la mappa, il lettore dei testi con il profilo lessicale, le concordanze, la rete dei collegamenti, la pagina Dataset e l'esportazione RDF secondo CIDOC-CRM e LRMoo. Su GitHub Pages il sito funziona senza l'archivio condiviso di claude.ai: le schede aggiunte dagli utenti restano salvate nel browser di chi le inserisce, e la documentazione deve dirlo.
+In più rispetto al kit ci sono i filtri a faccette, la mappa, il lettore dei testi con il profilo lessicale, le concordanze, la rete dei collegamenti, la pagina Dataset e l'esportazione RDF secondo CIDOC-CRM e LRMoo. Su GitHub Pages il sito funziona senza l'archivio condiviso di claude.ai: le schede aggiunte dagli utenti restano salvate nel browser di chi le inserisce, e la documentazione deve chiarire questo aspetto.
 
 ## Come si usa
 
@@ -46,7 +49,9 @@ In più rispetto al kit ci sono i filtri a faccette, la mappa, il lettore dei te
 3. Compila diario, README e scheda del dataset.
 4. Carica tutti i file in un repository GitHub e attiva GitHub Pages: Settings, poi Pages, poi Deploy from a branch, ramo main, cartella / (root).
 
-All'esame non si consegna nulla prima: si mostra tutto all'orale, dal proprio repository.
+Nulla vieta di creare un'intera applicazione Web ex novo, basta che rispetti i requisiti dell'esame e che chi presenta sia in grado di spiegare, anche a livello di codice, le scelte fatte. 
+
+All'esame non si consegna nulla prima: si mostra tutto all'orale, dal proprio repository e si arriva con URL dell'applicazione.
 
 ## Per orientarsi
 
