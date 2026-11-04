@@ -22,7 +22,7 @@ La pagina di presentazione è scritta in `index.html`; i dati sono nel file `dat
 
 ## Scelte e limiti
 
-[Le scelte principali che hai fatto e che cosa il catalogo non fa. Copiale dal diario di progetto.]
+[Le scelte principali che hai fatto e che cosa il catalogo non fa.]
 
 ## Uso dell'intelligenza artificiale
 
