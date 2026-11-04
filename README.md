@@ -46,7 +46,7 @@ In più rispetto al kit ci sono i filtri a faccette, la mappa, il lettore dei te
 
 1. Scegli la cartella del tuo percorso e scaricala sul tuo computer.
 2. Lavora su homepage, dati e stile.
-3. Compila diario, README e scheda del dataset.
+3. Compila diario, README, esercizi e scheda del dataset.
 4. Carica tutti i file in un repository GitHub e attiva GitHub Pages.
 
 Nulla vieta di creare un'intera applicazione Web ex novo, basta che rispetti i requisiti descritti e che, chi presenta, sia in grado di spiegare, anche a livello di codice, le scelte fatte. 
