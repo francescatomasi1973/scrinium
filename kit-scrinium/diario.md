@@ -1,10 +1,10 @@
 # Diario di progetto
 
 Cinque minuti alla fine di ogni lezione: che cosa hai deciso e perché.
-Alla fine del corso questo diario diventa la sezione «Scelte e limiti» del README.
+Alla fine del corso questo diario diventa parte del README.
 
-| Data | Lezione | Che cosa ho deciso o cambiato | Perché |
+| Data | Lezione | Che cosa | Perché |
 | --- | --- | --- | --- |
-| [gg/mm] | 2 | [es. ho scelto la collezione delle cartoline di …] | [es. ho accesso alle fonti e i testi sono liberi] |
+| [gg/mm] | 1 | [es. ho scelto la collezione delle cartoline di …] | [es. ho accesso alle fonti e i testi sono liberi] |
 | | | | |
 | | | | |
