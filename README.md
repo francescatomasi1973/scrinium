@@ -2,7 +2,7 @@
 
 Questi materiali servono per costruire il progetto del corso di informatica umanistica: un piccolo catalogo digitale di una collezione a scelta, con oggetti e testi collegati tra loro, pubblicato su GitHub Pages e documentato.
 
-Nella cartella slide ci sono le lezioni del corso.
+Nella cartella slide ci sono le lezioni del corso. Nella cartella esercizi ci sono le esercitazioni svolte durante il corso.
 
 Poi ci sono due cartelle con la stessa applicazione Web "Scrinium" con due diversi gradi di complessità. Per l'esame si sceglie **una sola** delle due modalità.
 
@@ -21,7 +21,7 @@ Una versione ridotta di Scrinium, divisa in file, ciascuno con una diversa funzi
 | `stile.css` | Colori, caratteri, impaginazione | Sì: colori e caratteri |
 | `immagini/` | Le immagini dei record, facoltative; contiene un disegno di esempio e le istruzioni | Sì: le tue immagini, di cui puoi dimostrare i diritti |
 | `dati.js` | Le informazioni sul catalogo, i record (oggetti e testi), i collegamenti | Sì: è il cuore del tuo progetto |
-| `app.js` | Il codice, in dieci blocchi commentati in italiano | No: si legge e si capisce |
+| `app.js` | Il codice, in nove blocchi commentati in italiano | No: si legge e si capisce |
 | `README.md` | Modello del README del tuo progetto | Sì: lo compili |
 | `dataset.md` | Modello della scheda del dataset | Sì: lo compili |
 | `dataset-esempio.md` | La scheda del dataset compilata con i dati di esempio | No: è un modello da imitare |
