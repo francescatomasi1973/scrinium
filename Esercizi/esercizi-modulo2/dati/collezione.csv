@@ -1,0 +1,80 @@
+id,tipo,classe_rdf,titolo,autore,anno,datazione,luogo,tipologia,materia,soggetti,descrizione,licenza,immagine,alt,crediti,forma,testo
+OGG-0001,oggetto,crm:E22_Human-Made_Object,Piatto istoriato con Apollo e Dafne,Bottega faentina,1525,1520–1530 circa,Faenza,Ceramica,Maiolica dipinta in policromia,mitologia; Ovidio; metamorfosi,"Piatto da pompa con la metamorfosi di Dafne in alloro, tratta dalle Metamorfosi di Ovidio; tesa decorata a grottesche su fondo blu.",CC BY 4.0,,,,,
+OGG-0004,oggetto,crm:E22_Human-Made_Object,Astrolabio planisferico,Officina veneziana,1560,metà del XVI secolo,Venezia,Strumento scientifico,Ottone fuso e inciso,astronomia; navigazione; misura del tempo,"Strumento con madre, tre timpani per diverse latitudini e rete a punte fiammate che indica le stelle fisse.",CC BY-SA 4.0,,,,,
+OGG-0008,oggetto,crm:E22_Human-Made_Object,Velluto con motivo a melagrana,Manifattura genovese,1490,fine del XV secolo,Genova,Tessile,Velluto di seta cesellato,melagrana; abbigliamento; commercio,Teletta con grande motivo a melagrana entro losanghe; cimose originali conservate su un lato.,CC BY 4.0,immagini/esempio-melagrana.svg,Disegno schematico di un motivo a melagrana in rosso e verde su fondo chiaro,"Disegno creato per il kit, CC0 1.0",,
+OGG-0009,oggetto,crm:E22_Human-Made_Object,Carta nautica del Mediterraneo,Scuola cartografica veneziana,1450,metà del XV secolo,Venezia,Cartografia,Inchiostri e colori su pergamena,navigazione; Mediterraneo; porti,"Portolano con reticolo di linee di rombo, toponimi costieri in rosso e nero e rose dei venti.",CC BY 4.0,,,,,
+OGG-0010,oggetto,crm:E22_Human-Made_Object,Globo celeste,,1690,fine del XVII secolo,Roma,Strumento scientifico,"Fusi a stampa su sfera di cartapesta, legno tornito",astronomia; costellazioni,Globo con le figure delle costellazioni e montatura a quattro gambe con cerchio orizzontale in legno.,CC BY-SA 4.0,,,,,
+OGG-0016,oggetto,crm:E22_Human-Made_Object,Pannello a tarsia con veduta prospettica,Bottega urbinate,1478,1475–1480 circa,Urbino,Arredo,Legni di essenze diverse intarsiati,prospettiva; città ideale,"Veduta architettonica con loggiato e armadio a sportelli socchiusi, resa con legni chiari e scuri.",Pubblico dominio,,,,,
+OGG-0020,oggetto,crm:E22_Human-Made_Object,Orologio da tasca con cassa smaltata,Manifattura torinese,1820,1820 circa,Torino,Oreficeria,"Oro, smalto, vetro",misura del tempo; ornamento,Cassa in smalto blu con corona di perle; quadrante con numeri romani.,CC BY 4.0,,,,,
+OGG-0021,oggetto,crm:E22_Human-Made_Object,Pianta prospettica della città,Incisore romano,1702,inizio del XVIII secolo,Roma,Grafica,Acquaforte e bulino su carta,città; topografia,Pianta a volo d’uccello con legenda numerata di chiese e palazzi.,Pubblico dominio,,,,,
+TXT-0004,testo,lrmoo:F2_Expression,"Orlando furioso, canto I, ottava 1",Ludovico Ariosto,1532,edizione definitiva 1532,Ferrara,Poema,,cavalleria; amore; guerra,"Protasi del poema: le donne, i cavalieri, le armi e gli amori al tempo della guerra tra Mori e Franchi.",Pubblico dominio,,,,Ottava rima,"Le donne, i cavallier, l'arme, gli amori,
+le cortesie, l'audaci imprese io canto,
+che furo al tempo che passaro i Mori
+d'Africa il mare, e in Francia nocquer tanto,
+seguendo l'ire e i giovenil furori
+d'Agramante lor re, che si diè vanto
+di vendicar la morte di Troiano
+sopra re Carlo imperator romano."
+TXT-0007,testo,lrmoo:F2_Expression,L’infinito,Giacomo Leopardi,1819,1819,Recanati,Lirica,,infinito; silenzio; paesaggio,Dalla siepe che esclude l’orizzonte nasce l’immaginazione di spazi interminati.,Pubblico dominio,,,,Idillio in endecasillabi sciolti,"Sempre caro mi fu quest'ermo colle,
+e questa siepe, che da tanta parte
+dell'ultimo orizzonte il guardo esclude.
+Ma sedendo e mirando, interminati
+spazi di là da quella, e sovrumani
+silenzi, e profondissima quiete
+io nel pensier mi fingo; ove per poco
+il cor non si spaura. E come il vento
+odo stormir tra queste piante, io quello
+infinito silenzio a questa voce
+vo comparando: e mi sovvien l'eterno,
+e le morte stagioni, e la presente
+e viva, e il suon di lei. Così tra questa
+immensità s'annega il pensier mio:
+e il naufragar m'è dolce in questo mare."
+TXT-0009,testo,lrmoo:F2_Expression,Pianto antico,Giosue Carducci,1871,1871,Bologna,Lirica,,lutto; infanzia; natura,Il melograno rinverdito e il figlio perduto: il contrasto tra la natura che rinasce e la morte.,Pubblico dominio,,,,Strofe di settenari,"L'albero a cui tendevi
+la pargoletta mano,
+il verde melograno
+da' bei vermigli fior,
+
+nel muto orto solingo
+rinverdì tutto or ora
+e giugno lo ristora
+di luce e di calor.
+
+Tu fior de la mia pianta
+percossa e inaridita,
+tu de l'inutil vita
+estremo unico fior,
+
+sei ne la terra fredda,
+sei ne la terra negra;
+né il sol più ti rallegra
+né ti risveglia amor."
+TXT-0010,testo,lrmoo:F2_Expression,X Agosto,Giovanni Pascoli,1896,1896,San Mauro Pascoli,Lirica,,lutto; stelle; famiglia,La notte di san Lorenzo e il pianto di stelle sull’uccisione del padre.,Pubblico dominio,,,,Quartine di decasillabi e novenari,"San Lorenzo, io lo so perché tanto
+di stelle per l'aria tranquilla
+arde e cade, perché sì gran pianto
+nel concavo cielo sfavilla.
+
+Ritornava una rondine al tetto:
+l'uccisero: cadde tra spini;
+ella aveva nel becco un insetto:
+la cena dei suoi rondinini.
+
+Ora è là, come in croce, che tende
+quel verme a quel cielo lontano;
+e il suo nido è nell'ombra, che attende,
+che pigola sempre più piano.
+
+Anche un uomo tornava al suo nido:
+l'uccisero: disse: Perdono;
+e restò negli aperti occhi un grido:
+portava due bambole in dono.
+
+Ora là, nella casa romita,
+lo aspettano, aspettano in vano:
+egli immobile, attonito, addita
+le bambole al cielo lontano.
+
+E tu, Cielo, dall'alto dei mondi
+sereni, infinito, immortale,
+oh! d'un pianto di stelle lo inondi
+quest'atomo opaco del Male!"

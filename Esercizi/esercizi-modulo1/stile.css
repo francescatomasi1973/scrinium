@@ -1,0 +1,99 @@
+/* =====================================================================
+   STILE DELLA SCHEDA
+   Gli stessi esempi delle slide del modulo 1, lezione 4.
+   ===================================================================== */
+
+/* Le variabili: la palette di Scrinium. Si definiscono una volta
+   in :root (la radice della pagina) e si usano ovunque con var(). */
+:root {
+  --verde: #2A685A;    /* verderame: gli oggetti del patrimonio */
+  --lapis: #2D4889;    /* lapislazzuli: i testi e i link */
+  --ocra: #A4761A;     /* ocra: i passi collegati e le evidenziazioni */
+  --contrib: #8A3849;  /* rosso scuro: i contributi degli utenti */
+  --bg: #ECEEE9;       /* lo sfondo della pagina */
+  --ink: #1D2420;      /* l'inchiostro: testo e titoli */
+  --tenue: #56605B;    /* testo secondario */
+}
+
+/* Il tema scuro: se il dispositivo lo usa, si ridefiniscono le variabili */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131816;
+    --ink: #E2E7E1;
+    --verde: #72B5A3;
+    --tenue: #9BA69F;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 40px 24px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Atkinson Hyperlegible', Verdana, sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+/* Anatomia di una regola: selettore { proprietà: valore; } */
+h1 {
+  font-family: 'Spectral', Georgia, serif;
+  font-size: 46px;
+  color: var(--ink);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 12px;
+}
+
+/* Impaginare: due colonne che diventano una */
+.scheda {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;   /* due colonne: circa 46% e 54% */
+  gap: 48px;                           /* lo spazio tra le colonne */
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+@media (max-width: 860px) {
+  .scheda {
+    grid-template-columns: 1fr;        /* sotto 860 pixel, una colonna sola */
+  }
+}
+
+/* Dimensionare un'immagine */
+img { max-width: 100%; height: auto; }   /* la regola da mettere sempre */
+
+.miniatura { margin: 0; }
+
+.miniatura img {                         /* le img dentro un elemento con class="miniatura" */
+  width: 240px;
+  aspect-ratio: 4 / 3;                   /* tutte della stessa forma */
+  object-fit: cover;                     /* ritagliate, non schiacciate */
+  border-radius: 8px;
+}
+
+figcaption {
+  font-size: 14px;
+  color: var(--tenue);
+  margin-top: 6px;
+}
+
+/* Il testo della scheda */
+.autore {
+  color: var(--verde);
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 20px;
+  border-top: 1px solid #C6CDC6;
+  padding-top: 12px;
+}
+dt { color: var(--tenue); }
+dd { margin: 0; }
+
+a { color: var(--verde); }
+a:hover {color: var(--lapis); }
