@@ -4,7 +4,7 @@ Questi materiali servono per costruire il progetto del corso di informatica uman
 
 Nella cartella slide ci sono le lezioni del corso. Nella cartella esercizi ci sono le esercitazioni svolte durante il corso.
 
-Poi ci sono due cartelle con la stessa applicazione Web "Scrinium" con due diversi gradi di complessità. Per l'esame si sceglie **una sola** delle due modalità.
+Poi ci sono due cartelle con la stessa applicazione Web "Scrinium" con due diversi gradi di complessità. Per l'esame si sceglie **una sola** delle due modalità. E' preferibile lavorare al **kit**.
 
 | Cartella | Percorso | Per chi |
 | --- | --- | --- |
@@ -13,21 +13,27 @@ Poi ci sono due cartelle con la stessa applicazione Web "Scrinium" con due diver
 
 ## kit-scrinium: il percorso base
 
-Una versione ridotta di Scrinium, divisa in file, ciascuno con una diversa funzione e un diverso grado di intervento.
+Una versione ridotta di Scrinium, divisa in cartelle: lo stile in `stile/`, i dati e la scheda del dataset in `dati/`, il codice in `js/`, le immagini in `immagini/`, le edizioni XML/TEI in `tei/`. Nella cartella principale del kit restano la pagina e la documentazione.
 
 | File | Che cosa contiene | Lo modifichi? |
 | --- | --- | --- |
 | `index.html` | La struttura della pagina e la pagina di presentazione | Sì: scrivi la presentazione della tua collezione |
-| `stile.css` | Colori, caratteri, impaginazione | Sì: colori e caratteri |
+| `stile/stile.css` | Colori, caratteri, impaginazione | Sì: colori e caratteri |
+| `dati/dati.js` | Le informazioni sul catalogo, i record (oggetti e testi), i collegamenti | Sì: è il cuore del tuo progetto |
+| `dati/dataset.md` | Modello della scheda del dataset | Sì: lo compili |
+| `dati/dataset-esempio.md` | La scheda del dataset compilata con i dati di esempio | No: è un modello da imitare |
+| `js/app.js` | Il codice, in nove blocchi commentati in italiano | Poco: se aggiungi un campo o un tipo di collegamento |
 | `immagini/` | Le immagini dei record, facoltative; contiene un disegno di esempio e le istruzioni | Sì: le tue immagini, di cui puoi dimostrare i diritti |
-| `dati.js` | Le informazioni sul catalogo, i record (oggetti e testi), i collegamenti | Sì: è il cuore del tuo progetto |
-| `app.js` | Il codice, in nove blocchi commentati in italiano | No: si legge e si capisce |
+| `tei/` | L'edizione XML/TEI di Pianto antico con il suo foglio di stile CSS | Sì: le edizioni dei tuoi testi, se le fai |
 | `README.md` | Modello del README del tuo progetto | Sì: lo compili |
-| `dataset.md` | Modello della scheda del dataset | Sì: lo compili |
-| `dataset-esempio.md` | La scheda del dataset compilata con i dati di esempio | No: è un modello da imitare |
 | `diario.md` | Modello del diario di progetto | Sì: una riga a ogni lezione |
 
-Il sito ha una pagina di presentazione e tre sezioni: il catalogo con ricerca e filtri, con la scheda di ogni record (immagine, metadati, dati in RDF); la pagina Dati con tutti i record e l'esportazione in JSON e CSV; l'elenco dei collegamenti tra testi e oggetti. Le immagini sono facoltative: dove mancano compare un segnaposto; dove ci sono servono una descrizione (alt) e i crediti con fonte e licenza.
+Il sito ha una pagina di presentazione e tre sezioni: il catalogo con ricerca e filtri, con la scheda di ogni record (immagine, metadati, dati in RDF); la pagina Dati con tutti i record, il link alla scheda del dataset e l'esportazione in JSON, CSV e Turtle; i collegamenti tra testi e oggetti, in tabella e in RDF. Un'etichetta nel catalogo segnala Pianto antico, l'unico testo con edizione XML/TEI: la sua scheda la mostra, da leggere nel browser o scaricare. Il piè di pagina porta al repository su GitHub. Le immagini sono facoltative: dove mancano compare un segnaposto; dove ci sono servono una descrizione (alt) e i crediti con fonte e licenza.
+
+## esercizi: fuori dal sito
+
+La cartella `esercizi/` sta nella cartella principale del repository, accanto al sito: raccoglie l'elenco degli esercizi d'esame e dei lavori in aula.
+
 
 ## scrinium-completo: il percorso avanzato
 
