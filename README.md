@@ -1,7 +1,6 @@
 # Scrinium: materiali per il progetto d'esame
 
 Questi materiali servono per costruire il progetto del corso di informatica umanistica: un piccolo catalogo digitale di una collezione a scelta, con oggetti e testi collegati tra loro, pubblicato su GitHub Pages e documentato.
-Ci sono due cartelle con la stessa applicazione Web "Scrinium" con due diversi gradi di complessità. Per l'esame si sceglie **una sola** delle due modalità. E' preferibile lavorare al **kit**.
 
 ## slide
 
@@ -10,6 +9,9 @@ La cartella `Slide/` è il materiale didattico del corso.
 ## esercizi
 
 La cartella `Esercizi/` raccoglie l'elenco degli esercizi d'esame e dei lavori in aula.
+
+## applicazione Web
+Ci sono due cartelle con la stessa applicazione Web "Scrinium" con due diversi gradi di complessità. Per l'esame si sceglie **una sola** delle due modalità. E' preferibile lavorare al **kit**.
 
 | Cartella | Percorso | Per chi |
 | --- | --- | --- |
