@@ -12,7 +12,7 @@ Alla fine del corso questo diario diventa un documento utile a descrivere cosa h
 | 10/11/2026 | 4 | Modulo 1 - CSS. Ho fatto l'esercizio? Che decisioni ho preso? | mi è tutto chiaro? |
 | 16/11/2026 | 5 | Modulo 1 - Github. Ho fatto l'esercizio? Che decisioni ho preso? | mi è tutto chiaro? |
 | 17/11/2026 | 6 | Modulo 2 - Schema del dataset o modello dei dati | --- |
-| 19/11/2026 | 7 | Modulo 2 - Formati, licenze, DC | --- |
-| 23/11/2026 | 8 | Modulo 2 - Il testo letterario | --- |
-| 24/11/2026 | 9 | Modulo 2 - LOD e RDF | --- |
-| 24/11/2026 | 10 | Modulo 3 - | --- |
+| 19/11/2026 | 7 | Modulo 2 - Formati (.csv e .json), licenze CC (Creative Commons), Dublin Core | --- |
+| 23/11/2026 | 8 | Modulo 2 - Il testo letterario. L'edizione XML/TEI | --- |
+| 24/11/2026 | 9 | Modulo 2 - LOD e RDF. L'estensione .ttl | --- |
+| 26/11/2026 | 10 | Modulo 3 - Rivediamo tutti i file di esercizio 2 e avviamoci a capire js | --- |
