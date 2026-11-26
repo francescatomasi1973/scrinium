@@ -1,10 +1,7 @@
 # Scrinium: materiali per il progetto d'esame
 
 Questi materiali servono per costruire il progetto del corso di informatica umanistica: un piccolo catalogo digitale di una collezione a scelta, con oggetti e testi collegati tra loro, pubblicato su GitHub Pages e documentato.
-
-Nella cartella slide ci sono le lezioni del corso. Nella cartella esercizi ci sono le esercitazioni svolte durante il corso.
-
-Poi ci sono due cartelle con la stessa applicazione Web "Scrinium" con due diversi gradi di complessità. Per l'esame si sceglie **una sola** delle due modalità. E' preferibile lavorare al **kit**.
+Ci sono due cartelle con la stessa applicazione Web "Scrinium" con due diversi gradi di complessità. Per l'esame si sceglie **una sola** delle due modalità. E' preferibile lavorare al **kit**.
 
 | Cartella | Percorso | Per chi |
 | --- | --- | --- |
@@ -30,9 +27,13 @@ Una versione ridotta di Scrinium, divisa in cartelle: lo stile in `stile/`, i da
 
 Il sito ha una pagina di presentazione e tre sezioni: il catalogo con ricerca e filtri, con la scheda di ogni record (immagine, metadati, dati in RDF); la pagina Dati con tutti i record, il link alla scheda del dataset e l'esportazione in JSON, CSV e Turtle; i collegamenti tra testi e oggetti, in tabella e in RDF. Un'etichetta nel catalogo segnala Pianto antico, l'unico testo con edizione XML/TEI: la sua scheda la mostra, da leggere nel browser o scaricare. Il piè di pagina porta al repository su GitHub. Le immagini sono facoltative: dove mancano compare un segnaposto; dove ci sono servono una descrizione (alt) e i crediti con fonte e licenza.
 
+## slide: fuori dal sito
+
+La cartella `Slide/` sta nella cartella principale del repository, accanto al sito: è il materiale didattico del corso.
+
 ## esercizi: fuori dal sito
 
-La cartella `esercizi/` sta nella cartella principale del repository, accanto al sito: raccoglie l'elenco degli esercizi d'esame e dei lavori in aula.
+La cartella `Esercizi/` sta nella cartella principale del repository, accanto al sito: raccoglie l'elenco degli esercizi d'esame e dei lavori in aula.
 
 
 ## scrinium-completo: il percorso avanzato
